@@ -21,6 +21,7 @@ INSTALLED_APPS = (
 # corresponding output. Helps a lot with print-debugging.
 TEST_RUNNER = 'djangotoolbox.test.CapturingTestSuiteRunner'
 
+DEBUG = True
 
 STATIC_DOC_ROOT = os.path.join(os.path.dirname(__file__), 'static')
 
