@@ -22,7 +22,7 @@ google.setOnLoadCallback(function() {
     $(document).ready(function(){
         WebFont.load({
             google: {
-                families: ['Cantarell']
+                families: ['Cantarell:regular,bold']
             },
             loading: function() {
 
@@ -43,11 +43,11 @@ google.load('webfont', '1.0.12');
  **/
 function initializePage() {
     /* non-bingo controls */
-    initializeControls();
+    //initializeControls();
     
     /**
      *  Retrieve Bingo markers and create bingo board.
-     **/
+     *
     retrieveMarkers(function(){
         return function(data, textStatus) {
             createBoard(data, textStatus);

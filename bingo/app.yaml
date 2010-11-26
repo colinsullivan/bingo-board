@@ -8,12 +8,12 @@ builtins:
 
 handlers:
 - url: /_ah/queue/deferred
-  script: lib/vendor/djangoappengine/deferred/handler.py
+  script: djangoappengine/deferred/handler.py
   login: admin
 
 - url: /media/admin
-  static_dir: lib/vendor/django/contrib/admin/media
+  static_dir: django/contrib/admin/media
   expiration: '0'
 
 - url: /.*
-  script: lib/vendor/djangoappengine/main/main.py
+  script: djangoappengine/main/main.py
