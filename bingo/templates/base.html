@@ -2,11 +2,46 @@
 <html>
   <head>
     <title>{% block title %}{% endblock %} - Bingo!</title>
+    
+    <link rel="stylesheet" href="/static/css/main.css" type="text/css" media="screen" title="Main Stylesheet" charset="utf-8">
+    
+    <script src="/static/js/lib/vendor/jquery-nightly.min.js"></script>
+    
+    <script src="/static/js/lib/BingoBoard.js"></script>
+    <script src="/static/js/lib/BingoMarker.js"></script>
+    <script src="/static/js/lib/ClickableBingoBoard.js"></script>
+    <script src="/static/js/lib/ClickableBingoMarker.js"></script>
+    <script src="/static/js/lib/ModalAlert.js"></script>
+    <script src="/static/js/lib/ConfirmModalAlert.js"></script>
 
+    <script src="/static/js/ajax.js"></script>
 
   </head>
 
   <body>
+      <div class="background"></div>
+
+      <div id="modal-overlay" class="modal-overlay">
+        <div id="modal-overlay-background" class="modal-overlay-background"></div>
+        <div id="modal-overlay-pane" class="modal-overlay-pane corner-all">
+          <div id="modal-overlay-header" class="modal-overlay-header blue corner-top">
+            <h2 id="modal-overlay-header" class="modal-overlay-header">
+              <!-- This is where the content for a modal alert title goes -->
+            </h2>
+            <button id="modal-overlay-close-button" class="image-button cross modal-overlay-close-button"><!-- --></button>
+            <div class="clearfix"></div>
+          </div>
+          <div id="modal-overlay-content" class="modal-overlay-content">
+             <!-- This is where the modal content goes -->
+          </div>
+          <div id="modal-overlay-confirm" class="modal-overlay-confirm corner-bottom">
+            <button id="modal-overlay-confirm-ok" class="text-button control blue corner-all"></button>
+            <button id="modal-overlay-confirm-cancel" class="text-button control blue corner-all"></button>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+      
       {% block content %}{% endblock %}
   </body>
 </html>

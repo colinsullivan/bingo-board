@@ -1,0 +1,366 @@
+body {
+    font-family: 'Cantarell', sans-serif;
+    padding: 0px;
+}
+
+h2 {
+    margin: 0;
+}
+
+.background {
+    background: -webkit-gradient(linear, 0% 100%, 0% 0%, from(#0ea7cd), color-stop(0.5, #0ea7cd), to(#42dcfd));
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    z-index: -9999;
+}
+
+.controls_container {
+    position: relative;
+    margin-top: 1em;
+    text-align: right;
+}
+
+.control {
+    position: relative;
+    margin-left: auto;
+    display: inline;
+}
+
+
+
+.control:not(:last-child) {
+    margin-right: 1em;
+}
+
+/* blue */
+.blue {
+    color: #d9eef7;
+    border: solid 1px #0076a3;
+    background: #0095cd;
+    background: -webkit-gradient(linear, left top, left bottom, from(#00adee), to(#0078a5));
+    background: -moz-linear-gradient(top,  #00adee,  #0078a5);
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#00adee', endColorstr='#0078a5');
+}
+button.blue:hover {
+    background: #007ead;
+    background: -webkit-gradient(linear, left top, left bottom, from(#0095cc), to(#00678e));
+    background: -moz-linear-gradient(top,  #0095cc,  #00678e);
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#0095cc', endColorstr='#00678e');
+}
+button.blue:active {
+    color: #80bed6;
+    background: -webkit-gradient(linear, left top, left bottom, from(#0078a5), to(#00adee));
+    background: -moz-linear-gradient(top,  #0078a5,  #00adee);
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#0078a5', endColorstr='#00adee');
+}
+
+.bingo_container {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: table;
+    border: 1px solid black;
+    padding: 0;
+    border: 0;
+}
+
+.bingo_row {
+    display: table-row;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+}
+
+
+.bingo_cell {
+    display: table-cell;
+    height: 1em;
+    width: 1em;
+    text-align: center;
+    padding: 0;
+    vertical-align: middle;
+    border-bottom: 2px solid black;
+    border-top: 2px solid black;
+    
+}
+
+/* Bingo cell activated */
+.number_container {
+    position: relative;
+    padding: 0.5em;
+    font-weight: bold;
+    border-radius: 5px;
+    z-index: 200;
+}
+
+.number_container.clickable {
+    cursor: pointer;
+}
+
+.number_container.clickable:hover:not(.enabled) {
+    background: -webkit-gradient(linear, 0% 100%, 0% 0%, from(#10b208), color-stop(0.7, #10b208), to(#01e236));
+    opacity: 0.7;
+    -webkit-transition-property: opacity, background;
+    -webkit-transition-duration: 0.5s;
+    -webkit-transition-timing-function: ease-out;
+}
+
+.number_container.disabled {
+    opacity: 0.2;
+    background: #bdbdbd;
+    font-size: 2em;
+    border: none;
+    margin: 0px 10px 10px 12px;
+    -webkit-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.5);    
+}
+
+.number_container.enabled {
+    -webkit-animation-name: bounceEnable;
+    -webkit-animation-duration: .25s;
+    -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+    background: -webkit-gradient(linear, 0% 100%, 0% 0%, from(#10b208), color-stop(0.7, #10b208), to(#01e236));
+    margin: 0px 5px 0px 5px;
+    font-size: 2.2em;
+    border: 1px solid white;
+    opacity: 1;
+}
+
+@-webkit-keyframes 'bounceEnable' {
+    from {
+        -webkit-transform: scale(1);
+        -webkit-animation-timing-function: ease-in-out;
+    }
+    33% {
+        -webkit-transform: scale(1.5);
+        -webkit-animation-timing-function: ease-in-out;
+        
+    }
+    66% {
+        -webkit-transform: scale(.75);   
+        -webkit-animation-timing-function: ease-in-out;
+    }
+    75% {
+        -webkit-transform: scale(1.10);
+        -webkit-animation-timing-function: ease-in-out;
+    }
+    to {
+        -webkit-transform: scale(1);
+        -webkit-animation-timing-function: ease-in-out;
+    }
+}
+
+.number_container.lastEnabled {
+    -webkit-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.5);
+    background: -webkit-gradient(linear, 0% 100%, 0% 0%, from(#10b208), color-stop(0.7, #10b208), to(#01e236));
+    -webkit-animation-name: lastEnabled;
+    -webkit-animation-duration: 2.25s;
+    -webkit-animation-direction: normal;
+    -webkit-animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes 'lastEnabled' {
+    from {
+        -webkit-transform: scale(1);
+        -webkit-animation-timing-function: ease-in-out;
+    }
+    10% {
+        -webkit-transform: scale(1.5);
+        -webkit-animation-timing-function: ease-in-out;
+        
+    }
+    20% {
+        -webkit-transform: scale(.75);   
+        -webkit-animation-timing-function: ease-in-out;
+    }
+    30% {
+        -webkit-transform: scale(1.30);
+        -webkit-animation-timing-function: ease-in-out;        
+    }
+    to {
+        -webkit-transform: scale(1);
+        -webkit-animation-timing-function: linear;
+    }
+}
+
+#last_enabled {
+    position: absolute;
+    background: black;
+    border: 10px;
+    border-radius: 5px;
+    z-index: 100;
+    overflow: hidden;
+    background-image: url(../svg/stripes.svg);
+    background-repeat: repeat;
+    margin: 0;
+    -webkit-animation-name: moveBorder;
+    -webkit-animation-duration: 10s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+@-webkit-keyframes 'moveBorder' {
+    from {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 100% 0%;
+    }
+    to {
+        background-position: 0% 0%;
+    }
+}
+
+
+.letter_cell {
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 2px solid black;
+    border-top: 2px solid black;
+    font-size: 5em;
+}
+
+
+/** 
+ *  Overlay modal box
+ **/
+div.modal-overlay {
+    outline: 0 !important;
+    display: none;
+}
+
+div.modal-overlay-background {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 999999;
+    background: rgba(230, 235, 209, .7);
+}
+
+
+div.modal-overlay-pane {
+    top: 40%;
+    left: 40%;
+    position: absolute;
+    z-index: 10000001;
+    min-width: 200px;
+    
+    -webkit-box-shadow: 0px 0px 4px #241F1B;
+    
+}
+
+div.modal-overlay-content {
+    background: #201913;
+    /*padding: 10% 15% 10% 15%;*/
+    padding: 0.8em;
+    color: white;
+    border-left: 2px solid #4D433B;
+    border-right: 2px solid #4D433B;
+    border-bottom: 2px solid #4D433B;
+}
+
+div.modal-overlay-header {
+    padding: 0.8em;
+    
+}
+
+h2.modal-overlay-header {
+    display: inline;
+    float: left;
+    
+}
+
+button.modal-overlay-close-button {
+    display: inline;
+    float: right;
+    margin-left: 1em;
+}
+
+div.modal-overlay-close-button {
+    float: right;
+    margin-right: 1em;
+    margin-top: 1em;
+}
+
+div.modal-overlay-confirm {
+    background: -webkit-gradient(
+        linear, 
+        left top, 
+        left bottom, 
+        color-stop(0,#00adee), 
+        color-stop(0.2,#00adee), 
+        color-stop(1,#0078a5)
+    );
+    border: solid 1px #0076a3;
+    
+    padding: 1em 0em;
+}
+
+div.modal-overlay-confirm button {
+    float: right;
+    margin-right: 1em;
+    margin-left: 1em;
+}
+
+img.modal-overlay-loading {
+    margin: auto;
+}
+
+
+.clearfix {
+    clear: both;
+}
+
+/**
+ *  Rounded corners
+ **/
+.corner-all {
+    border-top-left-radius: 0.5em 0.5em;
+    border-top-right-radius: 0.5em 0.5em;
+    border-bottom-left-radius: 0.5em 0.5em;
+    border-bottom-right-radius: 0.5em 0.5em;
+}
+.corner-top {
+    border-top-left-radius: 0.5em 0.5em;
+    border-top-right-radius: 0.5em 0.5em;
+}
+.corner-bottom {
+    border-bottom-left-radius: 0.5em 0.5em;
+    border-bottom-right-radius: 0.5em 0.5em;
+}
+.corner-right {
+    border-bottom-right-radius: 0.5em 0.5em;
+    border-top-right-radius: 0.5em 0.5em;
+}
+.corner-left {
+    border-bottom-left-radius: 0.5em 0.5em;
+    border-top-left-radius: 0.5em 0.5em;
+}
+
+
+/**
+ *  Image Buttons
+ **/
+ 
+button {
+    cursor: pointer;
+}
+
+button.image-button {
+    background-color: transparent;
+    width: 16px;
+    height: 16px;
+    border: 0;
+}
+button.text-button {
+    padding: 0.5em;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.3);
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.2);    
+}
+button.cross {
+    background-image: url('../images/cross.png');
+}

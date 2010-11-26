@@ -20,13 +20,9 @@ INSTALLED_APPS = (
 # corresponding output. Helps a lot with print-debugging.
 TEST_RUNNER = 'lib.vendor.djangotoolbox.test.CapturingTestSuiteRunner'
 
-ADMIN_MEDIA_PREFIX = '/media/admin/'
-STATICFILES_ROOT = os.path.join(os.path.dirname(__file__), '_generated_media')
-STATICFILES_DIRS = (
-    os.path.join(os.path.dirname(__file__), 'static'),
-)
-STATICFILES_URL = '/media/'
-MEDIA_URL = '/files/'
+
+STATIC_DOC_ROOT = os.path.join(os.path.dirname(__file__), 'static')
+
 TEMPLATE_DIRS = (os.path.join(os.path.dirname(__file__), 'templates'),)
 
 ROOT_URLCONF = 'urls'
