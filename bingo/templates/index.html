@@ -5,17 +5,23 @@ Welcome
 {% endblock %}
 
 {% block content %}
-    <div id="index_header" class="index_pane index_header corner-all">
+    <div id="index_header" class="pane pane_header corner-all">
         <h1>Web Bingo!</h1>
         <p id="index_welcome" class="index_welcome">Everyone likes to play bingo.  But sometimes you can't hear the numbers.<br />Use any computer with internet as a public bingo board!</p>
     </div>
     
-    <div id="index_login_register" class="index_pane index_login_register">
-        <div id="index_register" class="index_register corner-all">
-            <h2>Register</h2>
+    <div id="index_login_register">
+        <div id="index_register" class="pane corner-all">
+            <div class="pane_header corner-top"><h2>Register</h2></div>
+            <div id="index_register_content" class="pane_content corner-all">
+                Register form
+            </div>
         </div>
-        <div id="index_login" class="index_login corner-all">
-            <h2>Login</h2>
+        <div id="index_login" class="pane corner-all">
+            <div class="pane_header corner-top"><h2>Login</h2></div>
+            <div id="index_login_content" class="pane_content corner-all">
+                Login form
+            </div>
         </div>
     </div>
 {% endblock %}

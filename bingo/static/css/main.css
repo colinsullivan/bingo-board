@@ -44,8 +44,8 @@ figure img {width: 100%;}
 }
 
 .large, h2 {
-	font-size: 32px;
-	line-height: 48px;
+	font-size: 24px;
+	line-height: 1em;
 	letter-spacing: -0.1em;
 }
 
@@ -72,7 +72,8 @@ figure img {width: 100%;}
 	60px  144px  228px  312px  396px  480px  564px  648px	*/
 
 body {
-	background: rgb(232,232,232);
+	color: #313131;
+	background: #15d7ff;
 	padding: 60px 60px 0;
 	width: 648px;
 	-webkit-tap-highlight-color: rgb(255,255,0);
@@ -101,7 +102,7 @@ body {
 @media only screen and (min-width: 1212px) {
 	
 	body {
-		padding: 96px 72px 0;
+		padding: 70px 72px 0;
 		width: 1068px;
 	}
 	
@@ -156,7 +157,7 @@ body {
 
 
 .background {
-    background: -webkit-gradient(linear, 0% 100%, 0% 0%, from(#0ea7cd), color-stop(0.5, #0ea7cd), to(#42dcfd));
+    background: -webkit-gradient(linear, 0% 100%, 0% 0%, from(#64b7e6), color-stop(0.5, #15d7ff), to(#15d7ff));
     position: absolute;
     top: 0;
     left: 0;
@@ -184,55 +185,66 @@ body {
     margin-right: 1em;
 }
 
+/**
+ *  UI Panes
+ **/
+div.pane {
+/*    width: 100%;*/
+    -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    border: 1px solid #10B208;
+    background: #FBF5D0;
+    
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    
+    
+} 
+
+div.pane_header {
+    padding: 0.5em;
+    background: -webkit-gradient(linear, 0% 100%, 0% 0%, from(#10b208), color-stop(0.7, #10b208), to(#01e236));
+}
+
+div.pane_content {
+    height: 100%;
+    -webkit-box-flex: 1;
+}
+
+
 
 /**
  *  Index page
  **/
-div.index_pane {
-    width: 100%;
-    padding: 1em;
-} 
-
-div.index_header {
+div#index_header {
     text-align: center;
     -webkit-box-flex: 1;
-    border: 1px solid #10B208;
-    background: -webkit-gradient(linear, 0% 100%, 0% 0%, from(#10b208), color-stop(0.7, #10b208), to(#01e236));
-    opacity: 0.7;
-    -webkit-transition-property: opacity, background;
-    -webkit-transition-duration: 0.5s;
-    -webkit-transition-timing-function: ease-out;
-    -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    margin-bottom: 1em;
+
 }
 
-div.index_login_register {
+div#index_login_register {
     -webkit-box-flex: 4;
     
     display: -webkit-box;
     -webkit-box-orient: horizontal;
+    -webkit-box-pack: start;
+    
+    min-height: 10em;
 }
 
 div.index_register, div.index_login {
-    border: 1px solid #10B208;
-    background: -webkit-gradient(linear, 0% 100%, 0% 0%, from(#10b208), color-stop(0.7, #10b208), to(#01e236));
-    opacity: 0.7;
-    -webkit-transition-property: opacity, background;
-    -webkit-transition-duration: 0.5s;
-    -webkit-transition-timing-function: ease-out;
-    -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-    
-    padding-left: 0.5em;
-    padding-right: 0.5em;
+/*    padding-left: 0.5em;
+    padding-right: 0.5em;*/
     
 }
 
-div.index_register {
+div#index_register {
     -webkit-box-flex: 2;
     
     margin-right: 1em;
 }
 
-div.index_login {
+div#index_login {
     -webkit-box-flex: 1;
 }
 
