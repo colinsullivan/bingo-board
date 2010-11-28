@@ -3,6 +3,8 @@ from django.template import RequestContext
 
 from django.http import HttpResponse
 
+from django.contrib.auth.forms import AuthenticationForm
+
 from bingo.forms import UserRegistrationForm
 
 ###
@@ -10,6 +12,7 @@ from bingo.forms import UserRegistrationForm
 ###
 def home(request):
     registerForm = UserRegistrationForm()
+    loginForm = AuthenticationForm()
     
     return render_to_response('index.html', {
         'registerForm': registerForm, 

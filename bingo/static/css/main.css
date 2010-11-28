@@ -40,7 +40,7 @@ figure img {width: 100%;}
     font-weight: bold;
 	font-size: 68px;
 	line-height: 72px;
-	margin-bottom: 0.4em;
+	margin-bottom: 0.2em;
 }
 
 .large, h2 {
@@ -191,24 +191,36 @@ body {
 div.pane {
 /*    width: 100%;*/
     -webkit-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-    border: 1px solid #10B208;
     background: #FBF5D0;
     
     display: -webkit-box;
     -webkit-box-orient: vertical;
     
+    border-top-left-radius: 0.5em 0.5em;
+    border-top-right-radius: 0.5em 0.5em;
+    border-bottom-left-radius: 0.5em 0.5em;
+    border-bottom-right-radius: 0.5em 0.5em;
     
 } 
 
 div.pane_header {
     padding: 0.5em;
     background: -webkit-gradient(linear, 0% 100%, 0% 0%, from(#10b208), color-stop(0.7, #10b208), to(#01e236));
+    border-top-left-radius: 0.5em 0.5em;
+    border-top-right-radius: 0.5em 0.5em;
+    
 }
 
 div.pane_content {
-    padding: 1em;
+    padding: 0.5em 1em 1em 1em;
     height: 100%;
+    border: 1px solid #756eae;
+    border-top: 0;
+    border-position: inside;
     -webkit-box-flex: 1;
+    border-bottom-left-radius: 0.5em 0.5em;
+    border-bottom-right-radius: 0.5em 0.5em;
+    
 }
 
 

@@ -11,9 +11,9 @@ Welcome
     </div>
     
     <div id="index_login_register">
-        <div id="index_register" class="pane corner-all">
-            <div class="pane_header corner-top"><h2>Register</h2></div>
-            <div id="index_register_content" class="pane_content corner-all">
+        <div id="index_register" class="pane">
+            <div class="pane_header"><h2>Register</h2></div>
+            <div id="index_register_content" class="pane_content">
                 <p>Not a user yet?</p>
 
                 <fieldset id="registration_form" class="form registration_form">
@@ -72,10 +72,37 @@ Welcome
 
             </div>
         </div>
-        <div id="index_login" class="pane corner-all">
-            <div class="pane_header corner-top"><h2>Login</h2></div>
-            <div id="index_login_content" class="pane_content corner-all">
-                Login form
+        <div id="index_login" class="pane">
+            <div class="pane_header"><h2>Login</h2></div>
+            <div id="index_login_content" class="pane_content">
+                <fieldset id="login_form" class="form login_form">
+                    <legend>Login</legend>
+
+                    <div id="login_form_username" class="form_row login_form_row login_form_username_row">
+                        <div id="login_form_username_row" class="form_row_cell login_form_row_cell login_form_username_row_cell">
+                            <label id="login_form_label_username" class="login_form_label_username login_form_label form_label">
+                                Username: 
+                            </label>
+                        </div>
+                        <div id="login_form_username_row" class="form_row_cell login_form_row_cell login_form_username_row_cell">
+                            <input id="login_form_username_input" class="login_form_username_input login_form_input form_input" type="text" name="username" maxlength="30" />
+                        </div>
+                    </div>
+
+                    <div id="login_form_password" class="form_row login_form_row login_form_password_row">
+                        <div id="login_form_password_row" class="form_row_cell login_form_row_cell login_form_password_row_cell">
+                            <label id="login_form_label_password" class="login_form_label_password login_form_label form_label">
+                                Password: 
+                            </label>
+                        </div>
+                        <div id="login_form_password_row" class="form_row_cell login_form_row_cell login_form_password_row_cell">
+                            <input id="login_form_password_input" class="login_form_password_input login_form_input form_input" type="password" name="password" />
+                        </div>
+                    </div>
+
+
+                    <button id="login_form_login_button">Login</button>
+                </fieldset>
             </div>
         </div>
     </div>
