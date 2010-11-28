@@ -11,7 +11,7 @@ handlers:
   script: djangoappengine/deferred/handler.py
   login: admin
 
-- url: /media/admin
+- url: /static/admin
   static_dir: django/contrib/admin/media
   expiration: '0'
 

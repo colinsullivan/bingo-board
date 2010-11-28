@@ -12,7 +12,7 @@ urlpatterns = patterns('',
     # Initially, just show index page
     ('^$', 'controllers.index.home'),
     
-    (r'^admin/', include(admin.site.urls)),    
+    (r'^admin/', include(admin.site.urls)),
     
     ###
     #   AJAX
