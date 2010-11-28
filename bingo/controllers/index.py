@@ -27,11 +27,15 @@ def register(request):
     if request.method == 'POST':
         registerForm = UserRegistrationForm(request.POST)
         
-        if form.is_valid():
+        if registerForm.is_valid():
             # Create the new user
-            
-            return HttpResponse('success', content_type = 'text/plain')
+            content = 'creating user'
         else :
-            return HttpResponse('error', content_type='text/plain')
+            content = registerForm.non_field_errors
     else:
-        return HttpResponse('error', content_type='text/plain')
+        content = 'not post'
+    
+    return render_to_response('register_result.html', {
+        'content': content, 
+        'registerForm': registerForm,
+    }, context_instance = RequestContext(request))
