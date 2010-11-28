@@ -3,15 +3,16 @@ from django.template import RequestContext
 
 from django.http import HttpResponse
 
-from django.contrib.auth.forms import UserCreationForm
+from bingo.forms import UserRegistrationForm
 
 ###
 #   This is the default page that people will see when they go to the homepage.
 ###
 def home(request):
+    registerForm = UserRegistrationForm()
     
     return render_to_response('index.html', {
-        
+        'registerForm': registerForm, 
     }, context_instance = RequestContext(request))
     
     
@@ -21,7 +22,7 @@ def home(request):
 def register(request):
     
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        registerForm = UserRegistrationForm(request.POST)
         
         if form.is_valid():
             # Create the new user

@@ -14,12 +14,62 @@ Welcome
         <div id="index_register" class="pane corner-all">
             <div class="pane_header corner-top"><h2>Register</h2></div>
             <div id="index_register_content" class="pane_content corner-all">
-                <p>Not a user yet? Sign up here.</p>
+                <p>Not a user yet?</p>
+
+                <fieldset id="registration_form" class="form registration_form">
+                    <legend>Register</legend>
+
+                    <div id="register_form_username" class="form_row register_form_row register_form_username_row">
+                        <div id="register_form_username_row" class="form_row_cell register_form_row_cell register_form_username_row_cell">
+                            <label id="register_form_label_username" class="register_form_label_username register_form_label form_label">
+                                Username: 
+                            </label>
+                        </div>
+                        <div id="register_form_username_row" class="form_row_cell register_form_row_cell register_form_username_row_cell">
+                            <input id="register_form_username_input" class="register_form_username_input register_form_input form_input" type="text" name="username" maxlength="30" />
+                        </div>
+                    </div>
+                    
+                    
+
+                    <div id="register_form_password1" class="form_row register_form_row register_form_password1_row">
+                        <div id="register_form_password1_row" class="form_row_cell register_form_row_cell register_form_password1_row_cell">
+                            <label id="register_form_label_password1" class="register_form_label_password1 register_form_label form_label">
+                                Password: 
+                            </label>
+                        </div>
+                        <div id="register_form_password1_row" class="form_row_cell register_form_row_cell register_form_password1_row_cell">
+                            <input id="register_form_password1_input" class="register_form_password1_input register_form_input form_input" type="password" name="password1" />
+                        </div>
+                    </div>
+
+                    <div id="register_form_password2" class="form_row register_form_row register_form_password2_row">
+                        <div id="register_form_password2_row" class="form_row_cell register_form_row_cell register_form_password2_row_cell">
+                            <label id="register_form_label_password2" class="register_form_label_password2 register_form_label form_label">
+                                Confirm Password: 
+                            </label>
+                        </div>
+                        <div id="register_form_password2_row" class="form_row_cell register_form_row_cell register_form_password2_row_cell">
+                            <input id="register_form_password2_input" class="register_form_password2_input register_form_input form_input" type="password" name="password2" />
+                        </div>
+                    </div>
+
+                    <div id="register_form_email" class="form_row register_form_row register_form_email_row">
+                        <div id="register_form_email_row" class="form_row_cell register_form_row_cell register_form_email_row_cell">
+                            <label id="register_form_label_email" class="register_form_label_email register_form_label form_label">
+                                Email: 
+                            </label>
+                        </div>
+                        <div id="register_form_email_row" class="form_row_cell register_form_row_cell register_form_email_row_cell">
+                            <input id="register_form_email_input" class="register_form_email_input register_form_input form_input" type="text" name="email" maxlength="" />
+                        </div>
+                    </div>
+
+                    <button id="register_submit_button">Register</button>
+
+                </fieldset>
                 
-                <form method="POST" action="/register/">
-                    <label for="email">Email: </label><input type="text" id="email"></input>
-                    <label for="password">Password: </label>
-                </form>
+
             </div>
         </div>
         <div id="index_login" class="pane corner-all">

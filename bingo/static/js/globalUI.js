@@ -22,7 +22,7 @@ google.setOnLoadCallback(function() {
     $(document).ready(function(){
         WebFont.load({
             google: {
-                families: ['Cantarell:regular,bold']
+                families: ['Cantarell:regular,bold', 'PT Sans']
             },
             loading: function() {
 

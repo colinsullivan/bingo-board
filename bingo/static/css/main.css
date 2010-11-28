@@ -36,17 +36,17 @@ figure img {width: 100%;}
 }
 
 .huge, h1 {
+    font-family: 'PT Sans';
     font-weight: bold;
-    letter-spacing: -0.1em;
 	font-size: 68px;
 	line-height: 72px;
 	margin-bottom: 0.4em;
 }
 
 .large, h2 {
+    font-family: 'PT Sans';
 	font-size: 24px;
 	line-height: 1em;
-	letter-spacing: -0.1em;
 }
 
 .big, h3 {
@@ -249,6 +249,37 @@ div#index_login {
     -webkit-box-flex: 1;
 }
 
+/* Registration form layout */
+fieldset#registration_form {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+div.registration_form_field {
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+}
+.registration_form_label {
+    -webkit-box-flex: 1;
+}
+.registration_form_input {
+    -webkit-box-flex: 1;
+}
+
+
+/** 
+ *  Forms 
+ **/
+fieldset.form {
+    border-top: 1px solid black;
+    display: table;
+    
+}
+div.form_row {
+    display: table-row;
+}
+div.form_row_cell {
+    display: table-cell;
+}
 
 
 /* blue */
