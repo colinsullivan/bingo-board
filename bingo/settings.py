@@ -2,8 +2,13 @@
 # If you want to use a different backend you have to remove all occurences
 # of "djangoappengine" from this file.
 
-import os
+import os, sys
+
 from djangoappengine.settings_base import *
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+sys.path.insert(0, os.path.join(BASE_DIR, '..'))
 
 
 SECRET_KEY = '673trgfajdhsfj;djsfahfDFSLJHKFHhjl'
@@ -30,9 +35,9 @@ TEST_RUNNER = 'djangotoolbox.test.CapturingTestSuiteRunner'
 
 DEBUG = True
 
-STATIC_DOC_ROOT = os.path.join(os.path.dirname(__file__), 'static')
+STATIC_DOC_ROOT = os.path.join(BASE_DIR, 'static')
 
-TEMPLATE_DIRS = (os.path.join(os.path.dirname(__file__), 'templates'),)
+TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates'),)
 
 ROOT_URLCONF = 'urls'
 

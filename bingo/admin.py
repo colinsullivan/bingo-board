@@ -5,5 +5,4 @@ from django.contrib.auth.models import User
 
 admin.site.register(Board)
 admin.site.register(Marker)
-admin.site.register(User)
 
