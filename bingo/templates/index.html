@@ -14,7 +14,12 @@ Welcome
         <div id="index_register" class="pane corner-all">
             <div class="pane_header corner-top"><h2>Register</h2></div>
             <div id="index_register_content" class="pane_content corner-all">
-                Register form
+                <p>Not a user yet? Sign up here.</p>
+                
+                <form method="POST" action="/register/">
+                    <label for="email">Email: </label><input type="text" id="email"></input>
+                    <label for="password">Password: </label>
+                </form>
             </div>
         </div>
         <div id="index_login" class="pane corner-all">

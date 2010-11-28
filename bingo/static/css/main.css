@@ -206,6 +206,7 @@ div.pane_header {
 }
 
 div.pane_content {
+    padding: 1em;
     height: 100%;
     -webkit-box-flex: 1;
 }
