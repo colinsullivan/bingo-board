@@ -1,0 +1,13 @@
+<div id="{{ form_id }}_form_{{ field_id }}" class="form_row {{ form_id }}_form_row {{ form_id }}_form_{{ field_id }}_row">
+    <div id="{{ form_id }}_form_{{ field_id }}_label_cell" class="form_cell {{ form_id }}_form_cell {{ form_id }}_form_{{ field_id }}_cell {{ form_id }}_form_{{ field_id }}_label_cell">
+        <label id="{{ form_id }}_form_label_{{ field_id }}" class="{{ form_id }}_form_label_{{ field_id }} {{ form_id }}_form_label form_label">
+            {{ field_label }}: 
+        </label>
+    </div>
+    <div id="{{ form_id }}_form_{{ field_id }}_input_cell" class="form_cell {{ form_id }}_form_cell {{ form_id }}_form_input_{{ field_id }}_cell">
+        <input id="{{ form_id }}_form_{{ field_id }}_input" class="{{ form_id }}_form_{{ field_id }}_input {{ form_id }}_form_input form_input" type="{{ input_type }}" name="{{ field_id }}" value="{{ value }}"{{ input_attrs }} />
+    </div>
+    <div id="{{ form_id }}_form_{{ field_id }}_error_cell" class="form_cell {{ form_id }}_form_cell {{ form_id }}_form_{{ field_id }}_cell {{ form_id }}_form_{{ field_id }}_error_cell">
+        {{ field.errors }}
+    </div>
+</div>

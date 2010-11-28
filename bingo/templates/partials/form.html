@@ -1,0 +1,16 @@
+<fieldset id="{{ id }}_form" class="form {{ id }}_form">
+    <legend>{{ title }}</legend>
+    <form method="post" action="{{ action }}">
+        
+        <div id="{{ id }}_form_errors" class="form_errors {{ id }}_form_errors">
+            {{ form.non_field_errors }}
+        </div>
+        
+        {% block fields %}
+        {% endblock %}
+        
+        <button id="{{ id }}_submit_button">{{ title }}</button>
+    </form>
+
+
+</fieldset>

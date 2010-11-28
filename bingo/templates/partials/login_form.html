@@ -1,0 +1,11 @@
+{% extends 'partials/form.html' %}
+
+
+{% load forms %}
+
+        {% block fields %}
+            {% field form form.username id 'username' 'Username' 'text' 'maxlength="30"' %}
+            {% field form form.password1 id 'password1' 'Password' 'password' %}
+            {% field form form.password2 id 'password2' 'Confirm Password' 'password'  %}
+        {% endblock %}
+        

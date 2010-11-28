@@ -15,9 +15,10 @@ urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
     
     ###
-    #   AJAX
+    #   user login/logout/register
     ###
     ('^register/$', 'controllers.index.register'),
+    ('^login/$', 'controllers.index.login'),
     
     
     # Static files

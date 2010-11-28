@@ -3,24 +3,24 @@ from django.template import RequestContext
 
 from django.http import HttpResponse
 
-from django.contrib.auth.forms import AuthenticationForm
 
-from bingo.forms import UserRegistrationForm
+from bingo.forms import UserRegistrationForm, UserLoginForm
 
 ###
 #   This is the default page that people will see when they go to the homepage.
 ###
 def home(request):
     registerForm = UserRegistrationForm()
-    loginForm = AuthenticationForm()
+    loginForm = UserLoginForm()
     
     return render_to_response('index.html', {
         'registerForm': registerForm, 
+#        'loginForm': loginForm, 
     }, context_instance = RequestContext(request))
     
     
 ###
-#   This is an ajax controller that allows a user to create a new account.
+#   This is an basic controller that allows a user to create a new account.
 ###
 def register(request):
     
@@ -30,12 +30,31 @@ def register(request):
         if registerForm.is_valid():
             # Create the new user
             content = 'creating user'
-        else :
-            content = registerForm.non_field_errors
+        else:
+            content = 'errors'
     else:
         content = 'not post'
     
     return render_to_response('register_result.html', {
         'content': content, 
         'registerForm': registerForm,
+    }, context_instance = RequestContext(request))
+    
+###
+#   This is a basic controller that allows a user to login
+###
+def login(request):
+    if request.method == 'POST':
+        loginForm = AuthenticationForm(rquest.POST)
+        
+        if loginForm.is_valid():
+            # Login the user
+            content = 'loggin in'
+
+    else :
+        content = 'not post'
+        
+    return render_to_response('login_result.html', {
+        'content': content,
+        'loginForm': loginForm,
     }, context_instance = RequestContext(request))

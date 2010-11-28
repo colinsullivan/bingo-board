@@ -290,7 +290,7 @@ fieldset.form {
 div.form_row {
     display: table-row;
 }
-div.form_row_cell {
+div.form_cell {
     display: table-cell;
 }
 
@@ -303,6 +303,11 @@ input.form_input.invalid {
 }
 input.form_input.valid {
     background: default;
+}
+
+/* Form errors */
+ul.errorlist {
+    list-style: none;
 }
 
 

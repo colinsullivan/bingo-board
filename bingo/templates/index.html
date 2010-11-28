@@ -1,110 +1,20 @@
 {% extends 'base.html' %}
 
+{% load forms %}
+
 {% block title %}
 Welcome
 {% endblock %}
 
 {% block content %}
-    <div id="index_header" class="pane pane_header corner-all">
-        <h1>Web Bingo!</h1>
-        <p id="index_welcome" class="index_welcome">Everyone likes to play bingo.  But sometimes you can't hear the numbers.<br />Use any computer with internet as a public bingo board!</p>
-    </div>
+    
+    {% include 'partials/index_header.html' %}
     
     <div id="index_login_register">
-        <div id="index_register" class="pane">
-            <div class="pane_header"><h2>Register</h2></div>
-            <div id="index_register_content" class="pane_content">
-                <p>Not a user yet?</p>
-
-                <fieldset id="registration_form" class="form registration_form">
-                    <legend>Register</legend>
-                    <form method="post" action="/register/">
-                        <div id="register_form_username" class="form_row register_form_row register_form_username_row">
-                            <div id="register_form_username_row" class="form_row_cell register_form_row_cell register_form_username_row_cell">
-                                <label id="register_form_label_username" class="register_form_label_username register_form_label form_label">
-                                    Username: 
-                                </label>
-                            </div>
-                            <div id="register_form_username_row" class="form_row_cell register_form_row_cell register_form_username_row_cell">
-                                <input id="register_form_username_input" class="register_form_username_input register_form_input form_input" type="text" name="username" maxlength="30" />
-                            </div>
-                        </div>
-
-
-                        <div id="register_form_password1" class="form_row register_form_row register_form_password1_row">
-                            <div id="register_form_password1_row" class="form_row_cell register_form_row_cell register_form_password1_row_cell">
-                                <label id="register_form_label_password1" class="register_form_label_password1 register_form_label form_label">
-                                    Password: 
-                                </label>
-                            </div>
-                            <div id="register_form_password1_row" class="form_row_cell register_form_row_cell register_form_password1_row_cell">
-                                <input id="register_form_password1_input" class="register_form_password1_input register_form_input form_input" type="password" name="password1" />
-                            </div>
-                        </div>
-
-                        <div id="register_form_password2" class="form_row register_form_row register_form_password2_row">
-                            <div id="register_form_password2_row" class="form_row_cell register_form_row_cell register_form_password2_row_cell">
-                                <label id="register_form_label_password2" class="register_form_label_password2 register_form_label form_label">
-                                    Confirm Password: 
-                                </label>
-                            </div>
-                            <div id="register_form_password2_row" class="form_row_cell register_form_row_cell register_form_password2_row_cell">
-                                <input id="register_form_password2_input" class="register_form_password2_input register_form_input form_input" type="password" name="password2" />
-                            </div>
-                        </div>
-
-                        <div id="register_form_email" class="form_row register_form_row register_form_email_row">
-                            <div id="register_form_email_row" class="form_row_cell register_form_row_cell register_form_email_row_cell">
-                                <label id="register_form_label_email" class="register_form_label_email register_form_label form_label">
-                                    Email: 
-                                </label>
-                            </div>
-                            <div id="register_form_email_row" class="form_row_cell register_form_row_cell register_form_email_row_cell">
-                                <input id="register_form_email_input" class="register_form_email_input register_form_input form_input" type="text" name="email" maxlength="" />
-                            </div>
-                        </div>
-
-                        <button id="register_submit_button">Register</button>
-                    </form>
-
-
-                </fieldset>
+        
+        {% include 'partials/register_pane.html' %}
+        
+        {# include 'partials/login_pane.html' #}
                 
-
-            </div>
-        </div>
-        <div id="index_login" class="pane">
-            <div class="pane_header"><h2>Login</h2></div>
-            <div id="index_login_content" class="pane_content">
-                <fieldset id="login_form" class="form login_form">
-                    <legend>Login</legend>
-
-                    <div id="login_form_username" class="form_row login_form_row login_form_username_row">
-                        <div id="login_form_username_row" class="form_row_cell login_form_row_cell login_form_username_row_cell">
-                            <label id="login_form_label_username" class="login_form_label_username login_form_label form_label">
-                                Username: 
-                            </label>
-                        </div>
-                        <div id="login_form_username_row" class="form_row_cell login_form_row_cell login_form_username_row_cell">
-                            <input id="login_form_username_input" class="login_form_username_input login_form_input form_input" type="text" name="username" maxlength="30" />
-                        </div>
-                    </div>
-
-                    <div id="login_form_password" class="form_row login_form_row login_form_password_row">
-                        <div id="login_form_password_row" class="form_row_cell login_form_row_cell login_form_password_row_cell">
-                            <label id="login_form_label_password" class="login_form_label_password login_form_label form_label">
-                                Password: 
-                            </label>
-                        </div>
-                        <div id="login_form_password_row" class="form_row_cell login_form_row_cell login_form_password_row_cell">
-                            <input id="login_form_password_input" class="login_form_password_input login_form_input form_input" type="password" name="password" />
-                        </div>
-                    </div>
-
-
-                    <button id="login_form_login_button">Login</button>
-                </fieldset>
-            </div>
-        </div>
     </div>
 {% endblock %}
