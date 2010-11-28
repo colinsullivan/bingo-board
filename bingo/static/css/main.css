@@ -157,7 +157,7 @@ body {
 
 
 .background {
-    background: -webkit-gradient(linear, 0% 100%, 0% 0%, from(#64b7e6), color-stop(0.5, #15d7ff), to(#15d7ff));
+    background: -webkit-gradient(linear, 0% 100%, 0% 0%, from(#64b7e6), color-stop(0.2, #15d7ff), to(#15d7ff));
     position: absolute;
     top: 0;
     left: 0;
@@ -278,6 +278,7 @@ div.registration_form_field {
 }
 
 
+
 /** 
  *  Forms 
  **/
@@ -291,6 +292,17 @@ div.form_row {
 }
 div.form_row_cell {
     display: table-cell;
+}
+
+/* Form input states */
+input.form_input {
+    
+}
+input.form_input.invalid {
+    background: red;
+}
+input.form_input.valid {
+    background: default;
 }
 
 
