@@ -3,6 +3,12 @@ from django.conf import settings
 
 from django.contrib import admin
 
+from tastypie.api import Api
+from bingo.api import *
+
+api1 = Api(api_name='1')
+api1.register(BoardResource())
+
 
 handler500 = 'djangotoolbox.errorviews.server_error'
 
@@ -29,5 +35,8 @@ urlpatterns = patterns('',
 #    (r'test/run', 'django_json_test_runner'),
 #    (r'test.*', 'django_test_runner'),
     (r'^test', include('gaeunit.urls')),
+    
+    # REST
+    (r'^api/', include(api1.urls)),
     
 )

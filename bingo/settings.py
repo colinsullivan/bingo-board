@@ -21,6 +21,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'djangotoolbox',
     'gaeunit',
+    'tastypie',
     'bingo',
 )
 

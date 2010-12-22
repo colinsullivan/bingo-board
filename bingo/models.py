@@ -1,5 +1,3 @@
-
-
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -41,9 +39,6 @@ class Board(models.Model):
             for i in range(1,76):
                 marker = Marker.objects.create(number=i, board=self)
                 
-        
-            
-        
     
 
 ###
@@ -56,3 +51,4 @@ class Marker(models.Model):
     number = models.IntegerField(choices=MARKER_CHOICES)
     value = models.BooleanField(default=False)
     board = models.ForeignKey(Board)
+    
