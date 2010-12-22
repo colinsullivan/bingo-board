@@ -9,7 +9,8 @@
 html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, 
 p, blockquote, pre, a, abbr, address, cite, code, del, dfn, em, 
 img, ins, q, small, strong, sub, sup, dl, dt, dd, ol, ul, li, 
-fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, 
+article, aside, figure, figcaption, hgroup, footer, header, nav, section {
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -29,33 +30,27 @@ figure img {width: 100%;}
 /*	Typography presets
 	------------------	*/
 
-.gigantic {
-	font-size: 110px;
-	line-height: 120px;
-	letter-spacing: -2px;
-}
-
 .huge, h1 {
     font-family: 'PT Sans';
     font-weight: bold;
-	font-size: 68px;
+	font-size: 4em;
 	line-height: 72px;
 	margin-bottom: 0.2em;
 }
 
 .large, h2 {
     font-family: 'PT Sans';
-	font-size: 24px;
+	font-size: 1.5em;
 	line-height: 1em;
 }
 
 .big, h3 {
-	font-size: 26px;
+	font-size: 2em;
 	line-height: 36px;
 }
 
 .normal, body {
-	font: 16px/24px 'Cantarell', Helvetica, Arial, sans-serif;
+	font: 16px/20px 'Cantarell', Helvetica, Arial, sans-serif;
 	line-height: 1em;
 }
 
@@ -63,7 +58,6 @@ figure img {width: 100%;}
 	font-size: 13px;
 	line-height: 18px;
 } 
-
 
 /*	Default 8-column layout
 	60 px columns, 24 px gutters, 60 px margins, 768 px total
@@ -74,10 +68,9 @@ figure img {width: 100%;}
 body {
 	color: #313131;
 	background: #15d7ff;
-	padding: 60px 60px 0;
+	padding: 25px 25px 0;
 	width: 648px;
 	-webkit-tap-highlight-color: rgb(255,255,0);
-	
 	display: -webkit-box;
     -webkit-box-orient: vertical;
     
@@ -102,7 +95,7 @@ body {
 @media only screen and (min-width: 1212px) {
 	
 	body {
-		padding: 70px 72px 0;
+		padding: 25px 25px 0;
 		width: 1068px;
 	}
 	
@@ -118,8 +111,9 @@ body {
 @media only screen and (max-width: 767px) and (min-width: 480px) {
 	
 	body {
-		padding: 60px 42px 0;
+		padding: 25px 25px 0;
 		width: 396px;
+		-webkit-text-size-adjust: 80%;
 	}
 	
 }
@@ -134,8 +128,9 @@ body {
 @media only screen and (max-width: 479px) {
 	
 	body {
-		padding: 48px 46px 0;
+		padding: 25px 25px 0;
 		width: 228px;
+		-webkit-text-size-adjust: 80%;
 	}
 	
 }
@@ -277,6 +272,17 @@ div.registration_form_field {
     -webkit-box-flex: 1;
 }
 
+
+
+/**
+ *  Home page
+ **/
+h1#home_header {
+    font-size: 2em;
+}
+div#home_header_container {
+    margin-bottom: 1em;
+}
 
 
 /** 
