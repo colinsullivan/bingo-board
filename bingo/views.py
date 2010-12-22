@@ -5,10 +5,15 @@ from django.http import HttpResponse, HttpResponseRedirect
 
 from django.contrib.auth.forms import AuthenticationForm
 from bingo.forms import UserRegistrationForm
+from django.views.decorators.cache import never_cache
+from django.core.context_processors import csrf
+
+
 
 ###
 #   This is the default page that people will see when they go to the homepage.
 ###
+@never_cache
 def home(request):
     registerForm = UserRegistrationForm()
     loginForm = AuthenticationForm()
@@ -22,6 +27,7 @@ def home(request):
 ###
 #   This is an basic controller that allows a user to create a new account.
 ###
+@never_cache
 def register(request):
     
     if request.method == 'POST':
@@ -31,11 +37,10 @@ def register(request):
             # Create the new user
             user = registerForm.save()
             
-            template = 'index.html'
             message = 'Registration was successful.  Please login as '+user.email
+            registerForm = UserRegistrationForm()
             
         else:
-            template = 'register_error.html'
             message = 'An error occurred while attempting to register.'
             registerForm = registerForm
             
@@ -43,7 +48,7 @@ def register(request):
         return HttpResponseRedirect('/')
         
 
-    return render_to_response(template, {
+    return render_to_response('index.html', {
         'message': message, 
         'registerForm': registerForm,
         'loginForm': AuthenticationForm(),
@@ -54,18 +59,22 @@ def register(request):
 ###
 #   This is a basic controller that allows a user to login
 ###
+@never_cache
 def login(request):
     if request.method == 'POST':
-        loginForm = AuthenticationForm(rquest.POST)
+        loginForm = AuthenticationForm(request.POST)
         
         if loginForm.is_valid():
             # Login the user
-            content = 'loggin in'
+            raise Exception('Login success')
+        else:
+            message = 'An error occurred while logging in.'
 
     else :
-        content = 'not post'
+        return HttpResponseRedirect('/')
         
-    return render_to_response('login_result.html', {
-        'content': content,
+    return render_to_response('index.html', {
+        'message': message,
         'loginForm': loginForm,
+        'registerForm': UserRegistrationForm()
     }, context_instance = RequestContext(request))

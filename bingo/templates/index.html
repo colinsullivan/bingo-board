@@ -6,17 +6,32 @@
 Bingo!
 {% endblock %}
 
+
 {% block content %}
+    {% if user.is_authenticated %}
+
+        authenticated!
+
+    {% else %}
+
+
+        {% include 'partials/index_header.html' %}
+
+        {% if message %}
+            <div id="index_message" class="index_message">
+                {{ message }}
+            </div>
+        {% endif %}
+
+
+        <div id="index_login_register">        
     
-    {% include 'partials/index_header.html' %}
+            {% include 'partials/register_pane.html' %}
     
-    <div id="index_login_register">
+            {% include 'partials/login_pane.html' %}
+            
+        </div>
         
-        {% include 'partials/form_message.html' %}
-        
-        {% include 'partials/register_pane.html' %}
-        
-        {% include 'partials/login_pane.html' %}
-                
-    </div>
+    {% endif %}
 {% endblock %}
+    

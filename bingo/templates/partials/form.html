@@ -1,7 +1,7 @@
 <fieldset id="{{ id }}_form" class="form {{ id }}_form">
     <legend>{{ title }}</legend>
     <form method="post" action="{{ action }}">
-        
+        {% csrf_token %}
         <div id="{{ id }}_form_errors" class="form_errors {{ id }}_form_errors">
             {{ form.non_field_errors }}
         </div>
