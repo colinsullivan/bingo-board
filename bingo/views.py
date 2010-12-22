@@ -62,7 +62,7 @@ def register(request):
 @never_cache
 def login(request):
     if request.method == 'POST':
-        loginForm = AuthenticationForm(request.POST)
+        loginForm = AuthenticationForm(data=request.POST)
         
         if loginForm.is_valid():
             # Login the user

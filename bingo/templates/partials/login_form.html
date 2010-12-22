@@ -4,7 +4,8 @@
 {% load forms %}
 
         {% block fields %}
-            {% field form form.username id 'email' 'Email' 'email' %}
+            {# we call this form email, but it is really the username #}
+            {% field form form.username id 'username' 'Email' 'email' %}
             {% field form form.password id 'password' 'Password' 'password' %}
         {% endblock %}
         
