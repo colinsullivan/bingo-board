@@ -7,7 +7,11 @@ Welcome
 {% endblock %}
 
 {% block content %}
-    {{ content }}
+    {% include 'partials/index_header.html' %}
+    
+    {# This is where messages to the user will be displayed #}
+    {% include 'partials/form_message.html' %}
+    
     {% include 'partials/register_pane.html' %}
 
 {% endblock %}

@@ -16,15 +16,15 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Initially, just show index page
-    ('^$', 'controllers.index.home'),
+    ('^$', 'views.home'),
     
     (r'^admin/', include(admin.site.urls)),
     
     ###
     #   user login/logout/register
     ###
-    ('^register/$', 'controllers.index.register'),
-    ('^login/$', 'controllers.index.login'),
+    ('^register/$', 'views.register'),
+    ('^login/$', 'views.login'),
     
     
     # Static files

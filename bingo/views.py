@@ -1,21 +1,21 @@
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 
-
-from bingo.forms import UserRegistrationForm, UserLoginForm
+from django.contrib.auth.forms import AuthenticationForm
+from bingo.forms import UserRegistrationForm
 
 ###
 #   This is the default page that people will see when they go to the homepage.
 ###
 def home(request):
     registerForm = UserRegistrationForm()
-    loginForm = UserLoginForm()
+    loginForm = AuthenticationForm()
     
     return render_to_response('index.html', {
         'registerForm': registerForm, 
-#        'loginForm': loginForm, 
+        'loginForm': loginForm, 
     }, context_instance = RequestContext(request))
     
     
@@ -29,16 +29,27 @@ def register(request):
         
         if registerForm.is_valid():
             # Create the new user
-            content = 'creating user'
+            user = registerForm.save()
+            
+            template = 'index.html'
+            message = 'Registration was successful.  Please login as '+user.email
+            
         else:
-            content = 'errors'
+            template = 'register_error.html'
+            message = 'An error occurred while attempting to register.'
+            registerForm = registerForm
+            
     else:
-        content = 'not post'
-    
-    return render_to_response('register_result.html', {
-        'content': content, 
+        return HttpResponseRedirect('/')
+        
+
+    return render_to_response(template, {
+        'message': message, 
         'registerForm': registerForm,
+        'loginForm': AuthenticationForm(),
     }, context_instance = RequestContext(request))
+    
+    
     
 ###
 #   This is a basic controller that allows a user to login

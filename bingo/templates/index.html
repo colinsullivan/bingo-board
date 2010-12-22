@@ -3,7 +3,7 @@
 {% load forms %}
 
 {% block title %}
-Welcome
+Bingo!
 {% endblock %}
 
 {% block content %}
@@ -12,9 +12,11 @@ Welcome
     
     <div id="index_login_register">
         
+        {% include 'partials/form_message.html' %}
+        
         {% include 'partials/register_pane.html' %}
         
-        {# include 'partials/login_pane.html' #}
+        {% include 'partials/login_pane.html' %}
                 
     </div>
 {% endblock %}
