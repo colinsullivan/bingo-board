@@ -44,6 +44,10 @@ figure img {width: 100%;}
 	line-height: 1em;
 }
 
+h1, h2 {
+    text-shadow: #008A12 0px -1px 1px;
+}
+
 .big, h3 {
 	font-size: 2em;
 	line-height: 36px;
