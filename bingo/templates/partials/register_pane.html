@@ -1,12 +1,14 @@
+{% extends 'partials/pane.html' %}
+
 {% load forms %}
 
-<div id="index_register" class="pane">
-    <div class="pane_header"><h2>Register</h2></div>
-    <div id="index_register_content" class="pane_content">
-        <p>Not a user yet?</p>
-        
-        {% register_form registerForm %}
-        
-    </div>
-</div>
-        
+{% block id %}index_register{% endblock %}
+
+{% block title %}<h2>Register</h2>{% endblock %}
+
+
+{% block content %}
+    <p>Not a user yet?</p>
+
+    {% register_form registerForm %}
+{% endblock %}
