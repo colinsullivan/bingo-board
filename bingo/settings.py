@@ -20,6 +20,7 @@ INSTALLED_APPS = (
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'djangotoolbox',
+    'gaeunit',
     'bingo',
 )
 

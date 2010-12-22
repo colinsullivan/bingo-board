@@ -24,4 +24,10 @@ urlpatterns = patterns('',
     # Static files
     (r'^static/(?P<path>.*)$', 'django.views.static.serve',
             {'document_root': settings.STATIC_DOC_ROOT}),
+            
+    # gaeunit unit test framework
+#    (r'test/run', 'django_json_test_runner'),
+#    (r'test.*', 'django_test_runner'),
+    (r'^test', include('gaeunit.urls')),
+    
 )
