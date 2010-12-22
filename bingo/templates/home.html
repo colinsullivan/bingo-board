@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Bingo!
+{% endblock %}
+
+
+{% block content %}
+
+    {% if message %}
+        <div id="home_message" class="home_message">
+            {{ message }}
+        </div>
+    {% endif %}
+
+
+{% endblock %}
+    

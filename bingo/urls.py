@@ -15,16 +15,20 @@ handler500 = 'djangotoolbox.errorviews.server_error'
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Initially, just show index page
-    ('^$', 'views.home'),
+    # Initially, just show index page (where user can login and such)
+    (r'^$', 'views.index'),
+    
+    # After logging in, user will see their home
+    (r'^home/$', 'views.home'),
     
     (r'^admin/', include(admin.site.urls)),
     
     ###
     #   user login/logout/register
     ###
-    ('^register/$', 'views.register'),
-    ('^login/$', 'views.login'),
+    (r'^register/$', 'views.register'),
+    (r'^login/$', 'views.login'),
+    (r'^logout/$', 'django.contrib.auth.views.logout_then_login'),
     
     
     # Static files
@@ -34,7 +38,7 @@ urlpatterns = patterns('',
     # gaeunit unit test framework
 #    (r'test/run', 'django_json_test_runner'),
 #    (r'test.*', 'django_test_runner'),
-    (r'^test', include('gaeunit.urls')),
+    (r'^test/', include('gaeunit.urls')),
     
     # REST
     (r'^api/', include(api1.urls)),

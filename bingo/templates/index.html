@@ -8,30 +8,21 @@ Bingo!
 
 
 {% block content %}
-    {% if user.is_authenticated %}
+    {% include 'partials/index_header.html' %}
 
-        authenticated!
-
-    {% else %}
-
-
-        {% include 'partials/index_header.html' %}
-
-        {% if message %}
-            <div id="index_message" class="index_message">
-                {{ message }}
-            </div>
-        {% endif %}
-
-
-        <div id="index_login_register">        
-    
-            {% include 'partials/register_pane.html' %}
-    
-            {% include 'partials/login_pane.html' %}
-            
+    {% if message %}
+        <div id="index_message" class="index_message">
+            {{ message }}
         </div>
-        
     {% endif %}
+
+
+    <div id="index_login_register">        
+
+        {% include 'partials/register_pane.html' %}
+
+        {% include 'partials/login_pane.html' %}
+        
+    </div>
 {% endblock %}
     

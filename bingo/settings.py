@@ -43,6 +43,11 @@ STATIC_DOC_ROOT = os.path.join(BASE_DIR, 'static')
 TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates'),)
 
 ROOT_URLCONF = 'urls'
+APPEND_SLASH = True
+
+LOGIN_REDIRECT_URL = '/home/'
+LOGIN_URL = '/login/'
+LOGOUT_URL = '/logout/'
 
 SITE_ID = 1
 
