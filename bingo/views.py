@@ -29,6 +29,7 @@ def index(request):
     return render_to_response('index.html', {
         'registerForm': registerForm, 
         'loginForm': loginForm, 
+        'page': 'index', 
     }, context_instance = RequestContext(request))
     
 
@@ -41,6 +42,8 @@ def home(request):
     
     return render_to_response('home.html', {
         'message': 'Hello, '+user.email, 
+        'page': 'home',
+        'data': {}
     }, context_instance = RequestContext(request))
     
     
