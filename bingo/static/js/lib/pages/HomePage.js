@@ -93,9 +93,12 @@ bingo.pages.HomePage = bingo.pages.Page.extend({
     addBoard: function() {
         console.log('addBoard');
         
+        var name = 'something';
         
         /* Create a new board object */
-        var board = new bingo.models.Board().save(null, {
+        var board = new bingo.models.Board().save({
+            name: name, 
+        }, {
             success: function(me) {
                 return function(model, response) {
                     console.log('model.toJSON():');

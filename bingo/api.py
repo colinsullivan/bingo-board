@@ -80,6 +80,7 @@ class MarkerResource(MyResource):
 #   Retrieves/modifies all boards on the UI
 ###
 class BoardResource(MyResource):
+    name = fields.CharField()
     
     class Meta:
         queryset = Board.objects.all()

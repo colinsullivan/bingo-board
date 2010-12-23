@@ -29,6 +29,13 @@ bingo.pages.Page = Backbone.View.extend({
         }
         this.userdata = userdata;
         
+        /* Any text fields that are class autoclear should be autocleared */
+        $('input.autoclear').each(function() {
+            var field = new AutoClearField({
+                inputElement: $(this), 
+            });
+        });
+        
         
         _.bindAll(this, "render");
     },

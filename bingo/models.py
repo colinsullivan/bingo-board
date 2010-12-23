@@ -11,6 +11,9 @@ from django.dispatch import receiver
 class Board(models.Model):
     # The user that created this board
     user = models.ForeignKey(User)
+    # The name that the user gives this board.  Can be anything, but must not be 
+    # blank.
+    name = models.CharField(max_length = 128)
     
     ###
     #   When board is created, we will create all of our marker objects.

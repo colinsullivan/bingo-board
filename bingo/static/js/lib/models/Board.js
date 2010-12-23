@@ -23,6 +23,16 @@ bingo.models.Board = Backbone.Model.extend({
         }
         return url;
     }, 
+    validate: function(attrs) {
+        var name = attrs.name;
+        if(!name || typeof(name) == 'undefined') {
+            throw new Error('Name must be defined for a Bingo object.');
+        }
+        
+        if(name == '') {
+            throw new Error('Please enter a name for this Bingo object.');
+        }
+    }, 
 });
 
 
