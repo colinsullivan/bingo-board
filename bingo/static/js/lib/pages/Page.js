@@ -17,7 +17,7 @@ bingo.pages.Page = Backbone.View.extend({
         var params = this.options;
         
         /* Create new modal alert box object for alerting the user */
-        this.notifier = new Notifier({});
+        this.notifier = new ModalNotifier({});
 
         /* A boolean in case we have lost connection to the server */
         this.CONNECTION_ERROR = false;
@@ -28,6 +28,18 @@ bingo.pages.Page = Backbone.View.extend({
             throw new Error('params.userdata is undefined');
         }
         this.userdata = userdata;
+        
+        /* The div to display messages to the user in */
+        var messagesContainer = $('#page_message');
+        if(typeof(messagesContainer) == 'undefined') {
+            throw new Error('messagesContainer is undefined');
+        }
+        else if(messagesContainer.length == 0) {
+            throw new Error('messagesContainer not found');
+        }
+        this.messagesContainer = messagesContainer;
+
+        
         
         /* Any text fields that are class autoclear should be autocleared */
         $('input.autoclear').each(function() {
@@ -43,5 +55,17 @@ bingo.pages.Page = Backbone.View.extend({
         Backbone.View.prototype.render.call(this);
         
         return this;
-    }
+    },
+    /**
+     *  Should be called when user is to be notified of something.
+     *
+     *  @param  {String}    message    The message to display to the user
+     **/
+    notify: function(message) {
+        if(typeof(message) != 'string' || message == '') {
+            throw new Error('Message must be a valid string');
+        }
+        
+        this.messagesContainer.html(message);
+    }, 
 });

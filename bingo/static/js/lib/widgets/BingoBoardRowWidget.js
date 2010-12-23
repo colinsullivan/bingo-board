@@ -52,6 +52,7 @@ bingo.widgets.BingoBoardRowWidget = bingo.widgets.Widget.extend({
                 return function(model, response) {
                     /* Delete from page's collection */
                     me.page.boards.remove(model);
+                    me.page.notify('Board was deleted successfully.');
                 };
             }(this), 
         })

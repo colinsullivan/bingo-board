@@ -1,5 +1,5 @@
 /**
- *  @file       Notifier.js
+ *  @file       ModalNotifier.js
  *  @author     Colin Sullivan <colinsul [at] gmail.com>
  **/ 
 
@@ -11,13 +11,13 @@
  *  be a singleton object, i.e. only one should be instantiated.
  *	@class
  **/
-function Notifier(params) {
+function ModalNotifier(params) {
     if(params) {
         this.init(params);
     }
 }
 
-Notifier.prototype.init = function(params) {
+ModalNotifier.prototype.init = function(params) {
     
     this.modalAlertObject = new ConfirmModalAlert(params);
 }
@@ -32,7 +32,7 @@ Notifier.prototype.init = function(params) {
  *                                              url: instead of content, the url
  *                                          }
  **/
-Notifier.prototype.alert = function(params) {
+ModalNotifier.prototype.alert = function(params) {
     var contentOrUrl = this.validateParams(params);
     if(contentOrUrl == 'content') {
         this.modalAlertObject.displayContent(params);
@@ -55,7 +55,7 @@ Notifier.prototype.alert = function(params) {
  *                                                  execute when user cancels.
  *                                          }
  **/
-Notifier.prototype.confirm = function(params) {
+ModalNotifier.prototype.confirm = function(params) {
     var contentOrUrl = this.validateParams(params);
     
     if(contentOrUrl == 'content') {
@@ -72,7 +72,7 @@ Notifier.prototype.confirm = function(params) {
  *
  *  @param  params        Object 
  **/
-Notifier.prototype.validateParams = function(params) {
+ModalNotifier.prototype.validateParams = function(params) {
     
     
     /* If there is no cancelCallback, use empty function */
