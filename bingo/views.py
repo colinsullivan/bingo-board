@@ -10,6 +10,8 @@ from django.core.context_processors import csrf
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as auth_login
 
+from bingo.api import *
+
 
 
 ###
@@ -40,10 +42,16 @@ def index(request):
 def home(request):
     user = request.user
     
+    userBoards = UserBoardResource()
+    userBoardsSerialized = userBoards.as_dict(request)
+    
+    
     return render_to_response('home.html', {
         'message': 'Hello, '+user.email, 
         'page': 'home',
-        'data': {}
+        'data': simplejson.dumps({
+            'boards': userBoardsSerialized, 
+        })
     }, context_instance = RequestContext(request))
     
     

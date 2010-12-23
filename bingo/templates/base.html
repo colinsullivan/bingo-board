@@ -69,10 +69,12 @@
       
       <script>
         bingo.init.initialize({
-            page: '{{page}}'
-            {% if data %}
-                ,data: {{data}} 
-            {% endif %}
+            {% autoescape off %}
+                page: '{{page}}'
+                {% if data %}
+                    ,data: {{data}} 
+                {% endif %}
+            {% endautoescape %}
         });
       </script>
   </body>

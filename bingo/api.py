@@ -117,6 +117,27 @@ class BoardResource(MyResource):
         
         return bundle
         
+###
+#   Retrieves only boards that the current user created
+###
+class UserBoardResource(BoardResource):
+    
+    class Meta:
+        queryset = Board.objects.all()
+                
+        authentication = BasicAuthentication()
+        authorization = BoardAuthorization()
         
+        allowed_methods = ['get']
+
+    def apply_authorization_limits(self, request, object_list):
+        user = request.user
+        
+        method = request.META['REQUEST_METHOD']
+        
+        # only get is needed
+        object_list = super(BoardResource, self).apply_authorization_limits(request, user.board_set.all())
+        
+        return object_list
         
     
