@@ -1,9 +1,13 @@
 /**
  *  @file       ConfirmModalAlert.js
- *  A subclass of ModalAlert, when a confirmation is needed.
  *  @author     Colin Sullivan <colinsul [at] gmail.com>
+ **/ 
+
+
+/**
+ *  A subclass of ModalAlert, when a confirmation is needed.
+ *	@class
  **/
- 
 function ConfirmModalAlert(params) {
     if(params) {
         this.init(params);
@@ -65,9 +69,14 @@ ConfirmModalAlert.prototype.initButtons = function() {
  *  Same as parent's loadAndDisplay, except with a confirm button.
  **/
 ConfirmModalAlert.prototype.loadAndDisplayContentWithConfirm = function(params) {
-    ModalAlert.prototype.loadAndDisplayContent.call(this, params);
+    params.callback = function(me, params) {
+        return function(data) {
+            params.content = data;
+            me.displayContentWithConfirm(params)
+        }
+    }(this, params);
     
-    this.displayContentWithConfirm(params)
+    ModalAlert.prototype.loadAndDisplayContent.call(this, params);
 }
 
 
@@ -98,6 +107,8 @@ ConfirmModalAlert.prototype.displayContent = function(params) {
  *  @param  params        Object  {
  *                          cancelText: The string to place in the cancel button
  *                          confirmText: The string for the OK button.
+ *                          confirmCallback: The function to call when user confirms
+ *                          cancelCallback: the function to call when user cancels
  *                          ...see ModalAlert.prototype.displayContent
  *                      }
  **/

@@ -9,7 +9,7 @@
  *  of the field element is used as the default text.
  *  @class
  **/
-function AutoClearField(params) {
+bingo.helpers.AutoClearField = function(params) {
     if(params) {
         this.init(params);
     }
@@ -20,7 +20,7 @@ function AutoClearField(params) {
  *  will be watching for changes.
  *  @constructor
  **/
-AutoClearField.prototype.init = function(params) {
+bingo.helpers.AutoClearField.prototype.init = function(params) {
     
     
     var inputElement = params.inputElement;
@@ -54,7 +54,7 @@ AutoClearField.prototype.init = function(params) {
 /**
  *  This is called when the input element is focused.
  **/
-AutoClearField.prototype.focus = function() {
+bingo.helpers.AutoClearField.prototype.focus = function() {
     var inputElement = this.inputElement;
     var defaultValue = this.defaultValue;
     
@@ -68,7 +68,7 @@ AutoClearField.prototype.focus = function() {
 /**
  *  This is called when the input element is blurred.
  **/
-AutoClearField.prototype.blur = function() {
+bingo.helpers.AutoClearField.prototype.blur = function() {
     var inputElement = this.inputElement;
     var defaultValue = this.defaultValue;
     

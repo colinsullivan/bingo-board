@@ -17,7 +17,7 @@ bingo.pages.Page = Backbone.View.extend({
         var params = this.options;
         
         /* Create new modal alert box object for alerting the user */
-        this.notifier = new ConfirmModalAlert({});
+        this.notifier = new Notifier({});
 
         /* A boolean in case we have lost connection to the server */
         this.CONNECTION_ERROR = false;
@@ -31,7 +31,7 @@ bingo.pages.Page = Backbone.View.extend({
         
         /* Any text fields that are class autoclear should be autocleared */
         $('input.autoclear').each(function() {
-            var field = new AutoClearField({
+            var field = new bingo.helpers.AutoClearField({
                 inputElement: $(this), 
             });
         });

@@ -52,8 +52,12 @@ bingo.pages.HomePage = bingo.pages.Page.extend({
         }
         this.boardRowTemplate = boardRowTemplate;
         
+        /* Input element for board name */
+        var addBoardNameInputElement = $('input#add_board_input');
+        this.addBoardNameInputElement = addBoardNameInputElement;
+        
         /* When add board button is clicked, we will be adding a bingo board */
-        var addBoardButton = $('button#add_board');
+        var addBoardButton = $('button#add_board_button');
         addBoardButton.bind('click', function(me){
             return function() {
                 me.addBoard();
@@ -77,13 +81,18 @@ bingo.pages.HomePage = bingo.pages.Page.extend({
         var frag = document.createDocumentFragment();
         frag.appendChild(this.boardTableHeader.get(0));
         
-        
         /* Build collection table */
-        this.boards.each(function(frag, template){
+        this.boards.each(function(frag, template, BingoBoardRowWidget, page){
             return function(board){
-                frag.appendChild(template.tmpl(board.toJSON()).get(0));
+                var widget = new BingoBoardRowWidget({
+                    template: template, 
+                    model: board,
+                    page: page, 
+                }).render();
+                
+                frag.appendChild(widget.el);
             };
-        }(frag, this.boardRowTemplate));
+        }(frag, this.boardRowTemplate, bingo.widgets.BingoBoardRowWidget, this));
         
         this.boardTable.html(frag);
         
@@ -93,7 +102,7 @@ bingo.pages.HomePage = bingo.pages.Page.extend({
     addBoard: function() {
         console.log('addBoard');
         
-        var name = 'something';
+        var name = this.addBoardNameInputElement.attr('value');
         
         /* Create a new board object */
         var board = new bingo.models.Board().save({

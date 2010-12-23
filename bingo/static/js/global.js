@@ -10,8 +10,12 @@ if(!bingo) {
          page: null,
          /* This will store the models */
          models: {},
+         /* This will store the widgets */
+         widgets: {}, 
          /* This will store the page objects */
          pages: {},
+         /* This will store some helpers */
+         helpers: {}, 
          /* some init functions */
          init: {}, 
      

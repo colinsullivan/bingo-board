@@ -1,13 +1,17 @@
 /**
  *  @file       ModalAlert.js
+ *  @author Colin Sullivan <colinsul [at] gmail.com>
+ **/ 
+
+
+/**
  *  A ModalAlert object is a "window" that pops up to alert the user.  Any content
  *  can be injected into this window.  The intent is for only one of these objects
  *  to be instantiated ever, but I suppose you could have multiple ModalAlert objects
  *  if you wanted to.
  *
- *  @author Colin Sullivan
+ *	@class
  **/
- 
 function ModalAlert(params) {
     if(params) {
         this.init(params);
@@ -43,7 +47,8 @@ ModalAlert.prototype.init = function(params) {
     var open = false; 
     this.open = open;
     
-    /* For right now, we can only use our HTML */
+    /* For right now, we can only use our HTML, but these should really be
+        passed in to make this code flexible */
     var pane = $('div#modal-overlay-pane');
     this.pane = pane;
     
@@ -163,12 +168,15 @@ ModalAlert.prototype.displayContent = function(params) {
  *                                  }
  **/
 ModalAlert.prototype.loadAndDisplayContent = function(params) {
-    var title = params.title;
-    params.callback = function(me, title) {
-        return function(data) {
-            me.displayContent({content: data, title: title, });
-        };
-    }(this, title);
+    /* If there was no callback, we are just displaying the content */
+    if(typeof(params.callback) == 'undefined') {
+        var title = params.title;
+        params.callback = function(me, title) {
+            return function(data) {
+                me.displayContent({content: data, title: title, });
+            };
+        }(this, title);        
+    }
     
     this.loadAndExecuteCallback(params)
 }
