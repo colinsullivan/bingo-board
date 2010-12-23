@@ -1,7 +1,17 @@
 {% extends 'partials/pane.html' %}
 
 
+{% block id %}boards_pane{% endblock %}
+
+
 {% block title %}<h2>Your Boards</h2>{% endblock %}
 
 {% block content %}
+
+<div id="board_list" class="table">
+    
+</div>
+
+<button id="add_board">Create a new board</button>
+
 {% endblock %}

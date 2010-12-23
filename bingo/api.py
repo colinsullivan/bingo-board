@@ -5,10 +5,33 @@ from tastypie import fields
 from tastypie.authorization import DjangoAuthorization, Authorization
 from tastypie.authentication import BasicAuthentication
 
+from django.utils import simplejson
+
 
 from bingo.models import *
 from django.contrib.auth.models import User
 
+
+###
+#   See if the user is the creator of the board.
+###
+class BoardAuthorization(Authorization):
+    def is_authorized(self, request, object=None):
+
+        # GET is always allowed
+        if request.method == 'GET':
+            return True
+
+        # user must be logged in to check permissions
+        # authentication backend must set request.user
+        if not hasattr(request, 'user'):
+            return False
+            
+        
+        if object:
+            return request.user == object.user
+        else:
+            return True
 
 ###
 #   This is soley to provide the to_dict function.  Once I figure out what a better
@@ -58,13 +81,11 @@ class MarkerResource(MyResource):
 ###
 class BoardResource(MyResource):
     
-    markers = fields.OneToManyField(MarkerResource, 'marker_set')
-    
     class Meta:
         queryset = Board.objects.all()
                 
         authentication = BasicAuthentication()
-        authorization = DjangoAuthorization()
+        authorization = BoardAuthorization()
         
     
     ###
@@ -80,6 +101,9 @@ class BoardResource(MyResource):
             # User must be the creator, so retrieve only the user's boards.
             object_list = super(BoardResource, self).apply_authorization_limits(request, user.board_set.all())
             
+        else:
+            object_list = super(BoardResource, self).apply_authorization_limits(request, Board.objects.all())
+            
         return object_list
         
     ###
@@ -92,6 +116,7 @@ class BoardResource(MyResource):
         bundle = super(BoardResource, self).obj_create(bundle, request, **kwargs)
         
         return bundle
+        
         
         
     

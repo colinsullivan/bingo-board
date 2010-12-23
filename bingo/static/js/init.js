@@ -56,7 +56,7 @@ bingo.init.initialize = function(params) {
     }(params));
 
     /* Load jQuery & fonts */
-    google.load('jquery', '1.4.4');
+    //google.load('jquery', '1.4.4');
     google.load('webfont', '1.0.12');
 }
 

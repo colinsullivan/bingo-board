@@ -26,5 +26,6 @@ bingo.models.Board = Backbone.Model.extend({
  **/
 bingo.models.BoardSet = Backbone.Collection.extend({
     model: bingo.models.Board, 
+    url: '/api/1/board/'
 });
  
