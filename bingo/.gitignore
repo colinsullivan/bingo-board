@@ -1,0 +1,9 @@
+*.pyc
+.DS_Store
+dateutil/
+dbindexer/
+django/
+djangoappengine/
+djangotoolbox/
+gaeunit/
+mimeparse.py
