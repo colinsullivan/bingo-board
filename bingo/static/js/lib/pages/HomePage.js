@@ -92,7 +92,20 @@ bingo.pages.HomePage = bingo.pages.Page.extend({
     
     addBoard: function() {
         console.log('addBoard');
+        
+        
         /* Create a new board object */
-        this.boards.create();
+        var board = new bingo.models.Board().save(null, {
+            success: function(me) {
+                return function(model, response) {
+                    console.log('model.toJSON():');
+                    console.log(model.toJSON());
+                    
+                    console.log('response:');
+                    console.log(response);
+                }
+            }(this), 
+            
+        });
     }
 });

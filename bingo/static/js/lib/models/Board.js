@@ -16,6 +16,13 @@ bingo.models.Board = Backbone.Model.extend({
      **/
     initialize: function() {
     },
+    url: function() {
+        var url = '/api/1/board/';
+        if(this.id) {
+            url += this.id+'/';
+        }
+        return url;
+    }, 
 });
 
 
