@@ -16,10 +16,41 @@ bingo.pages.HomePage = bingo.pages.Page.extend({
 
         var params = this.options;
         
+        var $ = jQuery;
+        
         /* We will have a set of bingo boards that we are the owner of */
         var boards = new bingo.models.BoardSet;
-
         this.boards = boards;
+        
+        /* This is a reference to the bingo board list */
+        var boardTable = $('#board_table');
+        if(typeof(boardTable) == 'undefined') {
+            throw new Error('boardTable is undefined');
+        }
+        else if(boardTable.length == 0) {
+            throw new Error('boardTable not found');
+        }
+        this.boardTable = boardTable;
+
+        /* This is the table header so we can keep it in there */
+        var boardTableHeader = $('#board_table_header');
+        if(typeof(boardTableHeader) == 'undefined') {
+            throw new Error('boardTableHeader is undefined');
+        }
+        else if(boardTableHeader.length == 0) {
+            throw new Error('boardTableHeader not found');
+        }
+        this.boardTableHeader = boardTableHeader;
+        
+        /* This is a template for each of the rows in the board table */
+        var boardRowTemplate = $('#board_row_template');
+        if(typeof(boardRowTemplate) == 'undefined') {
+            throw new Error('params.boardRowTemplate is undefined');
+        }
+        else if(boardRowTemplate.length == 0) {
+            throw new Error('boardRowTemplate not found');
+        }
+        this.boardRowTemplate = boardRowTemplate;
         
         /* When add board button is clicked, we will be adding a bingo board */
         var addBoardButton = $('button#add_board');
@@ -35,14 +66,26 @@ bingo.pages.HomePage = bingo.pages.Page.extend({
         boards.bind('add', this.render);
         boards.bind('remove', this.render);
         
+        boards.refresh(this.userdata.boards);
+        
     },
     /* re-render list of boards */
     render: function() {
         bingo.pages.Page.prototype.render.call(this);
         
-        console.log('Rendering:');
-        console.log('this.boards:');
-        console.log(this.boards);
+        /* Copy table header, and put in fragment */
+        var frag = document.createDocumentFragment();
+        frag.appendChild(this.boardTableHeader.get(0));
+        
+        
+        /* Build collection table */
+        this.boards.each(function(frag, template){
+            return function(board){
+                frag.appendChild(template.tmpl(board.toJSON()).get(0));
+            };
+        }(frag, this.boardRowTemplate));
+        
+        this.boardTable.html(frag);
         
         return this;
     },

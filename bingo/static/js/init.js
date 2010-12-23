@@ -21,8 +21,8 @@ bingo.init.initializePage = function(params) {
     };
 
     bingo.page = new pageInitializer[params.page]({
-        data: params.data
-    });
+        userdata: params.userdata
+    }).render();
     
 }
  
@@ -37,7 +37,7 @@ bingo.init.initialize = function(params) {
             $(document).ready(function(params) {
                 return function(){
                     var completeCallback = function() {
-                        bingo.page = bingo.init.initializePage(params);
+                        bingo.init.initializePage(params);
                     }
                     WebFont.load({
                         google: {

@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+{% load verbatim %}
 
 {% block title %}
 Bingo!
@@ -21,6 +22,23 @@ Bingo!
     {% include 'partials/boards_pane.html' %}
     
     
+    <script id="board_row_template" type="text/x-jquery-tmpl">
+        {% verbatim %}
+        <div class="table-row">
+            <div class="table-cell">
+                ${id}
+            </div>
+            <div class="table-cell">
+                <a href="/view/${id}">
+                    http://{% endverbatim %}{{ domain }}{% verbatim %}/view/${id}
+                </a>
+            </div>
+            <div class="table-cell">
+                <button class="delete_board">Delete</button>
+            </div>
+        </div>
+        {% endverbatim %}
+    </script>
 
 {% endblock %}
     

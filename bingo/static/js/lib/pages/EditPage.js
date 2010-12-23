@@ -8,16 +8,22 @@
 /**
  *  The functionality associated with the edit bingo board page.
  *  @class
+ *  @extends    bingo.pages.Page
  **/
-bingo.pages.EditPage = function(params) {
-    if(params) {
-        this.init(params);
+bingo.pages.EditPage = bingo.pages.Page.extend({
+    
+    initialize: function() {
+        bingo.pages.Page.prototype.initialize.call(this);
+
+        var params = this.options;
+        
+        
+
+        _.bindAll(this, "render");
+    },
+    render: function() {
+        bingo.pages.Page.prototype.render.call(this);
+        
+        return this;
     }
-};
-bingo.pages.EditPage.prototype = new bingo.pages.Page();
-
-bingo.pages.EditPage.prototype.init = function(params) {
-    bingo.pages.Page.prototype.init.call(this, params);
-
-    console.log('Edit page initialized.');
-};
+});

@@ -7,16 +7,22 @@
 /**
  *  The functionality associated with viewing a bingo board.
  *  @class
+ *  @extends    bingo.pages.Page
  **/
-bingo.pages.ViewPage = function(params) {
-    if(params) {
-        this.init(params);
+bingo.pages.ViewPage = bingo.pages.Page.extend({
+    
+    initialize: function() {
+        bingo.pages.Page.prototype.initialize.call(this);
+
+        var params = this.options;
+        
+        
+
+        _.bindAll(this, "render");
+    },
+    render: function() {
+        bingo.pages.Page.prototype.render.call(this);
+        
+        return this;
     }
-};
-bingo.pages.ViewPage.prototype = new bingo.pages.Page();
-
-bingo.pages.ViewPage.prototype.init = function(params) {
-    bingo.pages.Page.prototype.init.call(this, params);
-
-    console.log('View Page initialized.');
-};
+});

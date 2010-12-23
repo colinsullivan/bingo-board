@@ -51,7 +51,8 @@ def home(request):
         'page': 'home',
         'data': simplejson.dumps({
             'boards': userBoardsSerialized, 
-        })
+        }),
+        'domain': request.META['HTTP_HOST'],
     }, context_instance = RequestContext(request))
     
     

@@ -645,3 +645,16 @@ button.text-button {
 button.cross {
     background-image: url('../images/cross.png');
 }
+
+/**
+ *  div-tables
+ **/
+.table {
+    display: table;
+}
+.table-row {
+    display: table-row;
+}
+.table-cell {
+    display: table-cell;
+}

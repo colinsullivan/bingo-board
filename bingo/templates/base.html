@@ -8,6 +8,7 @@
     {# Vendor #}
     <script src="http://www.google.com/jsapi"></script>
     <script src="/static/js/lib/vendor/jquery-1.4.4.min.js"></script>
+    <script src="/static/js/lib/vendor/jquery.tmpl.min.js"></script>
     <script src="/static/js/lib/vendor/underscore-min.js"></script>
     <script src="/static/js/lib/vendor/backbone.js"></script>
 
@@ -70,9 +71,11 @@
       <script>
         bingo.init.initialize({
             {% autoescape off %}
-                page: '{{page}}'
+                page: '{{page}}',
                 {% if data %}
-                    ,data: {{data}} 
+                    userdata: {{data}} 
+                {% else %}
+                    userdata: {}
                 {% endif %}
             {% endautoescape %}
         });

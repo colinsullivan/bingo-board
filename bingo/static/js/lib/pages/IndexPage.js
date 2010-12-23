@@ -5,22 +5,26 @@
  **/
  
 /**
- *  The page that the user uses to register and login.
+ *  The page that the user uses to register and login.  Doesn't deal with any 
+ *  backbone data, and thus doesn't really need to be a backbone view but 
+ *  whatever.
  *  @class
+ *  @extends    bingo.pages.Page
  **/
-bingo.pages.IndexPage = function(params) {
-    if(params) {
-        this.init(params);
-    }
-};
-bingo.pages.IndexPage.prototype = new bingo.pages.Page();
-
-/**
- *  @constructor
- **/
-bingo.pages.IndexPage.prototype.init = function(params) {
-    bingo.pages.Page.prototype.init.call(this, params);
-
-    console.log('Index page initialized');
+bingo.pages.IndexPage = bingo.pages.Page.extend({
     
-};
+    initialize: function() {
+        bingo.pages.Page.prototype.initialize.call(this);
+
+        var params = this.options;
+        
+        
+
+        _.bindAll(this, "render");
+    },
+    render: function() {
+        bingo.pages.Page.prototype.render.call(this);
+        
+        return this;
+    }
+});
