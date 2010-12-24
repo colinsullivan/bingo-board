@@ -148,11 +148,13 @@ class UserBoardResource(BoardResource):
         return object_list
         
 
-        
+###
+#   A bingo marker.
+###
 class MarkerResource(MyResource):
     number = fields.IntegerField()
     value = fields.BooleanField(default=False)
-    board = fields.ForeignKey(BoardResource, 'board', full=True)
+    board = fields.ForeignKey(BoardResource, 'board')
 
 
     class Meta:
@@ -164,12 +166,13 @@ class MarkerResource(MyResource):
 
         authentication = BasicAuthentication()
         authorization = DjangoAuthorization()
-            
+
+"""
     def full_dehydrate(self, obj):
-        """
+
         Given an object instance, extract the information from it to populate
         the resource.
-        """
+
         bundle = Bundle(obj=obj)
 
 #        raise Exception('self.fields.items: '+str(self.fields.items()))
@@ -190,4 +193,4 @@ class MarkerResource(MyResource):
 
         bundle = self.dehydrate(bundle)
         return bundle
-
+"""            

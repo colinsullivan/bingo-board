@@ -77,6 +77,26 @@ def view_board(request, board_id):
         })
     }, context_instance = RequestContext(request))
     
+
+###
+#   This is the page that the user can use to call numbers on a bingo board.
+###
+def edit_board(request, board_id):
+    
+    board = Board.objects.get(pk = board_id)
+    
+    boardMarkersSerialized = {}
+    boardSerialized = {}
+    
+    return render_to_response('edit.html', {
+        'boardName': board.name,
+        'page': 'edit',
+        'data': simplejson.dumps({
+            'markers': boardMarkersSerialized,
+            'board': boardSerialized            
+        })
+    }, context_instance = RequestContext(request))
+
     
 ###
 #   This is an basic controller that allows a user to create a new account.

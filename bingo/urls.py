@@ -34,6 +34,9 @@ urlpatterns = patterns('',
     # View bingo board
     (r'^view/(?P<board_id>\d+)/$', 'views.view_board'),
     
+    # Call numbers on bingo board
+    (r'edit/(?P<board_id>\d+)/$', 'views.edit_board'),
+    
     
     # Static files
     (r'^static/(?P<path>.*)$', 'django.views.static.serve',
