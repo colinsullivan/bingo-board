@@ -1,0 +1,49 @@
+Downloading/unpacking dateutil
+  Getting page http://pypi.python.org/simple/dateutil
+  Could not fetch URL http://pypi.python.org/simple/dateutil: HTTP Error 404: Not Found (dateutil does not have any releases)
+  Will skip URL http://pypi.python.org/simple/dateutil when looking for download links for dateutil
+  Getting page http://pypi.python.org/simple/
+  Real name of requirement dateutil is dateutil
+  URLs to search for versions for dateutil:
+  * http://pypi.python.org/simple/dateutil/
+  Getting page http://pypi.python.org/simple/dateutil/
+  Could not fetch URL http://pypi.python.org/simple/dateutil/: HTTP Error 404: Not Found (dateutil does not have any releases)
+  Will skip URL http://pypi.python.org/simple/dateutil/ when looking for download links for dateutil
+  Could not find any downloads that satisfy the requirement dateutil
+No distributions at all found for dateutil
+Exception information:
+Traceback (most recent call last):
+  File "/home/joshbohde/.virtualenvs/bingo/lib/python2.6/site-packages/pip-0.6.3-py2.6.egg/pip/basecommand.py", line 115, in main
+    self.run(options, args)
+  File "/home/joshbohde/.virtualenvs/bingo/lib/python2.6/site-packages/pip-0.6.3-py2.6.egg/pip/commands/install.py", line 155, in run
+    requirement_set.install_files(finder, force_root_egg_info=self.bundle, bundle=self.bundle)
+  File "/home/joshbohde/.virtualenvs/bingo/lib/python2.6/site-packages/pip-0.6.3-py2.6.egg/pip/req.py", line 823, in install_files
+    url = finder.find_requirement(req_to_install, upgrade=self.upgrade)
+  File "/home/joshbohde/.virtualenvs/bingo/lib/python2.6/site-packages/pip-0.6.3-py2.6.egg/pip/index.py", line 117, in find_requirement
+    raise DistributionNotFound('No distributions at all found for %s' % req)
+DistributionNotFound: No distributions at all found for dateutil
+------------------------------------------------------------
+/home/joshbohde/.virtualenvs/bingo/bin/pip run on Fri Dec 24 13:30:14 2010
+Downloading/unpacking date-util
+  Getting page http://pypi.python.org/simple/date_util
+  Could not fetch URL http://pypi.python.org/simple/date_util: HTTP Error 404: Not Found (date_util does not have any releases)
+  Will skip URL http://pypi.python.org/simple/date_util when looking for download links for date-util
+  Getting page http://pypi.python.org/simple/
+  URLs to search for versions for date-util:
+  * http://pypi.python.org/simple/date_util/
+  Getting page http://pypi.python.org/simple/date_util/
+  Could not fetch URL http://pypi.python.org/simple/date_util/: HTTP Error 404: Not Found (date_util does not have any releases)
+  Will skip URL http://pypi.python.org/simple/date_util/ when looking for download links for date-util
+  Could not find any downloads that satisfy the requirement date-util
+No distributions at all found for date-util
+Exception information:
+Traceback (most recent call last):
+  File "/home/joshbohde/.virtualenvs/bingo/lib/python2.6/site-packages/pip-0.6.3-py2.6.egg/pip/basecommand.py", line 115, in main
+    self.run(options, args)
+  File "/home/joshbohde/.virtualenvs/bingo/lib/python2.6/site-packages/pip-0.6.3-py2.6.egg/pip/commands/install.py", line 155, in run
+    requirement_set.install_files(finder, force_root_egg_info=self.bundle, bundle=self.bundle)
+  File "/home/joshbohde/.virtualenvs/bingo/lib/python2.6/site-packages/pip-0.6.3-py2.6.egg/pip/req.py", line 823, in install_files
+    url = finder.find_requirement(req_to_install, upgrade=self.upgrade)
+  File "/home/joshbohde/.virtualenvs/bingo/lib/python2.6/site-packages/pip-0.6.3-py2.6.egg/pip/index.py", line 117, in find_requirement
+    raise DistributionNotFound('No distributions at all found for %s' % req)
+DistributionNotFound: No distributions at all found for date-util
