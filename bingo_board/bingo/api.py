@@ -86,7 +86,7 @@ class MyResource(ModelResource):
 #   Retrieves/modifies all boards on the UI
 ###
 class BoardResource(MyResource):
-    name = fields.CharField()
+    name = fields.CharField('name')
     
     class Meta:
         queryset = Board.objects.all()
