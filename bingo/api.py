@@ -1,6 +1,7 @@
 from tastypie.resources import ModelResource
 from tastypie import fields
 
+from tastypie.constants import ALL_WITH_RELATIONS
 
 from tastypie.authorization import DjangoAuthorization, Authorization
 from tastypie.authentication import Authentication, BasicAuthentication
@@ -9,6 +10,8 @@ from django.http import HttpResponse
 from tastypie.utils import is_valid_jsonp_callback_value, dict_strip_unicode_keys, trailing_slash
 from tastypie.http import *
 
+from tastypie.bundle import Bundle
+from tastypie.fields import RelatedField
 
 from django.utils import simplejson
 
@@ -65,25 +68,18 @@ class MyResource(ModelResource):
     #   just the uri to it.
     ###
     def post_list(self, request, **kwargs):
-        response = super(MyResource, self).post_list(request, **kwargs)
-        response['content_type'] = 'application/json'
-        # self.as_dict returns all the objects, we just want one
-        response.write(simplejson.dumps(self.as_dict(request)))
-        
-        return response
-
-class MarkerResource(MyResource):
-    number = fields.IntegerField()
-    value = fields.BooleanField(default=False)
-    board = fields.ForeignKey('BoardResource', 'board')
-    
-    
-    class Meta:
-        queryset = Marker.objects.all()
-        
-        authentication = BasicAuthentication()
-        authorization = DjangoAuthorization()
-        
+       deserialized = self.deserialize(request,
+                                       request.raw_post_data,
+                                       format=request.META.get('CONTENT_TYPE',
+                                                               'application/json'))
+       bundle = self.build_bundle(data=dict_strip_unicode_keys(deserialized))
+       self.is_valid(bundle, request)
+       updated_bundle = self.obj_create(bundle, request=request)
+       resp = self.create_response(request,
+                                   self.full_dehydrate(updated_bundle.obj))
+       resp['location'] = self.get_resource_uri(updated_bundle)
+       resp.code = 201
+       return resp                              
 
 
 ###
@@ -128,23 +124,6 @@ class BoardResource(MyResource):
         
         return bundle
         
-    ###
-    #   Override this so when an object is created, we can return the single
-    #   object instead of the entire set.
-    ###
-    def post_list(self, request, **kwargs):
-           deserialized = self.deserialize(request,
-                                           request.raw_post_data,
-                                           format=request.META.get('CONTENT_TYPE',
-                                                                   'application/json'))
-           bundle = self.build_bundle(data=dict_strip_unicode_keys(deserialized))
-           self.is_valid(bundle, request)
-           updated_bundle = self.obj_create(bundle, request=request)
-           resp = self.create_response(request,
-                                       self.full_dehydrate(updated_bundle.obj))
-           resp['location'] = self.get_resource_uri(updated_bundle)
-           resp.code = 201
-           return resp                              
 ###
 #   Retrieves only boards that the current user created
 ###
@@ -170,4 +149,45 @@ class UserBoardResource(BoardResource):
         
 
         
-    
+class MarkerResource(MyResource):
+    number = fields.IntegerField()
+    value = fields.BooleanField(default=False)
+    board = fields.ForeignKey(BoardResource, 'board', full=True)
+
+
+    class Meta:
+        queryset = Marker.objects.all()
+
+        filtering = {
+            'board': ALL_WITH_RELATIONS, 
+        }
+
+        authentication = BasicAuthentication()
+        authorization = DjangoAuthorization()
+            
+    def full_dehydrate(self, obj):
+        """
+        Given an object instance, extract the information from it to populate
+        the resource.
+        """
+        bundle = Bundle(obj=obj)
+
+#        raise Exception('self.fields.items: '+str(self.fields.items()))
+        # Dehydrate each field.
+        for field_name, field_object in self.fields.items():
+            # A touch leaky but it makes URI resolution work.
+            if isinstance(field_object, RelatedField):
+                field_object.api_name = self._meta.api_name
+                field_object.resource_name = self._meta.resource_name
+
+            bundle.data[field_name] = field_object.dehydrate(bundle)
+
+            # Check for an optional method to do further dehydration.
+            method = getattr(self, "dehydrate_%s" % field_name, None)
+
+            if method:
+                bundle.data[field_name] = method(bundle)
+
+        bundle = self.dehydrate(bundle)
+        return bundle
+
