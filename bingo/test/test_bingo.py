@@ -33,6 +33,13 @@ class BingoTests(unittest.TestCase):
                 raise Exception('Marker '+str(marker.number)+' not allowed!')
                 
         self.assertEqual(len(allowedMarkers), 0, 'The following markers are missing: '+str(allowedMarkers))
+        
+    def testBoardDeletion(self):
+        # delete board
+        self.board.delete()
+        
+        self.assertEqual(len(self.markers), 0, 'Markers were not deleted with board.')
+        
                 
             
         

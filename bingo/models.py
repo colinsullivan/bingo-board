@@ -42,6 +42,16 @@ class Board(models.Model):
             for i in range(1,76):
                 marker = Marker.objects.create(number=i, board=self)
                 
+    ###
+    #   Delete all markers when board is deleted.
+    ###
+    def delete(self, using=None):
+        
+        ## Before deleting board, delete all markers
+        Marker.objects.filter(board = self).delete()
+        
+        super(Board, self).delete(using)
+                
     
 
 ###
