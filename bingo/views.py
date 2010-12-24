@@ -55,6 +55,28 @@ def home(request):
         'domain': request.META['HTTP_HOST'],
     }, context_instance = RequestContext(request))
     
+###
+#   This is the page that the user can use to view the current state of the bingo 
+#   board.
+###
+def view_board(request, board_id):
+    
+    board = Board.objects.get(pk = board_id)
+    
+    
+    boardMarkersSerialized = {}
+    
+    boardSerialized = {}
+    
+    return render_to_response('view.html', {
+        'boardName': board.name,
+        'page': 'view',
+        'data': simplejson.dumps({
+            'markers': boardMarkersSerialized,
+            'board': boardSerialized            
+        })
+    }, context_instance = RequestContext(request))
+    
     
 ###
 #   This is an basic controller that allows a user to create a new account.

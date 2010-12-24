@@ -30,6 +30,9 @@ urlpatterns = patterns('',
     (r'^login/$', 'views.login'),
     (r'^logout/$', 'django.contrib.auth.views.logout_then_login'),
     
+    # View bingo board
+    (r'^view/(?P<board_id>\d+)/$', 'views.view_board'),
+    
     
     # Static files
     (r'^static/(?P<path>.*)$', 'django.views.static.serve',

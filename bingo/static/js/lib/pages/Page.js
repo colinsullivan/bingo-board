@@ -38,6 +38,13 @@ bingo.pages.Page = Backbone.View.extend({
             throw new Error('messagesContainer not found');
         }
         this.messagesContainer = messagesContainer;
+        
+        /* The initial message to display to the user */
+        var initialMessage = params.message;
+        if(typeof(initialMessage) != 'undefined' && initialMessage != '') {
+            this.notify(initialMessage);
+        }
+        
 
         
         
