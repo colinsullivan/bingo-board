@@ -3,7 +3,7 @@ from tastypie import fields
 
 
 from tastypie.authorization import DjangoAuthorization, Authorization
-from tastypie.authentication import BasicAuthentication
+from tastypie.authentication import Authentication, BasicAuthentication
 
 from django.http import HttpResponse
 from tastypie.utils import is_valid_jsonp_callback_value, dict_strip_unicode_keys, trailing_slash
@@ -16,6 +16,11 @@ from django.utils import simplejson
 from bingo.models import *
 from django.contrib.auth.models import User
 
+
+class DjangoAuthentication(Authentication):
+    """Authenticate based upon Django session"""
+    def is_authenticated(self, request, **kwargs):
+        return request.user.is_authenticated()
 
 ###
 #   See if the user is the creator of the board.
@@ -34,7 +39,7 @@ class BoardAuthorization(Authorization):
             
         
         if object:
-            return request.user == object.user
+            return (request.user == object.user)
         else:
             return True
 
@@ -90,7 +95,7 @@ class BoardResource(MyResource):
     class Meta:
         queryset = Board.objects.all()
                 
-        authentication = BasicAuthentication()
+        authentication = DjangoAuthentication()
         authorization = BoardAuthorization()
         
     
@@ -148,7 +153,7 @@ class UserBoardResource(BoardResource):
     class Meta:
         queryset = Board.objects.all()
                 
-        authentication = BasicAuthentication()
+        authentication = DjangoAuthentication()
         authorization = BoardAuthorization()
         
         allowed_methods = ['get']
@@ -162,5 +167,7 @@ class UserBoardResource(BoardResource):
         object_list = super(BoardResource, self).apply_authorization_limits(request, user.board_set.all())
         
         return object_list
+        
+
         
     
