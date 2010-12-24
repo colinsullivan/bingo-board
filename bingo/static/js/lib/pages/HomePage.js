@@ -108,11 +108,8 @@ bingo.pages.HomePage = bingo.pages.Page.extend({
         }, {
             success: function(me) {
                 return function(model, response) {
-                    console.log('model.toJSON():');
-                    console.log(model.toJSON());
-                    
-                    console.log('response:');
-                    console.log(response);
+                    me.boards.add(model);
+                    me.notify('Board added successfully.');
                 }
             }(this), 
             
