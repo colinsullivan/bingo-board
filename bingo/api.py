@@ -5,6 +5,11 @@ from tastypie import fields
 from tastypie.authorization import DjangoAuthorization, Authorization
 from tastypie.authentication import BasicAuthentication
 
+from django.http import HttpResponse
+from tastypie.utils import is_valid_jsonp_callback_value, dict_strip_unicode_keys, trailing_slash
+from tastypie.http import *
+
+
 from django.utils import simplejson
 
 
@@ -118,6 +123,23 @@ class BoardResource(MyResource):
         
         return bundle
         
+    ###
+    #   Override this so when an object is created, we can return the single
+    #   object instead of the entire set.
+    ###
+    def post_list(self, request, **kwargs):
+           deserialized = self.deserialize(request,
+                                           request.raw_post_data,
+                                           format=request.META.get('CONTENT_TYPE',
+                                                                   'application/json'))
+           bundle = self.build_bundle(data=dict_strip_unicode_keys(deserialized))
+           self.is_valid(bundle, request)
+           updated_bundle = self.obj_create(bundle, request=request)
+           resp = self.create_response(request,
+                                       self.full_dehydrate(updated_bundle.obj))
+           resp['location'] = self.get_resource_uri(updated_bundle)
+           resp.code = 201
+           return resp                              
 ###
 #   Retrieves only boards that the current user created
 ###

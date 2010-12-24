@@ -100,8 +100,6 @@ bingo.pages.HomePage = bingo.pages.Page.extend({
     },
     
     addBoard: function() {
-        console.log('addBoard');
-        
         var name = this.addBoardNameInputElement.attr('value');
         
         /* Create a new board object */
