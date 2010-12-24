@@ -66,13 +66,15 @@ def view_board(request, board_id):
     
     boardMarkersSerialized = {}
     
-    boardSerialized = {}
+    boardResource = SingleBoardResource()
+    boardResource.set_board_id(board_id)
+    # TODO: Serialization should be fixed in API so this is a single object
+    boardSerialized = boardResource.as_dict(request)[0]
     
     return render_to_response('view.html', {
         'boardName': board.name,
         'page': 'view',
         'data': simplejson.dumps({
-            'markers': boardMarkersSerialized,
             'board': boardSerialized            
         })
     }, context_instance = RequestContext(request))

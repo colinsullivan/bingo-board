@@ -22,6 +22,7 @@ bingo.pages.ViewPage = bingo.pages.Page.extend({
         this.board = board;
         
         var markers = new bingo.models.MarkerSet;
+        markers.board = board;
         this.markers = markers;
 
         _.bindAll(this, 'render');
@@ -30,13 +31,15 @@ bingo.pages.ViewPage = bingo.pages.Page.extend({
         markers.bind('add', this.render);
         markers.bind('remove', this.render);
         
-        markers.refresh(this.userdata.markers);
-        
+        setInterval(function(me){
+            return function() {
+                me.markers.fetch();
+            };
+        }(this), 1000);
     },
     render: function() {
         bingo.pages.Page.prototype.render.call(this);
-        
-        console.log('rendering markers:');
+                
         console.log('this.markers.toJSON():');
         console.log(this.markers.toJSON());
         

@@ -49,5 +49,8 @@ bingo.models.Marker = Backbone.Model.extend({
  **/
 bingo.models.MarkerSet = Backbone.Collection.extend({
     model: bingo.models.Marker,
-    url: '/api/1/marker', 
+    url: function() {
+        var base = '/api/1/marker/?board=';
+        return base + this.board.id
+    }, 
 });

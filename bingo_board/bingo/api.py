@@ -147,17 +147,50 @@ class UserBoardResource(BoardResource):
         
         return object_list
         
+###
+#   Get a single board (most likely for serialization purposes).
+###
+class SingleBoardResource(BoardResource):
+    
+    class Meta:
+        queryset = Board.objects.all()
+
+        authentication = DjangoAuthentication()
+        authorization = BoardAuthorization()
+
+        allowed_methods = ['get']
+        
+        # The single board id
+        board_id = None
+        
+    ###
+    #   This must be called before the board is to be retrieved.
+    ###
+    def set_board_id(self, board_id):
+        self._meta.board_id = board_id
+        
+    
+    def apply_authorization_limits(self, request, object_list):
+        
+        board_id = self._meta.board_id
+        
+        if board_id:
+            return super(BoardResource, self).apply_authorization_limits(request, Board.objects.filter(pk = board_id))
+            
+        else:
+            raise Exception('board_id must be set')
 
 ###
 #   A bingo marker.
 ###
 class MarkerResource(MyResource):
-    number = fields.IntegerField()
-    value = fields.BooleanField(default=False)
+    number = fields.IntegerField('number')
+    value = fields.BooleanField('value', default=False)
     board = fields.ForeignKey(BoardResource, 'board')
 
 
     class Meta:
+        limit = 75
         queryset = Marker.objects.all()
 
         filtering = {
