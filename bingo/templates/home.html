@@ -6,18 +6,13 @@
 Bingo!
 {% endblock %}
 
-
-{% block content %}
-    
+{% block header %}
     <div id="home_header_container" class="pane pane_header corner-all">
         <h1 id="home_header">Bingo Board Setup</h1>
     </div>
-    
-    {% if message %}
-        <div id="page_message" class="page_message">
-            {{ message }}
-        </div>
-    {% endif %}
+{% endblock %}
+
+{% block content %}
 
     {% include 'partials/boards_pane.html' %}
     

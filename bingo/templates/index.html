@@ -6,15 +6,15 @@
 Bingo!
 {% endblock %}
 
+{% block header %}
+    {% include 'partials/index_header.html' %}
+{% endblock %}
+
 
 {% block content %}
-    {% include 'partials/index_header.html' %}
 
-    {% if message %}
-        <div id="index_message" class="index_message">
-            {{ message }}
-        </div>
-    {% endif %}
+    <div id="page_message" class="page_message">
+    </div>
 
 
     <div id="index_login_register">        

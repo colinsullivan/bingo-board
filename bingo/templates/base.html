@@ -71,7 +71,11 @@
           </div>
         </div>
       </div>
-      
+      {% block header %}{% endblock %}
+
+      <div id="page_message" class="page_message">
+      </div>
+
       {% block content %}{% endblock %}
       
       <script>
@@ -79,9 +83,14 @@
             {% autoescape off %}
                 page: '{{page}}',
                 {% if data %}
-                    userdata: {{data}} 
+                    userdata: {{data}},
                 {% else %}
-                    userdata: {}
+                    userdata: {},
+                {% endif %}
+                {% if message %}
+                    message: '{{message}}'
+                {% else %}
+                    message: ''
                 {% endif %}
             {% endautoescape %}
         });
