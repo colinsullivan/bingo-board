@@ -166,31 +166,3 @@ class MarkerResource(MyResource):
 
         authentication = BasicAuthentication()
         authorization = DjangoAuthorization()
-
-"""
-    def full_dehydrate(self, obj):
-
-        Given an object instance, extract the information from it to populate
-        the resource.
-
-        bundle = Bundle(obj=obj)
-
-#        raise Exception('self.fields.items: '+str(self.fields.items()))
-        # Dehydrate each field.
-        for field_name, field_object in self.fields.items():
-            # A touch leaky but it makes URI resolution work.
-            if isinstance(field_object, RelatedField):
-                field_object.api_name = self._meta.api_name
-                field_object.resource_name = self._meta.resource_name
-
-            bundle.data[field_name] = field_object.dehydrate(bundle)
-
-            # Check for an optional method to do further dehydration.
-            method = getattr(self, "dehydrate_%s" % field_name, None)
-
-            if method:
-                bundle.data[field_name] = method(bundle)
-
-        bundle = self.dehydrate(bundle)
-        return bundle
-"""            
