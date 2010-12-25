@@ -20,6 +20,7 @@ from bingo.models import *
 from django.contrib.auth.models import User
 
 
+
 class DjangoAuthentication(Authentication):
     """Authenticate based upon Django session"""
     def is_authenticated(self, request, **kwargs):
@@ -228,10 +229,3 @@ class MarkerResource(MyResource):
 
         authentication = DjangoAuthentication()
         authorization = MarkerAuthorization()
-
-    ###
-    #   Append Z to the end of the time field for JavaScript ISO8601 parsing.
-    ###
-    def dehydrate(self, bundle):
-        bundle.data['updated_at'] = str(bundle.data['updated_at'])+'Z'
-        return super(MarkerResource, self).dehydrate(bundle)

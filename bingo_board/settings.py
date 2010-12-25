@@ -50,6 +50,8 @@ LOGIN_REDIRECT_URL = '/home/'
 LOGIN_URL = '/login/'
 LOGOUT_URL = '/logout/'
 
+TASTYPIE_DATETIME_FORMATTING = 'rfc-2822'
+
 SITE_ID = 1
 
 # Activate django-dbindexer if available

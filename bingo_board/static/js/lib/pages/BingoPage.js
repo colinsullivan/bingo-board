@@ -33,9 +33,12 @@ bingo.pages.BingoPage = bingo.pages.Page.extend({
     },
     render: function() {
         bingo.pages.Page.prototype.render.call(this);
-
+        
+        /* TODO: Ask someone if this is cross-browser compatible and kosher */
+        var most_recent_call = new Date('0');
+        
         /* For each marker, create a marker widget */
-        this.markers.each(function(page, markerClass) {
+        this.markers.each(function(page, markerClass, most_recent_call) {
             return function(marker) {
                 /* This function must be implemented in subclasses. */
                 var widget = new markerClass({
@@ -43,8 +46,14 @@ bingo.pages.BingoPage = bingo.pages.Page.extend({
                     model: marker,
                     page: page
                 });
+                
+                var marker_updated_at = marker.get('updated_at');
+                if(marker_updated_at > most_recent_call) {
+                    most_recent_call = marker_updated_at;
+                    widget.setLastCalled();
+                }
             };
-        }(this, this.markerClass));
+        }(this, this.markerClass, most_recent_call));
         
         return this;
     },

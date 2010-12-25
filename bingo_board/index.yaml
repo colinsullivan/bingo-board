@@ -26,6 +26,12 @@ indexes:
   - name: __key__
     direction: desc
 
+- kind: bingo_marker
+  properties:
+  - name: board_id
+  - name: updated_at
+    direction: desc
+
 - kind: bingo_markerchangeevent
   properties:
   - name: board_id

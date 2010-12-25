@@ -23,11 +23,6 @@ bingo.widgets.BingoMarkerWidget = bingo.widgets.Widget.extend({
             this.disable();
         }
         
-        if(this.model.get('last_called')) {
-            console.log(this.model.get('number')+'was last called');
-            this.setLastCalled();
-        }
-        
         
         _.bindAll(this, "render");
     },

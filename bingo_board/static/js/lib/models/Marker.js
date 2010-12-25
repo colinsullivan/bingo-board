@@ -14,7 +14,15 @@ bingo.models.Marker = Backbone.Model.extend({
      *  @constructor
      **/
     initialize: function(){
-        
+        var updated_at = this.get('updated_at');
+        /*  If there is an updated_at attribute */
+        if(updated_at) {
+            var new_updated_at = new Date(updated_at);
+            /* Convert to date-time */
+            this.set({
+                'updated_at': new_updated_at
+            });
+        }
     }, 
     url: function() {
         var url = '/api/1/marker/';
@@ -37,8 +45,16 @@ bingo.models.Marker = Backbone.Model.extend({
         if(value && typeof(value) != 'boolean') {
             throw new Error('A marker\'s value attribute must be a boolean.');
         }
-        
     }, 
+    /**
+     *  Override save, so we don't end up sending the updated_at time to the server.
+     *  for now this will be handled on the backend.
+     **/
+    save: function(attributes, options){
+        this.unset('updated_at');
+        
+        return Backbone.Model.prototype.save.call(this, attributes, options);
+    },
 });
 
 /**
@@ -55,6 +71,6 @@ bingo.models.MarkerSet = Backbone.Collection.extend({
     fetch: function(){
         this.last_fetched_at = new Date();
         
-        Backbone.Collection.fetch.call(this);
+        return Backbone.Collection.prototype.fetch.call(this);
     }, 
 });
