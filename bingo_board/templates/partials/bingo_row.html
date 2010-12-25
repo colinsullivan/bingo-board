@@ -4,7 +4,7 @@
   </div>
   {% for i in number_range %}
     <div class="bingo_cell">
-      <div class="bingo_marker" id="bingo_marker-{{ i }}">{{ i }}</div>
+      <div class="bingo_marker{{ extra_marker_class }}" id="bingo_marker-{{ i }}">{{ i }}</div>
     </div>
   {% endfor %}
   <div class="bingo_cell letter_cell letter_cell_right">

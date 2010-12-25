@@ -8,11 +8,7 @@
 
 {% block content %}
     <div class="bingo_container">
-        {% bingo_row 'B' %}
-        {% bingo_row 'I' %}
-        {% bingo_row 'N' %}
-        {% bingo_row 'G' %}
-        {% bingo_row 'O' %}
+        {% block bingo_rows %}{% endblock %}
     </div>
     
     <div id="last_enabled">

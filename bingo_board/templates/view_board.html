@@ -1,1 +1,9 @@
 {% extends 'bingo_board.html' %}
+{% load bingo_row %}
+{% block bingo_rows %}
+    {% bingo_row 'B' %}
+    {% bingo_row 'I' %}
+    {% bingo_row 'N' %}
+    {% bingo_row 'G' %}
+    {% bingo_row 'O' %}
+{% endblock %}

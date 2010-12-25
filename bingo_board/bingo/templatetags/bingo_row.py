@@ -12,7 +12,7 @@ register = template.Library()
 #   @param  {String}    letter    - The letter to print in the row
 ###
 @register.inclusion_tag('partials/bingo_row.html')
-def bingo_row(letter):
+def bingo_row(letter, extra_marker_class=''):
     number_ranges = {
         'B': {
             'min': 1, 
@@ -41,6 +41,7 @@ def bingo_row(letter):
     return {
         'letter': letter, 
         'number_range': range(number_range['min'], number_range['max']), 
+        'extra_marker_class': extra_marker_class, 
     }
     
     
