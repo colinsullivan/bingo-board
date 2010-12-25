@@ -68,25 +68,35 @@ class Marker(models.Model):
     value = models.BooleanField(default=False)
     # The bingo board we are a member of
     board = models.ForeignKey(Board)
-    # If this marker was the last to be called (on the board)
-    last_called = models.BooleanField(default=False)
     
+    ###
+    #   When a marker is saved, we can create a MarkerChangeEvent for it.
+    ###
     def save(self, *args, **kwargs):
         
-        # If we are enabling this marker, and it is not already enabled
-        if(self.value and not(self.last_called)):
-
-            # Make previously called marker on this board NOT the last_enabled
-            previously_called = Marker.objects.filter(last_called = True, board = self.board).exclude(pk = self.id)
-            
-            # If the previously called has not already been changed
-            if(len(previously_called)):           
-                previously_called = previously_called[0] 
-                # Make sure previously called is no longer the last called
-                previously_called.last_called = False
-                previously_called.save()
-            
-            # We are now the last called marker
-            self.last_called = True
-            
+        isNew = False
+        
+        if not self.pk:
+            isNew = True
+        
+        
+        # Parent save
         super(Marker, self).save(*args, **kwargs)
+        
+        # If this was not a new marker, but instead it was being updated
+        if not(isNew):
+            # Create call event
+            event = MarkerChangeEvent(board=self.board, marker=self).save()
+    
+
+###
+#   An event object that represents a number being called.
+###
+class MarkerChangeEvent(models.Model):
+    # The board which the event ocurred on
+    board = models.ForeignKey(Board)
+    # The marker which the event ocurred on
+    marker = models.ForeignKey(Marker)
+    # The date/time for this event
+    time = models.DateTimeField(auto_now_add = True)
+    

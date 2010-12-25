@@ -24,6 +24,7 @@ bingo.widgets.BingoMarkerWidget = bingo.widgets.Widget.extend({
         }
         
         if(this.model.get('last_called')) {
+            console.log(this.model.get('number')+'was last called');
             this.setLastCalled();
         }
         
@@ -46,6 +47,8 @@ bingo.widgets.BingoMarkerWidget = bingo.widgets.Widget.extend({
         this.el.removeClass('enabled').addClass('disabled');
     }, 
     setLastCalled: function() {
+        var el = $(this.el);
+        
         /* Remove "caution" div from DOM */
         var last_enabled = $('#last_enabled').detach();
 
@@ -53,14 +56,14 @@ bingo.widgets.BingoMarkerWidget = bingo.widgets.Widget.extend({
         $('.lastEnabled').removeClass('lastEnabled');
 
         /* Add lastEnabled class to our number */
-        number_container.addClass('lastEnabled');
+        el.addClass('lastEnabled');
 
         /* Put animating "caution" div behind last called number */
-        var offset = number_container.offset();
+        var offset = el.offset();
         var top = offset.top-13;
         var left = offset.left-13;
-        var width = number_container.outerWidth()+28;
-        var height = number_container.outerHeight()+28;
+        var width = el.outerWidth()+28;
+        var height = el.outerHeight()+28;
         $(last_enabled).css({
             'width': width,
             'height': height,

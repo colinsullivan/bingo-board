@@ -31,8 +31,6 @@ bingo.widgets.ClickableBingoMarkerWidget = bingo.widgets.BingoMarkerWidget.exten
         return this;
     },
     callNumber: function() {
-        console.log('this.model.toJSON():');
-        console.log(this.model.toJSON());
         this.model.set({
             value: true 
         });

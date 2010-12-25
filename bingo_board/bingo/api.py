@@ -226,3 +226,23 @@ class MarkerResource(MyResource):
 
         authentication = DjangoAuthentication()
         authorization = MarkerAuthorization()
+        
+###
+#   A call event
+###
+class MarkerChangeEventResource(MyResource):
+    board = fields.ForeignKey(BoardResource, 'board')
+    marker = fields.ForeignKey(MarkerResource, 'marker', full=True)
+    time = fields.DateTimeField('time')
+    
+    class Meta:
+        limit = 75
+        queryset = MarkerChangeEvent.objects.all()
+        
+        filtering = {
+            'board': ALL_WITH_RELATIONS, 
+        }
+        
+        authentication = DjangoAuthentication()
+        authorization = Authorization()
+        

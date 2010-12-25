@@ -26,8 +26,11 @@ Backbone.sync = function(method, model, success, error) {
     if(success) {
         success = function(oldSuccess){
             return function(data, status) {
-                if(data.meta && data.objects) {
+                if(data && data.meta && data.objects) {
                     oldSuccess(data.objects);
+                }
+                else {
+                    oldSuccess(data, status);
                 }
             }
         }(success);

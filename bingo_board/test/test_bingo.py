@@ -34,22 +34,22 @@ class BingoTests(unittest.TestCase):
                 
         self.assertEqual(len(allowedMarkers), 0, 'The following markers are missing: '+str(allowedMarkers))
         
-    # Make sure last called marker always has the last_called boolean set
-    def testLastEnabledMarker(self):
+    #   Make sure events are being created when each marker is changed
+    def testMarkerChangeEvent(self):
         
         markerOne = self.markers[0]
-        
         markerOne.value = True
         markerOne.save()
         
-        self.assertEqual(markerOne.last_called, True, 'The marker\'s last enabled property is not being set correctly.')
-        
         markerTwo = self.markers[1]
-        
         markerTwo.value = True
         markerTwo.save()
         
-        self.assertEqual(markerTwo.last_called, True, 'The marker\'s last enabled property is not being set correctly.')
+        markerEvents = MarkerChangeEvent.objects.filter(marker__in=[markerOne, markerTwo])
+        
+        # there should be 2 such events, one for each marker
+        self.assertEqual(len(markerEvents), 2, 'There should be 2 marker events.')
+        
         
         
     def testBoardDeletion(self):
