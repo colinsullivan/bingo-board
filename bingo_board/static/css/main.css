@@ -370,7 +370,7 @@ button.blue:active {
 }
 
 /* Bingo cell activated */
-.number_container {
+.bingo_marker {
     position: relative;
     padding: 0.5em;
     font-weight: bold;
@@ -378,11 +378,11 @@ button.blue:active {
     z-index: 200;
 }
 
-.number_container.clickable {
+.bingo_marker.clickable {
     cursor: pointer;
 }
 
-.number_container.clickable:hover:not(.enabled) {
+.bingo_marker.clickable:hover:not(.enabled) {
     background: -webkit-gradient(linear, 0% 100%, 0% 0%, from(#10b208), color-stop(0.7, #10b208), to(#01e236));
     opacity: 0.7;
     -webkit-transition-property: opacity, background;
@@ -390,7 +390,7 @@ button.blue:active {
     -webkit-transition-timing-function: ease-out;
 }
 
-.number_container.disabled {
+.bingo_marker.disabled {
     opacity: 0.2;
     background: #bdbdbd;
     font-size: 2em;
@@ -399,7 +399,7 @@ button.blue:active {
     -webkit-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.5);    
 }
 
-.number_container.enabled {
+.bingo_marker.enabled {
     -webkit-animation-name: bounceEnable;
     -webkit-animation-duration: .25s;
     -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
@@ -434,7 +434,7 @@ button.blue:active {
     }
 }
 
-.number_container.lastEnabled {
+.bingo_marker.lastEnabled {
     -webkit-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.5);
     background: -webkit-gradient(linear, 0% 100%, 0% 0%, from(#10b208), color-stop(0.7, #10b208), to(#01e236));
     -webkit-animation-name: lastEnabled;

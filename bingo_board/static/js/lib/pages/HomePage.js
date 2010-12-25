@@ -82,9 +82,9 @@ bingo.pages.HomePage = bingo.pages.Page.extend({
         frag.appendChild(this.boardTableHeader.get(0));
         
         /* Build collection table */
-        this.boards.each(function(frag, template, BingoBoardRowWidget, page){
+        this.boards.each(function(frag, template, ManageBoardWidget, page){
             return function(board){
-                var widget = new BingoBoardRowWidget({
+                var widget = new ManageBoardWidget({
                     template: template, 
                     model: board,
                     page: page, 
@@ -92,7 +92,7 @@ bingo.pages.HomePage = bingo.pages.Page.extend({
                 
                 frag.appendChild(widget.el);
             };
-        }(frag, this.boardRowTemplate, bingo.widgets.BingoBoardRowWidget, this));
+        }(frag, this.boardRowTemplate, bingo.widgets.ManageBoardWidget, this));
         
         this.boardTable.html(frag);
         

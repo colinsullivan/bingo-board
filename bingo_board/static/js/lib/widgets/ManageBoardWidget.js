@@ -5,11 +5,11 @@
  **/
  
 /**
- *  A row in the list of bingo boards.
+ *  A row in the list of bingo boards on the home page.
  *  @class
  *  @extends    bingo.widgets.Widget
  **/
-bingo.widgets.BingoBoardRowWidget = bingo.widgets.Widget.extend({
+bingo.widgets.ManageBoardWidget = bingo.widgets.Widget.extend({
     
     initialize: function() {
         bingo.widgets.Widget.prototype.initialize.call(this);
