@@ -24,5 +24,41 @@ bingo.widgets.BingoMarkerWidget = bingo.widgets.Widget.extend({
         bingo.widgets.Widget.prototype.render.call(this);
         
         return this;
-    }
+    },
+    enable: function() {
+        this.el.removeClass('disabled').addClass('enabled');
+        
+        if(this.get('last_called')) {
+            this.setLastCalled();
+        }
+    }, 
+    disable: function() {
+        this.el.removeClass('enabled').addClass('disabled');
+    }, 
+    setLastCalled: function() {
+        /* Remove "caution" div from DOM */
+        var last_enabled = $('#last_enabled').detach();
+
+        /* Remove lastEnabled class from old number */
+        $('.lastEnabled').removeClass('lastEnabled');
+
+        /* Add lastEnabled class to our number */
+        number_container.addClass('lastEnabled');
+
+        /* Put animating "caution" div behind last called number */
+        var offset = number_container.offset();
+        var top = offset.top-13;
+        var left = offset.left-13;
+        var width = number_container.outerWidth()+28;
+        var height = number_container.outerHeight()+28;
+        $(last_enabled).css({
+            'width': width,
+            'height': height,
+            'top': top,
+            'left': left
+        });
+
+        $('body').append(last_enabled);
+        last_enabled.show();
+    }, 
 });

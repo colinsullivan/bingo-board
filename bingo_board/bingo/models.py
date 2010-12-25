@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from django.core.exceptions import ObjectDoesNotExist
+
+
 from django.db.models.signals import pre_save
 
 
@@ -61,6 +64,29 @@ class Marker(models.Model):
     # for this marker is implied based on the number.
     MARKER_CHOICES = [(i, i) for i in range(1,76)]
     number = models.IntegerField(choices=MARKER_CHOICES)
+    # If the marker has been called or not
     value = models.BooleanField(default=False)
+    # The bingo board we are a member of
     board = models.ForeignKey(Board)
+    # If this marker was the last to be called (on the board)
+    last_called = models.BooleanField(default=False)
     
+    def save(self, *args, **kwargs):
+        
+        # If we are enabling this marker, and it is not already enabled
+        if(self.value and not(self.last_called)):
+
+            # Make previously called marker on this board NOT the last_enabled
+            previously_called = Marker.objects.filter(last_called = True, board = self.board).exclude(pk = self.id)
+            
+            # If the previously called has not already been changed
+            if(len(previously_called)):           
+                previously_called = previously_called[0] 
+                # Make sure previously called is no longer the last called
+                previously_called.last_called = False
+                previously_called.save()
+            
+            # We are now the last called marker
+            self.last_called = True
+            
+        super(Marker, self).save(*args, **kwargs)
