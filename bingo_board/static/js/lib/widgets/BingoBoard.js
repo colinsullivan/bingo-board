@@ -24,20 +24,12 @@ function BingoBoard(params) {
  *                          }
  **/
 BingoBoard.prototype.init = function(params) {
-    var markerStates = params.markerStates;
-    if(typeof(markerStates) == 'undefined') {
-        throw new Error('params.markerStates is undefined');
-    }
-    
     /* Create actual marker objects */
     var markers = [];
     for(i = 1; i < 76; i++) {
         markers[i] = this.createBingoMarker(i);
     }
     this.markers = markers;
-    
-    /*  Update markers with states retrieved from server */
-    this.updateMarkers(markerStates);
 }
 
 /**

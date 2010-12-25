@@ -1,8 +1,24 @@
 {% extends 'base.html' %}
 
+{% load bingo_row %}
+
 {% block title %}
 {{boardName}}
 {% endblock %}
 
 {% block content %}
+    <div class="bingo_container">
+        {% bingo_row 'B' %}
+        {% bingo_row 'I' %}
+        {% bingo_row 'N' %}
+        {% bingo_row 'G' %}
+        {% bingo_row 'O' %}
+    </div>
+    
+    
+{% endblock %}
+
+
+{% block clientside %}
+
 {% endblock %}

@@ -9,6 +9,30 @@
  *  @class
  *  @extends    bingo.pages.Page
  **/
+ 
+ number_ranges = {
+     'B': {
+         'min': 1, 
+         'max': 16, 
+     },
+     'I': {
+         'min': 16, 
+         'max': 31, 
+     },
+     'N': {
+         'min': 31, 
+         'max': 46, 
+     }, 
+     'G': {
+         'min': 46, 
+         'max': 61, 
+     }, 
+     'O': {
+         'min': 61, 
+         'max': 76, 
+     },
+ }
+
 bingo.pages.ViewPage = bingo.pages.Page.extend({
     
     initialize: function() {
@@ -39,9 +63,8 @@ bingo.pages.ViewPage = bingo.pages.Page.extend({
     },
     render: function() {
         bingo.pages.Page.prototype.render.call(this);
+        
                 
-        console.log('this.markers.toJSON():');
-        console.log(this.markers.toJSON());
         
         return this;
     }
