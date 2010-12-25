@@ -12,5 +12,6 @@ urlpatterns = patterns('bingo.views',
     (r'^register/$', 'register'),
     (r'^login/$', 'login'),
     (r'^view/(?P<board_id>\d+)/$', 'view_board'),
+    (r'^edit/(?P<board_id>\d+)/$', 'edit_board'),
     (r'^api/', include(api1.urls)),
 )

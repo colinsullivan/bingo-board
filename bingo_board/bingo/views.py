@@ -55,49 +55,42 @@ def home(request):
         'domain': request.META['HTTP_HOST'],
     }, context_instance = RequestContext(request))
     
-###
-#   This is the page that the user can use to view the current state of the bingo 
-#   board.
-###
-def view_board(request, board_id):
     
+###
+#   A view that is not used directly, but contains all common functionality for
+#   the edit and view board pages.
+###
+def bingo_board(request, board_id, template, page):
     board = Board.objects.get(pk = board_id)
-    
-    
-    boardMarkersSerialized = {}
-    
     boardResource = SingleBoardResource()
     boardResource.set_board_id(board_id)
     # TODO: Serialization should be fixed in API so this is a single object
     boardSerialized = boardResource.as_dict(request)[0]
     
-    return render_to_response('view.html', {
+    return render_to_response(template, {
         'boardName': board.name,
-        'page': 'view',
+        'page': page,
         'data': simplejson.dumps({
             'board': boardSerialized            
         })
     }, context_instance = RequestContext(request))
+    
+    
+###
+#   This is the page that the user can use to view the current state of the bingo 
+#   board.
+###
+def view_board(request, board_id):
+    return bingo_board(request, board_id, 'view_board.html', 'view')
+    
+    
     
 
 ###
 #   This is the page that the user can use to call numbers on a bingo board.
 ###
 def edit_board(request, board_id):
-    
-    board = Board.objects.get(pk = board_id)
-    
-    boardMarkersSerialized = {}
-    boardSerialized = {}
-    
-    return render_to_response('edit.html', {
-        'boardName': board.name,
-        'page': 'edit',
-        'data': simplejson.dumps({
-            'markers': boardMarkersSerialized,
-            'board': boardSerialized            
-        })
-    }, context_instance = RequestContext(request))
+    return bingo_board(request, board_id, 'edit_board.html', 'edit')
 
     
 ###

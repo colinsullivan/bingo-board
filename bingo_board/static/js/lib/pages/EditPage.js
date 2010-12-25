@@ -6,43 +6,27 @@
 
 
 /**
- *  The functionality associated with the edit bingo board page.
+ *  The functionality associated with the edit bingo board page.  This is the same
+ *  as the ViewPage with some extra functionality, so we are subclassing that.
  *  @class
- *  @extends    bingo.pages.Page
+ *  @extends    bingo.pages.BingoPage
  **/
-bingo.pages.EditPage = bingo.pages.Page.extend({
-    
+bingo.pages.EditPage = bingo.pages.BingoPage.extend({
+    /**
+     *  @constructor
+     **/
     initialize: function() {
-        bingo.pages.Page.prototype.initialize.call(this);
-
-        var params = this.options;
+        bingo.pages.BingoPage.prototype.initialize.call(this);
         
-        var userdata = params.userdata;
+        /* The kind of marker we will create for the bingo board */
+        this.markerClass = bingo.widgets.ClickableBingoMarkerWidget;
         
-        var board = new bingo.models.Board(userdata.board);
-        this.board = board;
-        
-        var markers = new bingo.models.MarkerSet;
-        this.markers = markers;
-        
-
-        _.bindAll(this, "render");
-        /* Bind collection events to render */
-        markers.bind('refresh', this.render);
-        markers.bind('add', this.render);
-        markers.bind('remove', this.render);
-        
-        markers.refresh(this.userdata.markers);
-        
-    },
-    render: function() {
-        bingo.pages.Page.prototype.render.call(this);
-        
-        console.log('rendering markers:');
-        console.log('this.markers.toJSON():');
-        console.log(this.markers.toJSON());
-        
-        
-        return this;
+        /* Now, and then every 30 seconds, refresh board just to make sure */
+        setInterval(function(me){
+            return function() {
+                me.markers.fetch();
+            };
+        }(this), 30000);
+        this.markers.fetch();
     }
 });
