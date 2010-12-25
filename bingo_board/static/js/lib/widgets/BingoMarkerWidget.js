@@ -16,6 +16,16 @@ bingo.widgets.BingoMarkerWidget = bingo.widgets.Widget.extend({
 
         var params = this.options;
         
+        if(this.model.get('value')) {
+            this.enable();
+        }
+        else {
+            this.disable();
+        }
+        
+        if(this.model.get('last_called')) {
+            this.setLastCalled();
+        }
         
         
         _.bindAll(this, "render");
@@ -28,7 +38,7 @@ bingo.widgets.BingoMarkerWidget = bingo.widgets.Widget.extend({
     enable: function() {
         this.el.removeClass('disabled').addClass('enabled');
         
-        if(this.get('last_called')) {
+        if(this.model.get('last_called')) {
             this.setLastCalled();
         }
     }, 

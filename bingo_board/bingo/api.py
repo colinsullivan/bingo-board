@@ -187,6 +187,7 @@ class MarkerResource(MyResource):
     number = fields.IntegerField('number')
     value = fields.BooleanField('value', default=False)
     board = fields.ForeignKey(BoardResource, 'board')
+    last_called = fields.BooleanField('last_called', default=False)
 
 
     class Meta:

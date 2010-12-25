@@ -35,7 +35,7 @@ bingo.pages.ViewPage = bingo.pages.Page.extend({
             return function() {
                 me.markers.fetch();
             };
-        }(this), 1000);
+        }(this), 5000);
     },
     render: function() {
         bingo.pages.Page.prototype.render.call(this);
