@@ -17,12 +17,31 @@ bingo.widgets.ClickableBingoMarkerWidget = bingo.widgets.BingoMarkerWidget.exten
         var params = this.options;
         
         
-
+        this.el.click(function(me){
+            return function() {
+                me.callNumber();
+            }
+        }(this));
+        
         _.bindAll(this, "render");
     },
     render: function() {
         bingo.widgets.BingoMarkerWidget.prototype.render.call(this);
         
         return this;
-    }
+    },
+    callNumber: function() {
+        console.log('this.model.toJSON():');
+        console.log(this.model.toJSON());
+        this.model.set({
+            value: true 
+        });
+        this.model.save({
+            success: function(me) {
+                return function() {
+                    me.enable();
+                };
+            }(this)
+        });
+    }, 
 });

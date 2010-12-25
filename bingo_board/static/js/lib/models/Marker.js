@@ -18,26 +18,25 @@ bingo.models.Marker = Backbone.Model.extend({
     }, 
     url: function() {
         var url = '/api/1/marker/';
-        if(this.id) {
-            url += this.id+'/';
+        if(this.get('id')) {
+            url += this.get('id')+'/';
         }
         return url;
     }, 
     validate: function(attrs){
         var number = attrs.number;
         var value = attrs.value;
-        var board = attrs.board;
         
-        if(typeof(number) != 'number' || number < 1 || number > 75) {
-            throw new Error('A marker\'s number attribute must be a number between 1 and 75');
+        if(number && typeof(number) != 'number') {
+            throw new Error('A marker\'s number attribute must be a number');
+        }
+        else if(number && (number < 1 || number > 75)) {
+            throw new Error('A marker\'s number attribute must be between 1 and 75');
         }
         
-        if(typeof(value) != 'boolean') {
+        if(value && typeof(value) != 'boolean') {
             throw new Error('A marker\'s value attribute must be a boolean.');
         }
-        
-        console.log('typeof(board):');
-        console.log(typeof(board));
         
     }, 
 });

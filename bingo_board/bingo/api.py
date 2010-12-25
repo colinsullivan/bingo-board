@@ -45,6 +45,28 @@ class BoardAuthorization(Authorization):
             return (request.user == object.user)
         else:
             return True
+            
+###
+#   Make sure the user is the creator of the board that this marker belongs to.
+###
+class MarkerAuthorization(Authorization):
+    def is_authorized(self, request, object=None):
+        
+        # Get is always allowed
+        if request.method == 'GET':
+            return True
+            
+        # user must be logged in to check permissions
+        # authentication backend must set request.user
+        if not hasattr(request, 'user'):
+            return False
+
+
+        if object:
+            return (request.user == object.board.user)
+        else:
+            return True
+        
 
 ###
 #   This is soley to provide the to_dict function.  Once I figure out what a better
@@ -99,19 +121,23 @@ class BoardResource(MyResource):
     #   Make sure use is allowed to modify this board
     ###
     def apply_authorization_limits(self, request, object_list):
-        user = request.user
-        
-        method = request.META['REQUEST_METHOD']
-        
-        # If user is trying to delete or update the collection
-        if method == 'DELETE' or method == 'PUT':
-            # User must be the creator, so retrieve only the user's boards.
-            object_list = super(BoardResource, self).apply_authorization_limits(request, user.board_set.all())
+        if request:
             
+            user = request.user
+        
+            method = request.META['REQUEST_METHOD']
+        
+            # If user is trying to delete or update the collection
+            if method == 'DELETE' or method == 'PUT':
+                # User must be the creator, so retrieve only the user's boards.
+                object_list = super(BoardResource, self).apply_authorization_limits(request, user.board_set.all())
+            
+            else:
+                object_list = super(BoardResource, self).apply_authorization_limits(request, Board.objects.all())
+            
+            return object_list
         else:
-            object_list = super(BoardResource, self).apply_authorization_limits(request, Board.objects.all())
-            
-        return object_list
+            return super(BoardResource, self).apply_authorization_limits(request, object_list)
         
     ###
     #   When creating a new board, pass user in.
@@ -198,5 +224,5 @@ class MarkerResource(MyResource):
             'board': ALL_WITH_RELATIONS, 
         }
 
-        authentication = BasicAuthentication()
-        authorization = DjangoAuthorization()
+        authentication = DjangoAuthentication()
+        authorization = MarkerAuthorization()
