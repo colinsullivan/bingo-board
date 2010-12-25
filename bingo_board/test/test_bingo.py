@@ -34,7 +34,7 @@ class BingoTests(unittest.TestCase):
                 
         self.assertEqual(len(allowedMarkers), 0, 'The following markers are missing: '+str(allowedMarkers))
         
-    #   Make sure events are being created when each marker is changed
+    #   Make sure timestamp is being updated when each marker is changed
     def testMarkerChangeEvent(self):
         
         markerOne = self.markers[0]
@@ -45,11 +45,8 @@ class BingoTests(unittest.TestCase):
         markerTwo.value = True
         markerTwo.save()
         
-        markerEvents = MarkerChangeEvent.objects.filter(marker__in=[markerOne, markerTwo])
-        
         # there should be 2 such events, one for each marker
-        self.assertEqual(len(markerEvents), 2, 'There should be 2 marker events.')
-        
+        self.assertTrue(markerOne.updated_at < markerTwo.updated_at)
         
         
     def testBoardDeletion(self):

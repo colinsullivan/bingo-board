@@ -213,7 +213,7 @@ class MarkerResource(MyResource):
     number = fields.IntegerField('number')
     value = fields.BooleanField('value', default=False)
     board = fields.ForeignKey(BoardResource, 'board')
-
+    updated_at = fields.DateTimeField('updated_at')
 
     class Meta:
         limit = 75
@@ -222,29 +222,16 @@ class MarkerResource(MyResource):
         filtering = {
             'board': ALL_WITH_RELATIONS, 
         }
+        
+        ordering = ['updated_at']
+        
 
         authentication = DjangoAuthentication()
         authorization = MarkerAuthorization()
-        
-###
-#   A call event
-###
-class MarkerChangeEventResource(MyResource):
-    board = fields.ForeignKey(BoardResource, 'board')
-    marker = fields.ForeignKey(MarkerResource, 'marker', full=False)
-    time = fields.DateTimeField('time')
-    
-    class Meta:
-        limit = 75
-        queryset = MarkerChangeEvent.objects.all()
-        
-        filtering = {
-            'board': ALL_WITH_RELATIONS, 
-            'time': ALL
-        }
-        
-        ordering = ['time']
-        
-        authentication = DjangoAuthentication()
-        authorization = Authorization()
-        
+
+    ###
+    #   Append Z to the end of the time field for JavaScript ISO8601 parsing.
+    ###
+    def dehydrate(self, bundle):
+        bundle.data['updated_at'] = str(bundle.data['updated_at'])+'Z'
+        return super(MarkerResource, self).dehydrate(bundle)

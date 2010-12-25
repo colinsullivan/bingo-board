@@ -49,7 +49,12 @@ bingo.models.Marker = Backbone.Model.extend({
 bingo.models.MarkerSet = Backbone.Collection.extend({
     model: bingo.models.Marker,
     url: function() {
-        var base = '/api/1/marker/?board=';
+        var base = '/api/1/marker/?sort_by=-updated_at&board=';
         return base + this.board.id
+    }, 
+    fetch: function(){
+        this.last_fetched_at = new Date();
+        
+        Backbone.Collection.fetch.call(this);
     }, 
 });

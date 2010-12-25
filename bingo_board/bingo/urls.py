@@ -5,7 +5,6 @@ from bingo.api import *
 api1 = Api(api_name='1')
 api1.register(BoardResource())
 api1.register(MarkerResource())
-api1.register(MarkerChangeEventResource())
 
 urlpatterns = patterns('bingo.views',
     (r'^$', 'index'),

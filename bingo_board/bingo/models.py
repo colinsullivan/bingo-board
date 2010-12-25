@@ -68,35 +68,6 @@ class Marker(models.Model):
     value = models.BooleanField(default=False)
     # The bingo board we are a member of
     board = models.ForeignKey(Board)
-    
-    ###
-    #   When a marker is saved, we can create a MarkerChangeEvent for it.
-    ###
-    def save(self, *args, **kwargs):
-        
-        isNew = False
-        
-        if not self.pk:
-            isNew = True
-        
-        
-        # Parent save
-        super(Marker, self).save(*args, **kwargs)
-        
-        # If this was not a new marker, but instead it was being updated
-        if not(isNew):
-            # Create call event
-            event = MarkerChangeEvent(board=self.board, marker=self).save()
-    
-
-###
-#   An event object that represents a number being called.
-###
-class MarkerChangeEvent(models.Model):
-    # The board which the event ocurred on
-    board = models.ForeignKey(Board)
-    # The marker which the event ocurred on
-    marker = models.ForeignKey(Marker)
-    # The date/time for this event
-    time = models.DateTimeField(auto_now_add = True)
+    # When the marker was last updated
+    updated_at = models.DateTimeField(auto_now_add = True)
     

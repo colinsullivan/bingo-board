@@ -33,7 +33,7 @@ bingo.pages.BingoPage = bingo.pages.Page.extend({
     },
     render: function() {
         bingo.pages.Page.prototype.render.call(this);
-        
+
         /* For each marker, create a marker widget */
         this.markers.each(function(page, markerClass) {
             return function(marker) {
@@ -41,7 +41,7 @@ bingo.pages.BingoPage = bingo.pages.Page.extend({
                 var widget = new markerClass({
                     el: $('#bingo_marker-'+marker.get('number')), 
                     model: marker,
-                    page: page, 
+                    page: page
                 });
             };
         }(this, this.markerClass));
