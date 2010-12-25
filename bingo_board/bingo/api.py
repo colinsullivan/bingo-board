@@ -1,7 +1,7 @@
 from tastypie.resources import ModelResource
 from tastypie import fields
 
-from tastypie.constants import ALL_WITH_RELATIONS
+from tastypie.constants import ALL_WITH_RELATIONS, ALL
 
 from tastypie.authorization import DjangoAuthorization, Authorization
 from tastypie.authentication import Authentication, BasicAuthentication
@@ -213,7 +213,6 @@ class MarkerResource(MyResource):
     number = fields.IntegerField('number')
     value = fields.BooleanField('value', default=False)
     board = fields.ForeignKey(BoardResource, 'board')
-    last_called = fields.BooleanField('last_called', default=False)
 
 
     class Meta:
@@ -232,7 +231,7 @@ class MarkerResource(MyResource):
 ###
 class MarkerChangeEventResource(MyResource):
     board = fields.ForeignKey(BoardResource, 'board')
-    marker = fields.ForeignKey(MarkerResource, 'marker', full=True)
+    marker = fields.ForeignKey(MarkerResource, 'marker', full=False)
     time = fields.DateTimeField('time')
     
     class Meta:
@@ -241,7 +240,10 @@ class MarkerChangeEventResource(MyResource):
         
         filtering = {
             'board': ALL_WITH_RELATIONS, 
+            'time': ALL
         }
+        
+        ordering = ['time']
         
         authentication = DjangoAuthentication()
         authorization = Authorization()
