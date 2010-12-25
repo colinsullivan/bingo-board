@@ -48,8 +48,6 @@ bingo.pages.BingoPage = bingo.pages.Page.extend({
                 });
                 
                 var marker_updated_at = marker.get('updated_at');
-                console.log('marker_updated_at:');
-                console.log(marker_updated_at);
                 if(marker_updated_at > most_recent_call) {
                     most_recent_call = marker_updated_at;
                     widget.setLastCalled();
