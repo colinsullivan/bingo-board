@@ -69,5 +69,5 @@ class Marker(models.Model):
     # The bingo board we are a member of
     board = models.ForeignKey(Board)
     # When the marker was last updated
-    updated_at = models.DateTimeField(auto_now_add = True)
+    updated_at = models.DateTimeField(auto_now = True)
     
