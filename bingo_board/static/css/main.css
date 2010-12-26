@@ -386,13 +386,13 @@ button.blue:active {
 
 /* Bingo cell activated */
 .bingo_marker {
-/*    position: relative;*/
+    position: relative;
 /*    padding: 0.5em;*/
     font-weight: bold;
     border-radius: 5px;
     z-index: 200;
     padding: 0.5em 0.1em;
-    
+    z-index: 100;
 }
 
 .letter_cell {
@@ -467,29 +467,30 @@ button.blue:active {
     -webkit-animation-duration: 2.25s;
     -webkit-animation-direction: normal;
     -webkit-animation-iteration-count: infinite;
+    z-index: 102;
 }
 
 @-webkit-keyframes 'lastEnabled' {
     from {
         -webkit-transform: scale(1);
-        -webkit-animation-timing-function: ease-in-out;
+/*        -webkit-animation-timing-function: ease-in-out;*/
     }
     10% {
         -webkit-transform: scale(1.5);
-        -webkit-animation-timing-function: ease-in-out;
+/*        -webkit-animation-timing-function: ease-in-out;*/
         
     }
     20% {
         -webkit-transform: scale(.75);   
-        -webkit-animation-timing-function: ease-in-out;
+/*        -webkit-animation-timing-function: ease-in-out;*/
     }
     30% {
         -webkit-transform: scale(1.30);
-        -webkit-animation-timing-function: ease-in-out;        
+/*        -webkit-animation-timing-function: ease-in-out;        */
     }
     to {
         -webkit-transform: scale(1);
-        -webkit-animation-timing-function: linear;
+/*        -webkit-animation-timing-function: linear;*/
     }
 }
 
@@ -509,7 +510,9 @@ button.blue:active {
     -webkit-animation-iteration-count: infinite;
     -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
 }
-
+#last_enabled_border {
+    z-index: inherit;
+}
 @-webkit-keyframes 'moveBorder' {
     from {
         background-position: 0% 0%;

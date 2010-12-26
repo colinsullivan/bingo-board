@@ -34,8 +34,7 @@ bingo.pages.BingoPage = bingo.pages.Page.extend({
     render: function() {
         bingo.pages.Page.prototype.render.call(this);
         
-        /* TODO: Ask someone if this is cross-browser compatible and kosher */
-        var most_recent_call = new Date('0');
+        var most_recent_call = new Date('Sat Jan 01 2000 00:00:00 GMT-0500');
         
         /* For each marker, create a marker widget */
         this.markers.each(function(page, markerClass, most_recent_call) {

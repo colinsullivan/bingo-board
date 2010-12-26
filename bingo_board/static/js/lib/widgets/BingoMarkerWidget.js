@@ -66,7 +66,7 @@ bingo.widgets.BingoMarkerWidget = bingo.widgets.Widget.extend({
             'left': left
         });
 
-        $('body').append(last_enabled);
+        el.parent().prepend(last_enabled);
         last_enabled.show();
     }, 
 });
