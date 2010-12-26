@@ -9,6 +9,7 @@ from tastypie.authentication import Authentication, BasicAuthentication
 from django.http import HttpResponse
 from tastypie.utils import is_valid_jsonp_callback_value, dict_strip_unicode_keys, trailing_slash
 from tastypie.http import *
+from tastypie.paginator import Paginator
 
 from tastypie.bundle import Bundle
 from tastypie.fields import RelatedField
@@ -229,3 +230,4 @@ class MarkerResource(MyResource):
 
         authentication = DjangoAuthentication()
         authorization = MarkerAuthorization()
+        

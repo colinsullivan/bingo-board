@@ -34,10 +34,11 @@ bingo.widgets.ClickableBingoMarkerWidget = bingo.widgets.BingoMarkerWidget.exten
         this.model.set({
             value: true 
         });
-        this.model.save({
+        this.model.save(null, {
             success: function(me) {
                 return function() {
                     me.enable();
+                    me.setLastCalled();
                 };
             }(this)
         });

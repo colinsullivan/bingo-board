@@ -51,7 +51,10 @@ bingo.models.Marker = Backbone.Model.extend({
      *  for now this will be handled on the backend.
      **/
     save: function(attributes, options){
-        this.unset('updated_at');
+        /* Update updated_at attribute */
+        this.set({
+            'updated_at': new Date()
+        });
         
         return Backbone.Model.prototype.save.call(this, attributes, options);
     },
