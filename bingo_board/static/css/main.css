@@ -115,7 +115,7 @@ body {
 @media only screen and (max-width: 767px) and (min-width: 480px) {
 	
 	body {
-		padding: 25px 25px 0;
+		padding: 25px 0 0;
 		width: 396px;
 		/* Adjust font to 80% on iPhone */
 		-webkit-text-size-adjust: 80%;
@@ -133,7 +133,7 @@ body {
 @media only screen and (max-width: 479px) {
 	
 	body {
-		padding: 25px 25px 0;
+		padding: 25px 0 0;
 		width: 396px;
 		-webkit-font-size-adjust: 80%;
 	}
@@ -378,7 +378,6 @@ button.blue:active {
     /* Ensure that all bingo cells are the same size 
     -webkit-box-flex: 1;*/
     text-align: center;
-    padding: 0;
     vertical-align: middle;
     border-bottom: 2px solid black;
     border-top: 2px solid black;
@@ -392,6 +391,8 @@ button.blue:active {
     font-weight: bold;
     border-radius: 5px;
     z-index: 200;
+    padding: 0.5em 0.1em;
+    
 }
 
 .letter_cell {
