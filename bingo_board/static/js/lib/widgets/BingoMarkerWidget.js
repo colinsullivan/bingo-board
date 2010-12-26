@@ -16,6 +16,15 @@ bingo.widgets.BingoMarkerWidget = bingo.widgets.Widget.extend({
 
         var params = this.options;
         
+        
+        
+        _.bindAll(this, "render");
+        var marker = this.model;
+        marker.bind('change', this.render);        
+    },
+    render: function() {
+        bingo.widgets.Widget.prototype.render.call(this);
+        
         if(this.model.get('value')) {
             this.enable();
         }
@@ -23,20 +32,16 @@ bingo.widgets.BingoMarkerWidget = bingo.widgets.Widget.extend({
             this.disable();
         }
         
+        if(this.model.get('last_called')) {
+            this.setLastCalled();
+        }
         
-        _.bindAll(this, "render");
-    },
-    render: function() {
-        bingo.widgets.Widget.prototype.render.call(this);
         
         return this;
     },
     enable: function() {
         this.el.removeClass('disabled').addClass('enabled');
         
-        if(this.model.get('last_called')) {
-            this.setLastCalled();
-        }
     }, 
     disable: function() {
         this.el.removeClass('enabled').addClass('disabled');

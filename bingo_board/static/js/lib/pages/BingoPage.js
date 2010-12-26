@@ -25,11 +25,8 @@ bingo.pages.BingoPage = bingo.pages.Page.extend({
         markers.board = board;
         this.markers = markers;
 
-        _.bindAll(this, 'render');
         /* Bind collection events to render */
         markers.bind('refresh', this.render);
-        markers.bind('add', this.render);
-        markers.bind('remove', this.render);        
     },
     render: function() {
         bingo.pages.Page.prototype.render.call(this);
@@ -44,13 +41,8 @@ bingo.pages.BingoPage = bingo.pages.Page.extend({
                     el: $('#bingo_marker-'+marker.get('number')), 
                     model: marker,
                     page: page
-                });
+                }).render();
                 
-                var marker_updated_at = marker.get('updated_at');
-                if(marker_updated_at > most_recent_call) {
-                    most_recent_call = marker_updated_at;
-                    widget.setLastCalled();
-                }
             };
         }(this, this.markerClass, most_recent_call));
         

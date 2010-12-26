@@ -20,9 +20,11 @@ bingo.pages.ViewPage = bingo.pages.BingoPage.extend({
         /* Every 5 seconds, refresh board */
         setInterval(function(me){
             return function() {
-                me.markers.fetch();
+                /* But don't re-render page */
+                me.markers.fetch({silent: true});
             };
         }(this), 5000);
+        /* Fetch (and render page) */
         this.markers.fetch();
     },
 });

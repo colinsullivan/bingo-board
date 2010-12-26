@@ -20,7 +20,7 @@ bingo.init.initializePage = function(params) {
         'edit': bingo.pages.EditPage
     };
 
-    bingo.page = new pageInitializer[params.page](params).render();
+    bingo.page = new pageInitializer[params.page](params);
     
 }
  

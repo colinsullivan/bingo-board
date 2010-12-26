@@ -71,9 +71,104 @@ bingo.models.MarkerSet = Backbone.Collection.extend({
         var base = '/api/1/marker/?sort_by=-updated_at&board=';
         return base + this.board.id
     }, 
-    fetch: function(){
+    /**
+     *  Update last_fetched_at property so we know when we last looked.
+     **/
+    fetch: function(options){
         this.last_fetched_at = new Date();
         
-        return Backbone.Collection.prototype.fetch.call(this);
+        return Backbone.Collection.prototype.fetch.call(this, options);
     }, 
+    /**
+     *  Only update the models that have changed.  Since we know the 'value'
+     *  attribute will have changed if the marker has changed, we can check against
+     *  that.
+     **/
+    refresh: function(models, options) {
+        
+        /* If we have not yet created the models for the first time */
+        if(!this.length) {
+            /* Do it. */
+            Backbone.Collection.prototype.refresh.call(this, models, options);
+            
+            /* get most recent marker */
+            mostRecent = this.getMostRecent();
+            
+            /* Assign the most recent attribute */
+            mostRecent.set({
+                'last_called': true
+            });
+            
+            /* End */
+            return this;
+            
+        }
+        
+        models  || (models = []);
+        options || (options = {});
+        
+        /* Get most recently called marker */
+        currentMostRecent = this.getMostRecent();
+        newMostRecent = currentMostRecent;
+        
+        /* For each marker retrieved from server */
+        for(var i = 0, il = models.length; i < il; i++) {
+            var attrs = models[i];
+            
+            /* Marker object */
+            var marker = this.get(attrs.id);
+            
+            
+            /* If marker has changed, update attributes */
+            if(marker.get('value') != attrs.value) {
+                marker.set(attrs);
+            }
+            
+            
+            /* If this marker was updated most recently (so far) */
+            if(newMostRecent.get('updated_at') < marker.get('updated_at')) {
+                newMostRecent = marker;
+            }
+            
+        }
+        
+        /* If the most recent marker has changed */
+        if(currentMostRecent != newMostRecent) {
+            /* Update the attributes */
+            currentMostRecent.set({
+                'last_called': false
+            });
+            
+            newMostRecent.set({
+                'last_called': true, 
+            });
+        }
+
+        if (!options.silent) this.trigger('refresh', this, options);
+        return this;
+    },
+    getMostRecent: function() {
+        /* Keep track of the most recently called marker, starting with the
+            actually most recent */
+        var mostRecentIndex = null;
+        var possibleMostRecents = this.pluck('last_called');
+        for(var i = 0, il = possibleMostRecents.length; i < il; i++) {
+            if(possibleMostRecents[i]) {
+                mostRecentIndex = i;
+                /* there is only one most recent so we can stop looking */
+                break;
+            }
+        }
+        
+        var mostRecent = null;
+        if(mostRecentIndex == null) {
+            mostRecent = this.at(0);
+        }
+        else {
+            mostRecent = this.at(mostRecentIndex);
+        }
+        
+        return mostRecent;
+    }, 
+    
 });

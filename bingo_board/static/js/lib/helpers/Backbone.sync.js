@@ -17,14 +17,10 @@ var getUrl = function(object) {
    return _.isFunction(object.url) ? object.url() : object.url;
  };
 
-Backbone.sync = function(method, model, success, error) {
-    var type = methodMap[method];
-    var modelJSON = (method === 'create' || method === 'update') ?
-        JSON.stringify(model.toJSON()) : null;
-
-
-    if(success) {
-        success = function(oldSuccess){
+Backbone.sync = function(method, model, options) {
+    
+    if(options.success) {
+        options.success = function(oldSuccess){
             return function(data, status) {
                 if(data && data.meta && data.objects) {
                     oldSuccess(data.objects);
@@ -33,40 +29,45 @@ Backbone.sync = function(method, model, success, error) {
                     oldSuccess(data, status);
                 }
             }
-        }(success);
+        }(options.success);
     }
+    
+    var type = methodMap[method];
+    var modelJSON = (method === 'create' || method === 'update') ?
+    JSON.stringify(model.toJSON()) : null;
 
     // Default JSON-request options.
-    var params = {
+    var params = _.extend({
         url:          getUrl(model),
         type:         type,
         contentType:  'application/json',
         data:         modelJSON,
         dataType:     'json',
-        processData:  false,
-        success:      success,
-        error:        error
-    };
+        processData:  false
+        }, options);
 
-    // For older servers, emulate JSON by encoding the request into an HTML-form.
-    if (Backbone.emulateJSON) {
-        params.contentType = 'application/x-www-form-urlencoded';
-        params.processData = true;
-        params.data        = modelJSON ? {model : modelJSON} : {};
-    }
+        // Ensure that we have a URL.
+        if (!params.url) urlError();
 
-    // For older servers, emulate HTTP by mimicking the HTTP method with `_method`
-    // And an `X-HTTP-Method-Override` header.
-    if (Backbone.emulateHTTP) {
-        if (type === 'PUT' || type === 'DELETE') {
-            if (Backbone.emulateJSON) params.data._method = type;
-            params.type = 'POST';
-            params.beforeSend = function(xhr) {
-                xhr.setRequestHeader("X-HTTP-Method-Override", type);
-            };
+        // For older servers, emulate JSON by encoding the request into an HTML-form.
+        if (Backbone.emulateJSON) {
+            params.contentType = 'application/x-www-form-urlencoded';
+            params.processData = true;
+            params.data        = params.data ? {model : params.data} : {};
         }
-    }
 
-    // Make the request.
-    $.ajax(params);
-};
+        // For older servers, emulate HTTP by mimicking the HTTP method with `_method`
+        // And an `X-HTTP-Method-Override` header.
+        if (Backbone.emulateHTTP) {
+            if (type === 'PUT' || type === 'DELETE') {
+                if (Backbone.emulateJSON) params.data._method = type;
+                params.type = 'POST';
+                params.beforeSend = function(xhr) {
+                    xhr.setRequestHeader('X-HTTP-Method-Override', type);
+                };
+            }
+        }
+
+        // Make the request.
+        $.ajax(params);
+    };
