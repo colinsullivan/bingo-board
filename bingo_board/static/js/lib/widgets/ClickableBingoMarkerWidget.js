@@ -19,7 +19,12 @@ bingo.widgets.ClickableBingoMarkerWidget = bingo.widgets.BingoMarkerWidget.exten
         
         this.el.click(function(me){
             return function() {
-                me.callNumber();
+                if(me.model.get('value')) {
+                    me.unCallNumber();
+                }
+                else {
+                    me.callNumber();                    
+                }
             }
         }(this));
         
@@ -30,17 +35,36 @@ bingo.widgets.ClickableBingoMarkerWidget = bingo.widgets.BingoMarkerWidget.exten
         
         return this;
     },
+    /**
+     *  This is called when a user clicks on a marker that is not yet enabled.
+     **/
     callNumber: function() {
-        this.model.set({
+        /* This number was called */
+        /* Save to server */
+        this.model.save({
             value: true 
-        });
-        this.model.save(null, {
+        }, {
             success: function(me) {
                 return function() {
+                    /* Enable on the interface */
                     me.enable();
                     me.setLastCalled();
                 };
             }(this)
         });
+    }, 
+    /**
+     *  This is called when the user clicks on a marker that is already enabled.
+     **/
+    unCallNumber: function() {
+        this.model.save({
+            value: false 
+        }, {
+            success: function(me){
+                return function() {
+                    me.disable();
+                }
+            }(this), 
+        })
     }, 
 });
