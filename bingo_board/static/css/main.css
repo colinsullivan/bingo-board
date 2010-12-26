@@ -117,6 +117,7 @@ body {
 	body {
 		padding: 25px 25px 0;
 		width: 396px;
+		/* Adjust font to 80% on iPhone */
 		-webkit-text-size-adjust: 80%;
 	}
 	
@@ -133,8 +134,8 @@ body {
 	
 	body {
 		padding: 25px 25px 0;
-		width: 228px;
-		-webkit-text-size-adjust: 80%;
+		width: 396px;
+		-webkit-font-size-adjust: 80%;
 	}
 	
 }
@@ -339,10 +340,19 @@ button.blue:active {
     background: -webkit-gradient(linear, left top, left bottom, from(#0078a5), to(#00adee));
 }
 
+/**
+ *  Bingo page
+ **/
 .bingo_container {
-    position: relative;
+    /* the bingo container is 50 times larger than the options bar at the bottom 
+    -webkit-box-flex: 50;
+    
+    /* Distribute the rows of the bingo table evenly
+    display: -webkit-box;
+    -webkit-box-orient: vertical;*/
+/*    position: relative;
     top: 0;
-    left: 0;
+    left: 0;*/
     width: 100%;
     display: table;
     border: 1px solid black;
@@ -352,15 +362,21 @@ button.blue:active {
 
 .bingo_row {
     display: table-row;
+    /* Distribute the cells of this row in the table evenly 
+    display: -webkit-box;*/
     border-bottom: 1px solid black;
     border-top: 1px solid black;
 }
 
-
+/**
+ *  A cell in the bingo board, either a marker or a letter ('B', 'I'...)
+ **/
 .bingo_cell {
     display: table-cell;
-    height: 1em;
-    width: 1em;
+/*    height: 1em;
+    width: 1em;*/
+    /* Ensure that all bingo cells are the same size 
+    -webkit-box-flex: 1;*/
     text-align: center;
     padding: 0;
     vertical-align: middle;
@@ -371,12 +387,21 @@ button.blue:active {
 
 /* Bingo cell activated */
 .bingo_marker {
-    position: relative;
-    padding: 0.5em;
+/*    position: relative;*/
+/*    padding: 0.5em;*/
     font-weight: bold;
     border-radius: 5px;
     z-index: 200;
 }
+
+.letter_cell {
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 2px solid black;
+    border-top: 2px solid black;
+    /*font-size: 5em;*/
+}
+
 
 .bingo_marker.clickable {
     cursor: pointer;
@@ -393,9 +418,9 @@ button.blue:active {
 .bingo_marker.disabled {
     opacity: 0.2;
     background: #bdbdbd;
-    font-size: 2em;
+/*    font-size: 2em;*/
     border: none;
-    margin: 0px 10px 10px 12px;
+/*    margin: 0px 10px 10px 12px;*/
     -webkit-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.5);    
 }
 
@@ -404,8 +429,8 @@ button.blue:active {
     -webkit-animation-duration: .25s;
     -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
     background: -webkit-gradient(linear, 0% 100%, 0% 0%, from(#10b208), color-stop(0.7, #10b208), to(#01e236));
-    margin: 0px 5px 0px 5px;
-    font-size: 2.2em;
+/*    margin: 0px 5px 0px 5px;*/
+/*    font-size: 2.2em;*/
     border: 1px solid white;
     opacity: 1;
 }
@@ -497,13 +522,6 @@ button.blue:active {
 }
 
 
-.letter_cell {
-    font-weight: bold;
-    text-align: center;
-    border-bottom: 2px solid black;
-    border-top: 2px solid black;
-    font-size: 5em;
-}
 
 
 /** 
