@@ -228,6 +228,6 @@ class MarkerResource(MyResource):
         ordering = ['updated_at']
         
 
-        authentication = DjangoAuthentication()
+        authentication = Authentication()
         authorization = MarkerAuthorization()
         
