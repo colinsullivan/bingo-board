@@ -26,24 +26,6 @@ if(!bingo) {
 
 
 
-
-/**
- *  Retrieves all markers, and updates the bingo board accordingly.  This is called
- *  from each BingoBoard frequently.
- **/
-function retrieveAndUpdateBoard() {
-    retrieveMarkers(function(){
-        return function(data, textStatus){
-            board.updateMarkers($.parseJSON(data));
-            connectionErrorResolved();
-        };
-    }, function(){
-        return function(request, textStatus, errorThrown) {
-            connectionError();
-        };
-    });
-}
-
 /**
  *  If there is a connectionError, display this.
  **/

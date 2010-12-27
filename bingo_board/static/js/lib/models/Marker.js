@@ -18,12 +18,31 @@ bingo.models.Marker = Backbone.Model.extend({
         /*  If there is an updated_at attribute */
         if(updated_at) {
             var new_updated_at = new Date(updated_at);
+            if(new_updated_at == 'Invalid Date') {
+                throw new Error('Date was invalid: '+updated_at);
+            }
+
             /* Convert to date-time */
             this.set({
                 'updated_at': new_updated_at
             });
         }
     }, 
+    /* When setting the date, create a new date object */
+    set: function(attrs, options) {
+        if(attrs) {
+            var old_updated_at = attrs['updated_at'];
+            if(old_updated_at) {
+                var new_updated_at = new Date(old_updated_at);
+                if(new_updated_at == 'Invalid Date') {
+                    throw new Error('Date was invalid: '+old_updated_at);
+                }
+                attrs['updated_at'] = new_updated_at;
+            }            
+        }
+        
+        return Backbone.Model.prototype.set.call(this, attrs, options);        
+    },
     url: function() {
         var url = '/api/1/marker/';
         if(this.get('id')) {
@@ -91,14 +110,25 @@ bingo.models.MarkerSet = Backbone.Collection.extend({
             /* Do it. */
             Backbone.Collection.prototype.refresh.call(this, models, options);
             
-            /* get most recent marker */
-            mostRecent = this.getMostRecent();
-            
-            /* Assign the most recent attribute */
+            /* Determine the most recently called marker based on timestamp */
+            var mostRecent = this.at(0);
             mostRecent.set({
-                'last_called': true
+                last_called: true 
             });
-            
+            this.each(function(mostRecent){
+                return function(marker) {
+                    if(marker.get('updated_at') > mostRecent.get('updated_at')) {
+                        mostRecent.set({
+                            last_called: false 
+                        });
+                        marker.set({
+                            last_called: true 
+                        });
+                        mostRecent = marker;
+                    }
+                }
+            }(mostRecent));
+
             /* End */
             return this;
             
@@ -108,7 +138,7 @@ bingo.models.MarkerSet = Backbone.Collection.extend({
         options || (options = {});
         
         /* Get most recently called marker */
-        currentMostRecent = this.getMostRecent();
+        currentMostRecent = this.get_last_called();
         newMostRecent = currentMostRecent;
         
         /* For each marker retrieved from server */
@@ -122,7 +152,7 @@ bingo.models.MarkerSet = Backbone.Collection.extend({
             /* If marker has changed, update attributes */
             if(marker.get('value') != attrs.value) {
                 marker.set(attrs);
-
+                
                 /* If this marker was updated most recently (so far) */
                 if(newMostRecent.get('updated_at') < marker.get('updated_at')) {
                     newMostRecent = marker;
@@ -146,7 +176,12 @@ bingo.models.MarkerSet = Backbone.Collection.extend({
         if (!options.silent) this.trigger('refresh', this, options);
         return this;
     },
-    getMostRecent: function() {
+    /**
+     *  Looks through our collection for the Marker with the 'last_called'
+     *  attribute set to true.  If one exists, returns it.  If not, returns
+     *  null.
+     **/    
+    get_last_called: function() {
         /* Keep track of the most recently called marker, starting with the
             actually most recent */
         var mostRecentIndex = null;
@@ -161,13 +196,12 @@ bingo.models.MarkerSet = Backbone.Collection.extend({
         
         var mostRecent = null;
         if(mostRecentIndex == null) {
-            mostRecent = this.at(0);
+            return null;
         }
         else {
-            mostRecent = this.at(mostRecentIndex);
+            return this.at(mostRecentIndex);
         }
         
-        return mostRecent;
     }, 
-    
+        
 });

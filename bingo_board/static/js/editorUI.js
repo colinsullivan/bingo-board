@@ -1,34 +1,4 @@
 /**
- *  @file       editorUI.js
- *  The initial javascript file for the editor interface.  We retrieve all the markers
- *  and initialize the clickable bingo board.
- *
- *  @author     Colin Sullivan <colinsul [at] gmail.com>
- **/
-
-
-/**
- *  Create the clickable bingo board based on the data from backend.  This is used 
- *  in the callback function from the ajax call (jQuery.ajax).
- *
- *  @param  Object  data        The data retrieved from backend.
- *  @param  String  textStatus  The status of the HTTP request in text.
- **/
-function createBoard(data, textStatus) {
-    var markerStates = data;
-    
-    /* Create Bingo Board */
-    board = new ClickableBingoBoard({
-        'markerStates': markerStates
-    });
-    
-    /* Update board every 10 seconds just in case */
-    setInterval(retrieveAndUpdateBoard, 10000);
-    
-    
-}
-
-/**
  *  Initialize all of the controls on the page (not relating to bingo board)
  **/
 function initializeControls() {
