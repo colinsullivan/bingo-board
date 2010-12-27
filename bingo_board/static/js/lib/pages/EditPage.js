@@ -38,6 +38,21 @@ bingo.pages.EditPage = bingo.pages.BingoPage.extend({
             };
         }(this));
 
+
+        var backButton = $('#control-back');
+        if(typeof(backButton) == 'undefined') {
+            throw new Error('backButton is undefined');
+        }
+        else if(backButton.length == 0) {
+            throw new Error('backButton not found');
+        }
+        this.backButton = backButton;
+        
+        /* When back button is clicked, go to home page */
+        backButton.click(function(){
+            window.location = '/home';
+        });
+
         
         
         /* Now, and then every 30 seconds, refresh board just to make sure */

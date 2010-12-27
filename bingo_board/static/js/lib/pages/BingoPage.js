@@ -42,19 +42,6 @@ bingo.pages.BingoPage = bingo.pages.Page.extend({
         }(this));
         
         
-        var backButton = $('#control-back');
-        if(typeof(backButton) == 'undefined') {
-            throw new Error('backButton is undefined');
-        }
-        else if(backButton.length == 0) {
-            throw new Error('backButton not found');
-        }
-        this.backButton = backButton;
-        
-        /* When back button is clicked, go to home page */
-        backButton.click(function(){
-            window.location = '/home';
-        });
         
         
 
