@@ -17,9 +17,41 @@ from tastypie.fields import RelatedField
 from django.utils import simplejson
 
 
-from bingo.models import *
 from django.contrib.auth.models import User
+from bingo.models import *
 
+from tastypie.cache import NoCache
+
+###
+#   The cache use for retrieving markers.  Just looks at the markers_serialized
+#   attribute of the board object.  This increases speed dramatically and keeps
+#   google app engine quotas in check.
+###
+class MarkerCache(NoCache):
+    
+    ###
+    #   Helper to get the associated board given the encoded key.
+    ###
+    def get_board(self, key):
+        # The key sent in will be of the form: 1:marker:list:board_id=3039
+        # Grab the board_id from it: 
+        board_id = int(key.split('board_id=')[1])
+        board = Board.objects.get(pk = board_id)
+        return board
+    
+    ###
+    #   Get the markers (as a dict)
+    ###
+    def get(self, key):
+        board = self.get_board(key)
+        
+        return simplejson.loads(board.markers_serialized)
+        
+    ###
+    #   We don't set the cache here, that is taken care of in the model.
+    ###
+    def set(self, key, value, timeout=60):
+        raise NotImplementedError()
 
 
 class DjangoAuthentication(Authentication):
@@ -78,14 +110,14 @@ class MyResource(ModelResource):
     ###
     #   This method is used to bootstrap the objects into place.
     ###
-    def as_dict(self, request):
-        cols = self.get_object_list(request)
+    def as_dict(self, request=None):
+        objs = self.get_object_list(request)
 
-        colsBundles = [self.full_dehydrate(obj=obj) for obj in cols]
+        objsBundles = [self.full_dehydrate(obj=obj) for obj in objs]
 
-        colsSerialized = [obj.data for obj in colsBundles]
+        objsSerialized = [obj.data for obj in objsBundles]
 
-        return colsSerialized
+        return objsSerialized
         
     ###
     #   This method returns the serialized object upon creation, instead of 
@@ -224,10 +256,119 @@ class MarkerResource(MyResource):
         filtering = {
             'board': ALL_WITH_RELATIONS, 
         }
-        
-        ordering = ['updated_at']
-        
 
         authentication = Authentication()
         authorization = MarkerAuthorization()
+        
+        cache = MarkerCache()
+        
+    ###
+    #   If we are getting the list of markers, make sure that we check the cache.
+    ###
+    def obj_get_list(self, request=None, **kwargs):
+        """
+        A ORM-specific implementation of ``obj_get_list``.
+
+        Takes an optional ``request`` object, whose ``GET`` dictionary can be
+        used to narrow the query.
+        """
+        filters = None
+
+        if hasattr(request, 'GET'):
+            filters = request.GET
+
+        applicable_filters = self.build_filters(filters=filters)
+        
+        # If we are trying to get the markers for a single board, get from cache
+        if('board__exact' in applicable_filters):
+            kwargs['board_id'] = applicable_filters['board__exact']
+            return self.cached_obj_get_list(request, **kwargs)
+        else:
+            try:
+                # Call super here just to avoid any cache checking.  This probably
+                # doesn't matter
+                # .
+                return super(MarkerResource, self).get_object_list(request).filter(**applicable_filters)
+            except ValueError, e:
+                raise NotFound("Invalid resource lookup data provided (mismatched type).")
+            
+    ###
+    #   The list of markers will be returned as a dictionary which can then be 
+    #   sent to create_response for serializing.
+    ###
+    def get_list(self, request, **kwargs):
+        
+        # objects is sent directly in to the response because it is a dict
+        objects = self.obj_get_list(request=request, **self.remove_api_resource_names(kwargs))
+
+        return self.create_response(request, objects)     
+        
+    
+###
+#   A resource for serializing a set of markers given a board.
+###
+class BoardMarkerResource(MarkerResource):
+    
+    class Meta:
+        limit = 75
+        queryset = Marker.objects.all()
+
+        filtering = {
+            'board': ALL_WITH_RELATIONS, 
+        }
+
+        authentication = Authentication()
+        authorization = MarkerAuthorization()
+        
+        # The board object
+        board = None
+        
+    ###
+    #   This must be called before the board is to be retrieved.
+    ###
+    def set_board(self, board):
+        self._meta.board = board
+
+    def apply_authorization_limits(self, request, object_list):
+
+        board = self._meta.board
+
+        if board:
+            return super(BoardMarkerResource, self).apply_authorization_limits(request, Marker.objects.filter(board = board))
+
+        else:
+            raise Exception('board must be set')
+
+###
+#   A resource for a single marker.
+###
+class SingleMarkerResource(MarkerResource):
+    
+    class Meta:
+        limit = 75
+        queryset = Marker.objects.all()
+
+        filtering = {
+            'board': ALL_WITH_RELATIONS, 
+        }
+
+        authentication = Authentication()
+        authorization = MarkerAuthorization()
+        
+        # The marker object
+        marker = None
+        
+    ###
+    #   This must be called before the marker is retrieved
+    ###
+    def set_marker(self, marker):
+        self._meta.marker = marker
+    
+    def apply_authorization_limits(self, request, object_list):
+        marker = self._meta.marker
+        
+        if marker:
+            return super(SingleMarkerResource, self).apply_authorization_limits(request, [marker])
+        else:
+            raise Exception('marker must be set')
         

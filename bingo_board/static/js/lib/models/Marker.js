@@ -68,7 +68,7 @@ bingo.models.Marker = Backbone.Model.extend({
 bingo.models.MarkerSet = Backbone.Collection.extend({
     model: bingo.models.Marker,
     url: function() {
-        var base = '/api/1/marker/?sort_by=-updated_at&board=';
+        var base = '/api/1/marker/?board=';
         return base + this.board.id
     }, 
     /**
@@ -122,14 +122,13 @@ bingo.models.MarkerSet = Backbone.Collection.extend({
             /* If marker has changed, update attributes */
             if(marker.get('value') != attrs.value) {
                 marker.set(attrs);
+
+                /* If this marker was updated most recently (so far) */
+                if(newMostRecent.get('updated_at') < marker.get('updated_at')) {
+                    newMostRecent = marker;
+                }
+                
             }
-            
-            
-            /* If this marker was updated most recently (so far) */
-            if(newMostRecent.get('updated_at') < marker.get('updated_at')) {
-                newMostRecent = marker;
-            }
-            
         }
         
         /* If the most recent marker has changed */

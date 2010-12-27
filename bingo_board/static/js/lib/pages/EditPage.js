@@ -24,7 +24,7 @@ bingo.pages.EditPage = bingo.pages.BingoPage.extend({
         /* Now, and then every 30 seconds, refresh board just to make sure */
         setInterval(function(me){
             return function() {
-                me.markers.fetch();
+                me.markers.fetch({silent: true});
             };
         }(this), 30000);
         this.markers.fetch();
