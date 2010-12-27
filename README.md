@@ -1,7 +1,7 @@
 # Bingo!
 
 ## Why?
-My family plays Bingo every New Years day.  When a certain quantity of loud drunken italians join the game, it becomes very difficult to hear what numbers have been called.  This application allows any web browser to display the current bingo board.
+My family plays Bingo every New Years day.  When many loud drunken italians join the game, it becomes very difficult to hear what numbers have been called.  This application allows any web browser to display the current bingo board.
 
 ## Demo
 Coming soon!
