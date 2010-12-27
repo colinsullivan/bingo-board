@@ -168,13 +168,18 @@ body {
 }
 
 .controls_container {
-    position: relative;
     margin-top: 1em;
-    text-align: right;
+}
+
+.controls_left {
+    float: left;
+}
+
+.controls_right {
+    float: right;
 }
 
 .control {
-    position: relative;
     margin-left: auto;
     display: inline;
 }

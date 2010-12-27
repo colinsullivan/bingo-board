@@ -12,14 +12,18 @@
     </div>
     
     <div class="controls_container">
-        <button class="text-button control blue corner-all" id="control-back">
-            &lt; Back to Home
-        </button>
-        {% block controls %}
-        {% endblock %}
-        <button class="text-button control blue corner-all" id="control-help">
-          ?
-        </button>
+        <div class="controls_left">
+            {% block controls_left %}
+            {% endblock %}
+        </div>
+        <div class="controls_right">
+            {% block controls_right %}
+            {% endblock %}
+            <button class="text-button control blue corner-all" id="control-help">
+              ?
+            </button>            
+        </div>
+        <div class="clearfix"></div>
     </div>
     
     <div id="last_enabled">

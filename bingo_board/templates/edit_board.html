@@ -8,9 +8,15 @@
     {% bingo_row 'O' ' clickable' %}
 {% endblock %}
 
-{% block controls %}
-<button class="text-button control blue corner-all" id="control-clear">
-  Clear Board
-</button>
+{% block controls_left %}
+    <button class="text-button control blue corner-all" id="control-back">
+        &lt; Back to Home
+    </button>            
+{% endblock %}
+
+{% block controls_right %}
+    <button class="text-button control blue corner-all" id="control-clear">
+      Clear Board
+    </button>
 {% endblock %}
 
