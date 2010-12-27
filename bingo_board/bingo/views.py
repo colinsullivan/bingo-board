@@ -89,9 +89,33 @@ def view_board(request, board_id):
 ###
 #   This is the page that the user can use to call numbers on a bingo board.
 ###
+@login_required
 def edit_board(request, board_id):
     return bingo_board(request, board_id, 'edit_board.html', 'edit')
 
+
+###
+#   This is the view that is executed when a board is to be cleared
+###
+@login_required
+def clear_board(request, board_id):
+    
+    user = request.user
+    
+    board = Board.objects.get(pk=board_id)
+    
+    if board.user != user:
+        raise Exception('Operation not allowed')
+    
+    markers = Marker.objects.filter(board=board)
+    
+    for marker in markers:
+        if(marker.value):
+            marker.value = False
+            marker.save()
+
+    return HttpResponse('success', content_type='text/plain')
+    
     
 ###
 #   This is an basic controller that allows a user to create a new account.

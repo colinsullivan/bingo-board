@@ -14,26 +14,15 @@ bingo.models.Marker = Backbone.Model.extend({
      *  @constructor
      **/
     initialize: function(){
-        var updated_at = this.get('updated_at');
-        /*  If there is an updated_at attribute */
-        if(updated_at) {
-            var new_updated_at = new Date(updated_at);
-            if(new_updated_at == 'Invalid Date') {
-                throw new Error('Date was invalid: '+updated_at);
-            }
-
-            /* Convert to date-time */
-            this.set({
-                'updated_at': new_updated_at
-            });
-        }
     }, 
     /* When setting the date, create a new date object */
     set: function(attrs, options) {
         if(attrs) {
             var old_updated_at = attrs['updated_at'];
-            if(old_updated_at) {
-                var new_updated_at = new Date(old_updated_at);
+            if(old_updated_at && typeof(old_updated_at) == 'string') {
+                old_updated_at += 'Z';
+                var new_updated_at = new Date();
+                new_updated_at.setISO8601(old_updated_at);
                 if(new_updated_at == 'Invalid Date') {
                     throw new Error('Date was invalid: '+old_updated_at);
                 }
@@ -71,8 +60,10 @@ bingo.models.Marker = Backbone.Model.extend({
      **/
     save: function(attributes, options){
         /* Update updated_at attribute */
+        var new_updated_at = new Date();
+
         this.set({
-            'updated_at': new Date()
+            'updated_at': new_updated_at
         });
         
         return Backbone.Model.prototype.save.call(this, attributes, options);

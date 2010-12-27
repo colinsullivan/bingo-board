@@ -12,11 +12,11 @@
     </div>
     
     <div class="controls_container">
+        {% block controls %}
+        {% endblock %}
         <button class="text-button control blue corner-all" id="control-help">
           ?
         </button>
-        {% block controls %}
-        {% endblock %}
     </div>
     
     <div id="last_enabled">

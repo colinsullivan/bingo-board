@@ -68,7 +68,7 @@ class Board(models.Model):
         ## Before deleting board, delete all markers
         Marker.objects.filter(board = self).delete()
         
-        super(Board, self).delete(using)
+        return super(Board, self).delete(using)
                 
     
 
@@ -92,7 +92,6 @@ class Marker(models.Model):
     #   is updated.
     ###
     def save(self, *args, **kwargs):
-
         isNew = False
         if not self.pk:
             isNew = True
@@ -111,13 +110,14 @@ class Marker(models.Model):
             new_board_cache = []
             for board_marker_dict in board_cache:
                 board_marker_dict_id = board_marker_dict['id']
-                if board_marker_dict_id == self.id:
+                if (board_marker_dict_id == self.id) or (board_marker_dict_id == unicode(self.id)):
                     new_board_cache.append(me_as_dict)
                 else:
                     new_board_cache.append(board_marker_dict)
             new_markers_serialized = r.serialize(None, new_board_cache, 'application/json')
+            
             parent_board.markers_serialized = new_markers_serialized
             parent_board.save()
         
-        super(Marker, self).save(*args, **kwargs)
+        return super(Marker, self).save(*args, **kwargs)
         

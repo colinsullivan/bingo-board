@@ -75,6 +75,21 @@ class BingoTests(unittest.TestCase):
                 self.assertEqual(marker_dict['value'], markerOne.value, 'Marker is not being updated in board cache')
             elif marker_dict_id == markerTwo.id:
                 self.assertEqual(marker_dict['value'], markerTwo.value, 'Marker is not being updated in board cache')
+                
+        markerOne.value = False
+        markerOne.save()
+        
+        self.board = Board.objects.get(pk = self.board.id)
+        marker_dicts = simplejson.loads(self.board.markers_serialized)
+        
+        ##  Make sure cache was updated correctly.
+        for marker_dict in marker_dicts:
+            marker_dict_id = marker_dict['id']
+            if marker_dict_id == markerOne.id:
+                self.assertEqual(marker_dict['value'], markerOne.value, 'Marker is not being updated in board cache')
+            elif marker_dict_id == markerTwo.id:
+                self.assertEqual(marker_dict['value'], markerTwo.value, 'Marker is not being updated in board cache')
+        
         
         
     def testBoardDeletion(self):

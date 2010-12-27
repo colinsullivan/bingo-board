@@ -238,7 +238,7 @@ class SingleBoardResource(BoardResource):
             return super(BoardResource, self).apply_authorization_limits(request, Board.objects.filter(pk = board_id))
             
         else:
-            raise Exception('board_id must be set')
+            raise Exception('board_id must be set')    
 
 ###
 #   A bingo marker.
