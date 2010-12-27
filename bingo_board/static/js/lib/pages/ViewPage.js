@@ -27,4 +27,10 @@ bingo.pages.ViewPage = bingo.pages.BingoPage.extend({
         /* Fetch (and render page) */
         this.markers.fetch();
     },
+    show_help: function() {
+        this.notifier.alert({
+            'url': '/static/partials/viewerHelpPopupContent.html',
+            'title': 'Welcome to Bingo!'
+        });  
+    }, 
 });

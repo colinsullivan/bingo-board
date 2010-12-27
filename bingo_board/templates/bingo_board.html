@@ -11,6 +11,14 @@
         {% block bingo_rows %}{% endblock %}
     </div>
     
+    <div class="controls_container">
+        <button class="text-button control blue corner-all" id="control-help">
+          ?
+        </button>
+        {% block controls %}
+        {% endblock %}
+    </div>
+    
     <div id="last_enabled">
       <div id="last_enabled_border"></div>
     </div>

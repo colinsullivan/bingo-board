@@ -28,5 +28,11 @@ bingo.pages.EditPage = bingo.pages.BingoPage.extend({
             };
         }(this), 30000);
         this.markers.fetch();
-    }
+    },
+    show_help: function() {
+        this.notifier.alert({
+            'url': '/static/partials/editorHelpPopupContent.html',
+            'title': 'Welcome to Bingo!'
+        });  
+    },     
 });

@@ -24,6 +24,25 @@ bingo.pages.BingoPage = bingo.pages.Page.extend({
         var markers = new bingo.models.MarkerSet;
         markers.board = board;
         this.markers = markers;
+        
+        var helpButton = $('#control-help');
+        if(typeof(helpButton) == 'undefined') {
+            throw new Error('helpButton is undefined');
+        }
+        else if(helpButton.length == 0) {
+            throw new Error('helpButton not found');
+        }
+        this.helpButton = helpButton;
+        
+        /* When help button is pressed, show popup */
+        helpButton.click(function(me) {
+            return function() {
+                me.show_help();
+            };
+        }(this));
+        
+
+        
 
         /* Bind collection events to render */
         markers.bind('refresh', this.render);
