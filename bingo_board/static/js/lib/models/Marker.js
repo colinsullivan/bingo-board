@@ -27,7 +27,14 @@ bingo.models.Marker = Backbone.Model.extend({
                     throw new Error('Date was invalid: '+old_updated_at);
                 }
                 attrs['updated_at'] = new_updated_at;
-            }            
+            }  
+            
+            /* If we've set the value to false */
+            var new_value = attrs['value'];
+            if(new_value == false) {
+                /* Also set last_called to false */
+                attrs['last_called'] = false;
+            }
         }
         
         return Backbone.Model.prototype.set.call(this, attrs, options);        
@@ -102,13 +109,9 @@ bingo.models.MarkerSet = Backbone.Collection.extend({
             Backbone.Collection.prototype.refresh.call(this, models, options);
             
             /* Determine the most recently called marker based on timestamp */
-            var mostRecent = this.at(0);
-            mostRecent.set({
-                last_called: true 
-            });
             this.each(function(mostRecent){
                 return function(marker) {
-                    if(marker.get('updated_at') > mostRecent.get('updated_at')) {
+                    if(mostRecent && marker.get('value') && marker.get('updated_at') > mostRecent.get('updated_at')) {
                         mostRecent.set({
                             last_called: false 
                         });
@@ -117,8 +120,14 @@ bingo.models.MarkerSet = Backbone.Collection.extend({
                         });
                         mostRecent = marker;
                     }
+                    else if(!mostRecent && marker.get('value')) {
+                        marker.set({
+                            last_called: true 
+                        });
+                        mostRecent = marker;
+                    }
                 }
-            }(mostRecent));
+            }(null));
 
             /* End */
             return this;
@@ -145,7 +154,7 @@ bingo.models.MarkerSet = Backbone.Collection.extend({
                 marker.set(attrs);
                 
                 /* If this marker was updated most recently (so far) */
-                if(newMostRecent.get('updated_at') < marker.get('updated_at')) {
+                if(!newMostRecent || (newMostRecent.get('updated_at') < marker.get('updated_at'))) {
                     newMostRecent = marker;
                 }
                 
@@ -155,9 +164,11 @@ bingo.models.MarkerSet = Backbone.Collection.extend({
         /* If the most recent marker has changed */
         if(currentMostRecent != newMostRecent) {
             /* Update the attributes */
-            currentMostRecent.set({
-                'last_called': false
-            });
+            if(currentMostRecent) {
+                currentMostRecent.set({
+                    'last_called': false
+                });                
+            }
             
             newMostRecent.set({
                 'last_called': true, 

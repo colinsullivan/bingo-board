@@ -48,7 +48,7 @@ bingo.widgets.ClickableBingoMarkerWidget = bingo.widgets.BingoMarkerWidget.exten
                 return function() {
                     /* Enable on the interface */
                     me.enable();
-                    me.setLastCalled();
+                    me.set_last_called();
                 };
             }(this)
         });

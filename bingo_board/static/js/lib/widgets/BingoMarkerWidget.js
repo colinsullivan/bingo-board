@@ -33,7 +33,7 @@ bingo.widgets.BingoMarkerWidget = bingo.widgets.Widget.extend({
         }
         
         if(this.model.get('last_called')) {
-            this.setLastCalled();
+            this.set_last_called();
         }
         
         
@@ -46,7 +46,7 @@ bingo.widgets.BingoMarkerWidget = bingo.widgets.Widget.extend({
     disable: function() {
         this.el.removeClass('enabled').addClass('disabled');
     }, 
-    setLastCalled: function() {
+    set_last_called: function() {
         var el = $(this.el);
         
         /* Remove "caution" div from DOM */
