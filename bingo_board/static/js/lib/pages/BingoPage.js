@@ -53,8 +53,10 @@ bingo.pages.BingoPage = bingo.pages.Page.extend({
         
         var most_recent_call = new Date('Sat Jan 01 2000 00:00:00 GMT-0500');
         
+        var markers = this.markers;
+        
         /* For each marker, create a marker widget */
-        this.markers.each(function(page, markerClass, most_recent_call) {
+        markers.each(function(page, markerClass, most_recent_call) {
             return function(marker) {
                 /* This function must be implemented in subclasses. */
                 var widget = new markerClass({
@@ -65,6 +67,9 @@ bingo.pages.BingoPage = bingo.pages.Page.extend({
                 
             };
         }(this, this.markerClass, most_recent_call));
+        
+        /* We only need to create these once */
+        markers.unbind('refresh', this.render);
         
         return this;
     },

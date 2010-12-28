@@ -24,7 +24,7 @@ bingo.widgets.BingoMarkerWidget = bingo.widgets.Widget.extend({
     },
     render: function() {
         bingo.widgets.Widget.prototype.render.call(this);
-        
+                
         if(this.model.get('value')) {
             this.enable();
         }

@@ -28,12 +28,6 @@ bingo.widgets.ClickableBingoMarkerWidget = bingo.widgets.BingoMarkerWidget.exten
             }
         }(this));
         
-        _.bindAll(this, "render");
-    },
-    render: function() {
-        bingo.widgets.BingoMarkerWidget.prototype.render.call(this);
-        
-        return this;
     },
     /**
      *  This is called when a user clicks on a marker that is not yet enabled.

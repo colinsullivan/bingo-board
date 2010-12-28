@@ -151,10 +151,15 @@ bingo.models.MarkerSet = Backbone.Collection.extend({
         /* Since the collection is sorted by the 'updated_at' property, the
             last called marker will be the last in the list */
         var last_marker = this.at(this.length - 1);
+        /* IF the last marker in the list is enabled, it was the last called
+            if it is the same as previous, no need to re-render because it is
+            still the last called */
         if(last_marker.get('value')) {
-            last_marker.set({
-                last_called: true 
-            });
+            if(this.last_called_marker == null || this.last_called_marker != last_marker) {
+                last_marker.set({
+                    last_called: true 
+                });
+            }
         }
         else {
             /* Hide the last enabled marker.  
@@ -162,8 +167,9 @@ bingo.models.MarkerSet = Backbone.Collection.extend({
                 the future.  This logic should obviously not be in the model. */
             $('#last_enabled').hide();
             $('.lastEnabled').removeClass('lastEnabled');
-            
         }
+        
+        this.last_called_marker = last_marker;
         
         return this;
 
