@@ -99,6 +99,7 @@ bingo.pages.EditPage = bingo.pages.BingoPage.extend({
                 return function(data, status) {
                     if(status == 'success' && data == 'success') {
                         me.markers.fetch({silent: true});
+                        
                     }
                 };
             }(this)
