@@ -102,3 +102,9 @@ ModalNotifier.prototype.validateParams = function(params) {
     }
     
 }
+/**
+ *  When the modal window should be closed programatically.
+ **/
+ModalNotifier.prototype.close = function() {
+    this.modalAlertObject.close();
+};

@@ -45,8 +45,6 @@ bingo.pages.Page = Backbone.View.extend({
             this.notify(initialMessage);
         }
         
-
-        
         
         /* Any text fields that are class autoclear should be autocleared */
         $('input.autoclear').each(function() {
@@ -75,4 +73,38 @@ bingo.pages.Page = Backbone.View.extend({
         
         this.messagesContainer.html(message);
     }, 
+    /**
+     *  If there is a connectionError, display this.
+     **/
+    connectionError: function() {
+        /* If there was not already an error */
+        if(!this.CONNECTION_ERROR) {
+             this.notifier.alert({
+                 title: 'Connection Error!', 
+                 content: 'A connection error has occurred!<br />Bingo is not being updated.',
+                 noOptions: true
+            });
+            this.CONNECTION_ERROR = true;
+        }
+        /* There was already an error, so modal dialog is open, and user
+           is confused or angry
+        else {
+        }*/
+    },
+    /**
+     *  If there is a healthy connection, run this.
+     **/
+    connectionErrorResolved: function() {
+        /* If there was already an error */
+        if(this.CONNECTION_ERROR) {
+            /* Close modal display */
+            this.notifier.close();
+            this.CONNECTION_ERROR = false;
+        }
+        /* There was no error, and we have a healthy connection
+        else {
+
+        }*/
+    }
+    
 });

@@ -28,9 +28,25 @@ Backbone.sync = function(method, model, options) {
                 else {
                     oldSuccess(data, status);
                 }
+                
+                if(bingo.page.CONNECTION_ERROR) {
+                    bingo.page.connectionErrorResolved();
+                }
             }
         }(options.success);
     }
+    
+    /**
+     *  TODO: Get jquery.ajax error callback arguments.
+     **/
+    options.error = function(oldError) {
+        return function() {
+            bingo.page.connectionError();
+            if(oldError) {
+                oldError();
+            }
+        }
+    }(options.error);
     
     var type = methodMap[method];
     var modelJSON = (method === 'create' || method === 'update') ?
