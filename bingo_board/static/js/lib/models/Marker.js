@@ -156,6 +156,14 @@ bingo.models.MarkerSet = Backbone.Collection.extend({
                 last_called: true 
             });
         }
+        else {
+            /* Hide the last enabled marker.  
+                TODO: These should be handled much more gracefully in 
+                the future.  This logic should obviously not be in the model. */
+            $('#last_enabled').hide();
+            $('.lastEnabled').removeClass('lastEnabled');
+            
+        }
         
         return this;
 
