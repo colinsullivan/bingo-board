@@ -29,33 +29,39 @@ bingo.init.initializePage = function(params) {
  **/
 bingo.init.initialize = function(params) {
     
-    /* Next we are loading fonts, so when they load, start page up */
-    google.setOnLoadCallback(function(params) {
-        return function() {
-            $(document).ready(function(params) {
-                return function(){
-                    var completeCallback = function() {
-                        bingo.init.initializePage(params);
-                    }
-                    WebFont.load({
-                        google: {
-                            families: ['Cantarell:regular,bold', 'PT Sans']
-                        },
-                        loading: function() {
-                            
-                        },
-                        active: completeCallback,
-                        inactive: completeCallback
-                    });
-                    
-                };
-            }(params));
-        };
-    }(params));
+    if(typeof(google) != 'undefined') {
+        /* Next we are loading fonts, so when they load, start page up */
+        google.setOnLoadCallback(function(params) {
+            return function() {
+                $(document).ready(function(params) {
+                    return function(){
+                        var completeCallback = function() {
+                            bingo.init.initializePage(params);
+                        }
+                        WebFont.load({
+                            google: {
+                                families: ['Cantarell:regular,bold', 'PT Sans']
+                            },
+                            loading: function() {
 
-    /* Load jQuery & fonts */
-    //google.load('jquery', '1.4.4');
-    google.load('webfont', '1.0.12');
+                            },
+                            active: completeCallback,
+                            inactive: completeCallback
+                        });
+
+                    };
+                }(params));
+            };
+        }(params));
+
+        /* Load jQuery & fonts */
+        //google.load('jquery', '1.4.4');
+        google.load('webfont', '1.0.12');
+    }
+    else {
+        /* There is a internet connection error */
+        throw new Error('Connection error.');
+    }
 }
 
 
