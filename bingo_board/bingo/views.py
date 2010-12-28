@@ -145,6 +145,7 @@ def register(request):
         'message': message, 
         'registerForm': registerForm,
         'loginForm': AuthenticationForm(),
+        'page': 'index', 
     }, context_instance = RequestContext(request))
     
     
@@ -170,5 +171,6 @@ def login(request):
     return render_to_response('index.html', {
         'message': message,
         'loginForm': loginForm,
-        'registerForm': UserRegistrationForm()
+        'registerForm': UserRegistrationForm(),
+        'page': 'index', 
     }, context_instance = RequestContext(request))

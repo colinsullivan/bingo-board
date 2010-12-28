@@ -17,7 +17,7 @@ urlpatterns = patterns('',
     
     
     
-    # Static files
+    # Static files (Seems to need to be uncommented for my development server)
     (r'^static/(?P<path>.*)$', 'django.views.static.serve',
             {'document_root': settings.STATIC_DOC_ROOT}),
             
