@@ -84,6 +84,20 @@ bingo.models.Marker = Backbone.Model.extend({
  **/
 bingo.models.MarkerSet = Backbone.Collection.extend({
     model: bingo.models.Marker,
+    /**
+     *  @constructor
+     **/
+    initialize: function() {
+        
+        /* Here we will store the last called marker */
+        this.last_called_marker = null;
+    }, 
+    /**
+     *  Keep markers sorted by update timestamp.
+     **/
+    comparator: function(marker) {
+        return marker.get('updated_at');
+    }, 
     url: function() {
         var base = '/api/1/marker/?board=';
         return base + this.board.id
@@ -103,107 +117,50 @@ bingo.models.MarkerSet = Backbone.Collection.extend({
      **/
     refresh: function(models, options) {
         
-        /* If we have not yet created the models for the first time */
-        if(!this.length) {
-            /* Do it. */
-            Backbone.Collection.prototype.refresh.call(this, models, options);
-            
-            /* Determine the most recently called marker based on timestamp */
-            this.each(function(mostRecent){
-                return function(marker) {
-                    if(mostRecent && marker.get('value') && marker.get('updated_at') > mostRecent.get('updated_at')) {
-                        mostRecent.set({
-                            last_called: false 
-                        });
-                        marker.set({
-                            last_called: true 
-                        });
-                        mostRecent = marker;
-                    }
-                    else if(!mostRecent && marker.get('value')) {
-                        marker.set({
-                            last_called: true 
-                        });
-                        mostRecent = marker;
-                    }
-                }
-            }(null));
-
-            /* End */
-            return this;
-            
-        }
-        
         models  || (models = []);
         options || (options = {});
         
-        /* Get most recently called marker */
-        currentMostRecent = this.get_last_called();
-        newMostRecent = currentMostRecent;
-        
-        /* For each marker retrieved from server */
-        for(var i = 0, il = models.length; i < il; i++) {
-            var attrs = models[i];
-            
-            /* Marker object */
-            var marker = this.get(attrs.id);
-            
-            
-            /* If marker has changed, update attributes */
-            if(marker.get('value') != attrs.value) {
-                marker.set(attrs);
+        /* If we have no objects yet, we've not yet created the Markers */
+        if(!this.length) {
+            /* Create all markers from response */
+            Backbone.Collection.prototype.refresh.call(this, models, options);
+        }
+        /* We've already created the markers, and instead of re-creating all
+            the objects we will just merge the changes manually */
+        else {
+            /* For each marker object retrieved from server */
+            for(var i = 0, il = models.length; i < il; i++) {
+                var attrs = models[i];
                 
-                /* If this marker was updated most recently (so far) */
-                if(!newMostRecent || (newMostRecent.get('updated_at') < marker.get('updated_at'))) {
-                    newMostRecent = marker;
+                /* Current marker object */
+                var marker = this.get(attrs.id);
+                
+                /* If marker has changed, its value will be different. */
+                if(marker.get('value') != attrs.value) {
+                    /* 'last_called' attr will be set later */
+                    attrs['last_called'] = false;
+                    
+                    /* update marker object */
+                    marker.set(attrs);
+                    
                 }
-                
             }
+            
+            /* Sort the collection by which Marker has been updated last */
+            this.sort();
         }
         
-        /* If the most recent marker has changed */
-        if(currentMostRecent != newMostRecent) {
-            /* Update the attributes */
-            if(currentMostRecent) {
-                currentMostRecent.set({
-                    'last_called': false
-                });                
-            }
-            
-            newMostRecent.set({
-                'last_called': true, 
+        
+        /* Since the collection is sorted by the 'updated_at' property, the
+            last called marker will be the last in the list */
+        var last_marker = this.at(this.length - 1);
+        if(last_marker.get('value')) {
+            last_marker.set({
+                last_called: true 
             });
         }
 
-        if (!options.silent) this.trigger('refresh', this, options);
+        if (!options.silent) this.trigger('refresh', this, options);        
         return this;
-    },
-    /**
-     *  Looks through our collection for the Marker with the 'last_called'
-     *  attribute set to true.  If one exists, returns it.  If not, returns
-     *  null.
-     **/    
-    get_last_called: function() {
-        /* Keep track of the most recently called marker, starting with the
-            actually most recent */
-        var mostRecentIndex = null;
-        var possibleMostRecents = this.pluck('last_called');
-        for(var i = 0, il = possibleMostRecents.length; i < il; i++) {
-            if(possibleMostRecents[i]) {
-                mostRecentIndex = i;
-                /* there is only one most recent so we can stop looking */
-                break;
-            }
-        }
-        
-        var mostRecent = null;
-        if(mostRecentIndex == null) {
-            return null;
-        }
-        else {
-            return this.at(mostRecentIndex);
-        }
-        
-    }, 
-        
+    }        
 });
