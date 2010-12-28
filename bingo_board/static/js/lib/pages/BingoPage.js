@@ -58,7 +58,7 @@ bingo.pages.BingoPage = bingo.pages.Page.extend({
             return function(marker) {
                 /* This function must be implemented in subclasses. */
                 var widget = new markerClass({
-                    el: $('#bingo_marker-'+marker.get('number')), 
+                    el: $('#bingo_cell-'+marker.get('number')), 
                     model: marker,
                     page: page
                 }).render();

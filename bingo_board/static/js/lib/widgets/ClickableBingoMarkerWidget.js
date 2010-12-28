@@ -28,12 +28,6 @@ bingo.widgets.ClickableBingoMarkerWidget = bingo.widgets.BingoMarkerWidget.exten
             }
         }(this));
         
-        _.bindAll(this, "render");
-    },
-    render: function() {
-        bingo.widgets.BingoMarkerWidget.prototype.render.call(this);
-        
-        return this;
     },
     /**
      *  This is called when a user clicks on a marker that is not yet enabled.
@@ -46,9 +40,7 @@ bingo.widgets.ClickableBingoMarkerWidget = bingo.widgets.BingoMarkerWidget.exten
         }, {
             success: function(me) {
                 return function() {
-                    /* Enable on the interface */
-                    me.enable();
-                    me.set_last_called();
+                    me.page.markers.set_last_called();
                 };
             }(this)
         });
@@ -62,7 +54,7 @@ bingo.widgets.ClickableBingoMarkerWidget = bingo.widgets.BingoMarkerWidget.exten
         }, {
             success: function(me){
                 return function() {
-                    me.disable();
+                    me.page.markers.set_last_called();
                 }
             }(this), 
         })

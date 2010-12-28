@@ -73,7 +73,10 @@ bingo.models.Marker = Backbone.Model.extend({
             'updated_at': new_updated_at
         });
         
-        return Backbone.Model.prototype.save.call(this, attributes, options);
+        
+        Backbone.Model.prototype.save.call(this, attributes, options);
+        
+        return this;
     },
 });
 
@@ -117,6 +120,12 @@ bingo.models.MarkerSet = Backbone.Collection.extend({
      **/
     refresh: function(models, options) {
         
+        if(typeof(models) == 'undefined') {
+            models = this.models;
+        }
+        
+        console.log('refreshing');
+        
         /* If we have no objects yet, we've not yet created the Markers */
         if(!this.length) {
             /* Create all markers from response */
@@ -133,33 +142,44 @@ bingo.models.MarkerSet = Backbone.Collection.extend({
                 var marker = this.get(attrs.id);
                 
                 /* If marker has changed, its value will be different. */
-                if(marker.get('value') != attrs.value) {
+//                if(marker.get('value') != attrs.value) {
                     /* 'last_called' attr will be set later */
                     attrs['last_called'] = false;
                     
                     /* update marker object */
                     marker.set(attrs);
                     
-                }
+//                }
             }
             
-            /* Sort the collection by which Marker has been updated last */
-            this.sort();
+            
+            
         }
         
+        this.set_last_called();
         
+        
+        return this;
+
+    },
+    set_last_called: function() {
         /* Since the collection is sorted by the 'updated_at' property, the
             last called marker will be the last in the list */
         var last_marker = this.at(this.length - 1);
-        if(last_marker.get('value')) {
+        last_marker.set({
+            last_called: false
+        });
+        
+        this.sort();
+        
+        var last_marker = this.at(this.length - 1);
+        
+        /* If the last marker has a value of true, it is the last to be called */
+        if(last_marker.get('value') == true) {
             last_marker.set({
                 last_called: true 
             });
         }
         
-        console.log('this.pluck("number"):');
-        console.log(this.pluck("number"));
-        return this;
-
-    }        
+    },      
 });

@@ -63,6 +63,10 @@ bingo.pages.EditPage = bingo.pages.BingoPage.extend({
         }(this), 30000);
         this.markers.fetch();
     },
+    /**
+     *  This is called when the user clicks on the help button.  Behavior 
+     *  defined in parent class.
+     **/
     show_help: function() {
         this.notifier.alert({
             'url': '/static/partials/editorHelpPopupContent.html',

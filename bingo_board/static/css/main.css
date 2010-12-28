@@ -499,7 +499,7 @@ button.blue:active {
     }
 }
 
-#last_enabled {
+.last_enabled_border {
     position: absolute;
     background: black;
     border: 10px;
@@ -515,9 +515,7 @@ button.blue:active {
     -webkit-animation-iteration-count: infinite;
     -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
 }
-#last_enabled_border {
-    z-index: inherit;
-}
+
 @-webkit-keyframes 'moveBorder' {
     from {
         background-position: 0% 0%;

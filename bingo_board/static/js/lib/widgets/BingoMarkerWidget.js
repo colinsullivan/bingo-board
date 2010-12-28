@@ -16,11 +16,32 @@ bingo.widgets.BingoMarkerWidget = bingo.widgets.Widget.extend({
 
         var params = this.options;
         
+        var el = $(this.el);
+        
+
+        var lastEnabledBorderElement = el.children('.last_enabled_border');
+        if(typeof(lastEnabledBorderElement) == 'undefined') {
+            throw new Error('lastEnabledBorderElement is undefined');
+        }
+        else if(lastEnabledBorderElement.length == 0) {
+            throw new Error('lastEnabledBorderElement not found');
+        }
+        this.lastEnabledBorderElement = lastEnabledBorderElement;
+
+        
+        var markerElement = el.children('.bingo_marker');
+        if(typeof(markerElement) == 'undefined') {
+            throw new Error('params.markerElement is undefined');
+        }
+        else if(markerElement.length == 0) {
+            throw new Error('markerElement not found');
+        }
+        this.markerElement = markerElement;
         
         
         _.bindAll(this, "render");
         var marker = this.model;
-        marker.bind('change', this.render);        
+        marker.bind('change', this.render);      
     },
     render: function() {
         bingo.widgets.Widget.prototype.render.call(this);
@@ -32,33 +53,33 @@ bingo.widgets.BingoMarkerWidget = bingo.widgets.Widget.extend({
             this.disable();
         }
         
+        /* If this marker was the last called */
         if(this.model.get('last_called')) {
+            /* UI */
             this.set_last_called();
+        }
+        else {
+            this.unset_last_called();
         }
         
         
         return this;
     },
     enable: function() {
-        this.el.removeClass('disabled').addClass('enabled');
+        this.markerElement.removeClass('disabled').addClass('enabled');
         
     }, 
     disable: function() {
-        this.el.removeClass('enabled').addClass('disabled');
+        this.markerElement.removeClass('enabled').addClass('disabled');
     }, 
     set_last_called: function() {
-        var el = $(this.el);
         
-        /* Remove "caution" div from DOM */
-        var last_enabled = $('#last_enabled').detach();
-
-        /* Remove lastEnabled class from old number */
-        $('.lastEnabled').removeClass('lastEnabled');
+        var markerElement = this.markerElement;
 
         /* Add lastEnabled class to our number */
-        el.addClass('lastEnabled');
+        markerElement.addClass('lastEnabled');
 
-        /* Put animating "caution" div behind last called number */
+        /* Put animating "caution" div behind last called number 
         var offset = el.offset();
         var top = offset.top-13;
         var left = offset.left-13;
@@ -72,6 +93,11 @@ bingo.widgets.BingoMarkerWidget = bingo.widgets.Widget.extend({
         });
 
         el.parent().prepend(last_enabled);
-        last_enabled.show();
+        last_enabled.show();*/
+    }, 
+    unset_last_called: function() {
+        var markerElement = this.markerElement;
+
+        markerElement.removeClass('lastEnabled');
     }, 
 });
