@@ -59,7 +59,7 @@ bingo.widgets.ClickableBingoMarkerWidget = bingo.widgets.BingoMarkerWidget.exten
                 return function() {
                     me.disable();
                 }
-            }(this), 
+            }(this)
         })
-    }, 
+    }
 });

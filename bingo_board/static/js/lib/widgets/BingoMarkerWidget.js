@@ -73,5 +73,5 @@ bingo.widgets.BingoMarkerWidget = bingo.widgets.Widget.extend({
 
         el.parent().prepend(last_enabled);
         last_enabled.show();
-    }, 
+    }
 });

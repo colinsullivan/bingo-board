@@ -74,7 +74,7 @@ bingo.models.Marker = Backbone.Model.extend({
         });
         
         return Backbone.Model.prototype.save.call(this, attributes, options);
-    },
+    }
 });
 
 /**

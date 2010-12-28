@@ -87,7 +87,7 @@ bingo.pages.HomePage = bingo.pages.Page.extend({
                 var widget = new ManageBoardWidget({
                     template: template, 
                     model: board,
-                    page: page, 
+                    page: page
                 }).render();
                 
                 frag.appendChild(widget.el);
@@ -104,14 +104,14 @@ bingo.pages.HomePage = bingo.pages.Page.extend({
         
         /* Create a new board object */
         var board = new bingo.models.Board().save({
-            name: name, 
+            name: name
         }, {
             success: function(me) {
                 return function(model, response) {
                     me.boards.add(model);
                     me.notify('Board added successfully.');
                 }
-            }(this), 
+            }(this)
             
         });
     }

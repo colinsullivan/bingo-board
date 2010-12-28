@@ -18,7 +18,7 @@ if(!bingo) {
          /* This will store some helpers */
          helpers: {}, 
          /* some init functions */
-         init: {}, 
+         init: {}
      };
  }
 

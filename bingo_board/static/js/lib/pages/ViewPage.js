@@ -32,5 +32,5 @@ bingo.pages.ViewPage = bingo.pages.BingoPage.extend({
             'url': '/static/partials/viewerHelpPopupContent.html',
             'title': 'Welcome to Bingo!'
         });  
-    }, 
+    }
 });

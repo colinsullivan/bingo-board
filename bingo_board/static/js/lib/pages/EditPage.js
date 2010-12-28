@@ -100,5 +100,5 @@ bingo.pages.EditPage = bingo.pages.BingoPage.extend({
                 };
             }(this)
         })
-    }, 
+    }
 });

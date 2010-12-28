@@ -72,5 +72,5 @@ bingo.pages.BingoPage = bingo.pages.Page.extend({
         markers.unbind('refresh', this.render);
         
         return this;
-    },
+    }
 });

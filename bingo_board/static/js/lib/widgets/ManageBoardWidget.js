@@ -39,7 +39,7 @@ bingo.widgets.ManageBoardWidget = bingo.widgets.Widget.extend({
                 return function() {
                     me.really_delete_board();
                 };
-            }(this), 
+            }(this)
         });
     }, 
     /**
@@ -54,7 +54,7 @@ bingo.widgets.ManageBoardWidget = bingo.widgets.Widget.extend({
                     me.page.boards.remove(model);
                     me.page.notify('Board was deleted successfully.');
                 };
-            }(this), 
+            }(this)
         })
-    }, 
+    }
 });

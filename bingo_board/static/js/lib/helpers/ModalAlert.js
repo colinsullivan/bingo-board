@@ -68,12 +68,13 @@ ModalAlert.prototype.init = function(params) {
  *  Display a modal window with the content sent into the content argument.
  *  position in the middle of the screen.
  *
- *  @param  String/HTMLDivElement       params.content: The content for the window
- *  @param  String                      params.title: The content for the title, 
+ *  @param  {String/HTMLDivElement}       params.content: The content for the window
+ *  @param  {String}                      params.title: The content for the title, 
  *                                          defaults to "Alert".
- *  @param  String                      params.url: The URL of the content to display  
- *  @param  Boolean                     params.noOptions: if true, no options will be
- *                                          displayed.
+ *  @param  {String}                      params.url: The URL of the content to 
+ *                                          display  
+ *  @param  {Boolean}                     params.noOptions: if true, no options will
+ *                                           be displayed.
  **/
 ModalAlert.prototype.displayContent = function(params) {
     var $ = jQuery;
@@ -173,7 +174,7 @@ ModalAlert.prototype.loadAndDisplayContent = function(params) {
         var title = params.title;
         params.callback = function(me, title) {
             return function(data) {
-                me.displayContent({content: data, title: title, });
+                me.displayContent({content: data, title: title});
             };
         }(this, title);        
     }
@@ -261,7 +262,7 @@ ModalAlert.prototype.animateLoadingNotification = function() {
         'Loading': 'Loading.', 
         'Loading.': 'Loading..', 
         'Loading..': 'Loading...',
-        'Loading...': 'Loading',
+        'Loading...': 'Loading'
     }
     
     title.html(transitions[title.html()]);

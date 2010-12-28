@@ -59,8 +59,12 @@ bingo.init.initialize = function(params) {
         google.load('webfont', '1.0.12');
     }
     else {
-        /* There is a internet connection error, create the page anyway */
-        bingo.init.initializePage(params);
+        $(document).ready(function(params) {
+            return function () {
+                /* There is a internet connection error, create the page anyway */
+                bingo.init.initializePage(params);                
+            };
+        });
     }
 }
 

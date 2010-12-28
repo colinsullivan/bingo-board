@@ -32,7 +32,7 @@ bingo.models.Board = Backbone.Model.extend({
         if(name == '') {
             throw new Error('Please enter a name for this Bingo object.');
         }
-    }, 
+    }
 });
 
 
