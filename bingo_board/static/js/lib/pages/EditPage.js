@@ -89,6 +89,15 @@ bingo.pages.EditPage = bingo.pages.BingoPage.extend({
      *  This is called after the user confirms that they want to clear the board.
      **/
     really_clear_board: function() {
-        
+        $.ajax({
+            url: '/clear/'+this.board.get('id'), 
+            success: function(me) {
+                return function(data, status) {
+                    if(status == 'success' && data == 'success') {
+                        me.markers.fetch({silent: true});
+                    }
+                };
+            }(this)
+        })
     }, 
 });
