@@ -157,8 +157,6 @@ bingo.models.MarkerSet = Backbone.Collection.extend({
             });
         }
         
-        console.log('this.pluck("number"):');
-        console.log(this.pluck("number"));
         return this;
 
     }        
