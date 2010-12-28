@@ -117,9 +117,6 @@ bingo.models.MarkerSet = Backbone.Collection.extend({
      **/
     refresh: function(models, options) {
         
-        models  || (models = []);
-        options || (options = {});
-        
         /* If we have no objects yet, we've not yet created the Markers */
         if(!this.length) {
             /* Create all markers from response */
@@ -159,8 +156,10 @@ bingo.models.MarkerSet = Backbone.Collection.extend({
                 last_called: true 
             });
         }
-
-        if (!options.silent) this.trigger('refresh', this, options);        
+        
+        console.log('this.pluck("number"):');
+        console.log(this.pluck("number"));
         return this;
+
     }        
 });
