@@ -52,7 +52,8 @@ bingo.widgets.ClickableBingoMarkerWidget = bingo.widgets.BingoMarkerWidget.exten
      **/
     unCallNumber: function() {
         this.model.save({
-            value: false 
+            value: false,
+            last_called: false
         }, {
             success: function(me){
                 return function() {
