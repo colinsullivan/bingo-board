@@ -7,7 +7,11 @@ Bingo!
 {% endblock %}
 
 {% block header %}
-    {% include 'partials/index_header.html' %}
+    <div id="index_header" class="pane pane_header corner-all">
+        <h1>Web Bingo!</h1>
+        <p id="index_welcome" class="index_welcome">Everyone likes to play bingo.  But sometimes you can't hear the numbers.<br />Use any computer with internet as a public bingo board!</p>
+        <p><b>WARNING</b>: This application currently only works with <a href="http://www.google.com/chrome">Google Chrome</a> or Apple's <a href="http://www.apple.com/safari/">Safari</a>.</p>
+    </div>
 {% endblock %}
 
 
