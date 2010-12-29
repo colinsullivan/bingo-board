@@ -18,8 +18,8 @@ urlpatterns = patterns('',
     
     
     # Static files (Seems to need to be uncommented for my development server)
-#    (r'^static/(?P<path>.*)$', 'django.views.static.serve',
-#            {'document_root': settings.STATIC_DOC_ROOT}),
+    (r'^static/(?P<path>.*)$', 'django.views.static.serve',
+            {'document_root': settings.STATIC_DOC_ROOT}),
             
     # gaeunit unit test framework
 #    (r'test/run', 'django_json_test_runner'),

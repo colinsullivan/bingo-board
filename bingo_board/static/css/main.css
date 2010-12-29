@@ -49,7 +49,7 @@ h1, h2 {
 }
 
 .big, h3 {
-	font-size: 2em;
+	font-size: 1.2em;
 	line-height: 36px;
 }
 
@@ -69,10 +69,13 @@ h1, h2 {
 	1     2      3      4      5      6      7      8     
 	60px  144px  228px  312px  396px  480px  564px  648px	*/
 
+html {
+    height: 100%;
+    background: -webkit-gradient(linear, 0% 100%, 0% 0%, from(#64b7e6), color-stop(0.2, #15d7ff), to(#15d7ff)) no-repeat #64b7e6;
+}
 body {
 	color: #313131;
-	background: #15d7ff;
-	padding: 25px 25px 0;
+	padding: 25px 25px 25px 25px;
 	width: 648px;
 	-webkit-tap-highlight-color: rgb(255,255,0);
 	display: -webkit-box;
@@ -84,10 +87,6 @@ body {
 ::selection 	 {background: rgb(255,255,0);}
 ::-moz-selection {background: rgb(255,255,0);}
 
-#example {
-	height: 600px;
-	background: rgb(60,97,158);
-}
 
 
 /*	13-column layout
@@ -99,7 +98,6 @@ body {
 @media only screen and (min-width: 1212px) {
 	
 	body {
-		padding: 25px 25px 0;
 		width: 1068px;
 	}
 	
@@ -115,8 +113,8 @@ body {
 @media only screen and (max-width: 767px) and (min-width: 480px) {
 	
 	body {
-		padding: 25px 0 0;
 		width: 396px;
+    	padding: 25px 0px 25px 0px;
 		/* Adjust font to 80% on iPhone */
 		-webkit-text-size-adjust: 80%;
 	}
@@ -133,8 +131,8 @@ body {
 @media only screen and (max-width: 479px) {
 	
 	body {
-		padding: 25px 0 0;
 		width: 396px;
+    	padding: 25px 0px 25px 0px;
 		-webkit-font-size-adjust: 80%;
 	}
 	
@@ -149,23 +147,8 @@ body {
 	only screen and (-webkit-min-device-pixel-ratio: 2),
 	only screen and (min-device-pixel-ratio: 2) {
 	
-	#example {
-		background: rgb(255,158,97);
-	}
-	
 }
 
-
-.background {
-    background: -webkit-gradient(linear, 0% 100%, 0% 0%, from(#64b7e6), color-stop(0.2, #15d7ff), to(#15d7ff));
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    padding: 0;
-    z-index: -9999;
-}
 
 .controls_container {
     margin-top: 1em;
@@ -264,6 +247,14 @@ div#index_register {
 
 div#index_login {
     -webkit-box-flex: 1;
+}
+
+div#index_example_pane {
+    margin-top: 1em;
+}
+
+div.index_example_figure {
+    
 }
 
 /* Registration form layout */

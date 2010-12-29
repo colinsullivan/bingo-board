@@ -1,0 +1,25 @@
+{% extends 'partials/pane.html' %}
+
+{% block id %}index_example_pane{% endblock %}
+
+{% block title %}<h2>How Does It Work?</h2>{% endblock %}
+
+{% block content %}
+    <h3>1. Create a bingo board</h3>
+    <div class="index_example_figure">
+        <img src="/static/images/example_create_form.png" />        
+    </div>
+    
+    <h3>2. Send others your public link</h3>
+    <div class="index_example_figure">
+        <a href="http://app.bingo-board.org/view/102003/"><img src="/static/images/example_viewer.png" /></a>
+        
+        <p><a href="http://app.bingo-board.org/view/102003/">Click here</a> for a sample board.</p>
+    </div>
+    
+    <h3>3. Play Bingo!</h3>
+    <div class="index_example_figure">
+        <p>Only you can call numbers on the board you have created.</p>
+    </div>
+    
+{% endblock %}
