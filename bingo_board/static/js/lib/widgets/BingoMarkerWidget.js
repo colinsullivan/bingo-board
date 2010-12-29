@@ -60,8 +60,8 @@ bingo.widgets.BingoMarkerWidget = bingo.widgets.Widget.extend({
 
         /* Put animating "caution" div behind last called number */
         var offset = el.offset();
-        var top = offset.top-13;
-        var left = offset.left-13;
+        var top = (offset.top-13);
+        var left = (offset.left-13);
         var width = el.outerWidth()+28;
         var height = el.outerHeight()+28;
         $(last_enabled).css({
