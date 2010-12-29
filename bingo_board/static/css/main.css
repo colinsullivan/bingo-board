@@ -253,8 +253,10 @@ div#index_example_pane {
     margin-top: 1em;
 }
 
-div.index_example_figure {
-    
+
+div#index_footer {
+    margin-top: 1em;
+    text-align: center;
 }
 
 /* Registration form layout */
