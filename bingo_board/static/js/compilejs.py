@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-import re
+import re, os
 
 # The root to chop off of the paths of the js files (where the script is run from)
 JS_ROOT = '/static/js/'
@@ -48,6 +48,6 @@ command += ' \\\n\t--js_output_file="'+OUTPUT_FILE+'"'
 
 print 'Running command:\n'+command
 
-#exec(command)
+os.system(command)
 
 
