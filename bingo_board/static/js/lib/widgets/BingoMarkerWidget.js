@@ -49,8 +49,8 @@ bingo.widgets.BingoMarkerWidget = bingo.widgets.Widget.extend({
     set_last_called: function() {
         var el = $(this.el);
         
-        /* Remove "caution" div from DOM */
-        var last_enabled = $('#last_enabled').detach();
+        /* Remove "caution" div from DOM 
+        var last_enabled = $('#last_enabled').detach();*/
 
         /* Remove lastEnabled class from old number */
         $('.lastEnabled').removeClass('lastEnabled');
@@ -58,7 +58,7 @@ bingo.widgets.BingoMarkerWidget = bingo.widgets.Widget.extend({
         /* Add lastEnabled class to our number */
         el.addClass('lastEnabled');
 
-        /* Put animating "caution" div behind last called number */
+        /* Put animating "caution" div behind last called number 
         var offset = el.offset();
         var top = (offset.top-13);
         var left = (offset.left-13);
@@ -72,6 +72,6 @@ bingo.widgets.BingoMarkerWidget = bingo.widgets.Widget.extend({
         });
 
         el.parent().prepend(last_enabled);
-        last_enabled.show();
+        last_enabled.show();*/
     }
 });
