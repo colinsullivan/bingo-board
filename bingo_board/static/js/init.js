@@ -40,7 +40,7 @@ bingo.init.initialize = function(params) {
                         }
                         WebFont.load({
                             google: {
-                                families: ['Cantarell:regular,bold', 'PT Sans']
+                                families: ['Cantarell:regular,bold', 'PT Sans', 'PT Sans Caption']
                             },
                             loading: function() {
 

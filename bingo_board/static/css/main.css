@@ -44,13 +44,17 @@ figure img {width: 100%;}
 	line-height: 1em;
 }
 
-h1, h2 {
-    text-shadow: #008A12 0px -1px 1px;
+h1{
+    text-shadow: #402020 0px -1px 2px;
+}
+
+h2 {
+    text-shadow: #404040 0px -1px 2px;
 }
 
 .big, h3 {
 	font-size: 1.2em;
-	line-height: 36px;
+	line-height: 1.5em;
 }
 
 .normal, body {
@@ -63,6 +67,10 @@ h1, h2 {
 	line-height: 18px;
 } 
 
+a, a:hover, a:visited {
+    color: #00BED8;
+}
+
 /*	Default 8-column layout
 	60 px columns, 24 px gutters, 60 px margins, 768 px total
 	---------------------------------------------------------
@@ -71,10 +79,12 @@ h1, h2 {
 
 html {
     height: 100%;
-    background: -webkit-gradient(linear, 0% 100%, 0% 0%, from(#64b7e6), color-stop(0.2, #15d7ff), to(#15d7ff)) no-repeat #64b7e6;
+/*    background: #BDBDBD;*/
+/*    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#E0D9BE), color-stop(0.6, #D3CDB3), to(#D3CDB3)) no-repeat #E0D9BE;*/
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#F0E9CB), color-stop(0.6, #E0D9BE), to(#E0D9BE)) no-repeat #E0D9BE;
 }
 body {
-	color: #313131;
+/*	color: #E0D9BE;*/
 	padding: 25px 25px 25px 25px;
 	width: 648px;
 	-webkit-tap-highlight-color: rgb(255,255,0);
@@ -193,22 +203,24 @@ div.pane {
 
 div.pane_header {
     padding: 0.5em;
-    background: -webkit-gradient(linear, 0% 100%, 0% 0%, from(#10b208), color-stop(0.7, #10b208), to(#01e236));
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#3D4C42), color-stop(0.3, #3D4C42), to(black));
     border-top-left-radius: 0.5em 0.5em;
     border-top-right-radius: 0.5em 0.5em;
+    color: white;
     
 }
 
 div.pane_content {
     padding: 0.5em 1em 1em 1em;
     height: 100%;
-    border: 1px solid #756eae;
+    border: 1px solid #3D4C42;
     border-top: 0;
     border-position: inside;
     -webkit-box-flex: 1;
     border-bottom-left-radius: 0.5em 0.5em;
     border-bottom-right-radius: 0.5em 0.5em;
-    
+/*    background: #F0E9CB;    */
+    background: #FFF6D6;
 }
 
 
@@ -220,6 +232,11 @@ div#index_header {
     text-align: center;
     -webkit-box-flex: 1;
     margin-bottom: 1em;
+    background: -webkit-gradient(
+        linear, 0% 100%, 0% 0%, 
+        from(#FF0000), 
+        color-stop(0.4, #FF0000), 
+        to(#FF7D7F));    
 
 }
 
@@ -259,6 +276,11 @@ div#index_footer {
     text-align: center;
 }
 
+
+
+
+
+
 /* Registration form layout */
 fieldset#registration_form {
     display: -webkit-box;
@@ -275,6 +297,17 @@ div.registration_form_field {
     -webkit-box-flex: 1;
 }
 
+/**
+ *  Forms
+ **/
+fieldset.form {
+    
+}
+
+fieldset.form legend {
+    padding-right: 0.5em;
+}
+
 
 
 /**
@@ -285,8 +318,36 @@ h1#home_header {
 }
 div#home_header_container {
     margin-bottom: 1em;
+    background: -webkit-gradient(
+        linear, 0% 100%, 0% 0%, 
+        from(#FF0000), 
+        color-stop(0.4, #FF0000), 
+        to(#FF7D7F));    
+    
 }
 
+/**
+ *  Page Notification
+ **/
+div.page_message {
+    opacity: 0;
+    margin-bottom: 0;
+    padding: 0.5em;
+    border: 1px solid #00BED8;
+    background: #07DBF7;
+    border-top-left-radius: 0.5em 0.5em;
+    border-top-right-radius: 0.5em 0.5em;
+    border-bottom-left-radius: 0.5em 0.5em;
+    border-bottom-right-radius: 0.5em 0.5em;
+}
+
+/* This is given to the message when it is to be displayed */
+div.page_message.visible {
+    -webkit-transition: all 1s ease-in-out;
+	transition: all 1s ease-in-out;
+	opacity: 1;
+    margin-bottom: 1em;
+}
 
 /** 
  *  Forms 
@@ -355,15 +416,19 @@ button.blue:active {
     display: table;
     border: 1px solid black;
     padding: 0;
-    border: 0;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    
 }
 
 .bingo_row {
     display: table-row;
     /* Distribute the cells of this row in the table evenly 
     display: -webkit-box;*/
-    border-bottom: 1px solid black;
-    border-top: 1px solid black;
+/*    border-bottom: 0;
+    border-top: 0;*/
 }
 
 /**
@@ -371,15 +436,26 @@ button.blue:active {
  **/
 .bingo_cell {
     display: table-cell;
+    border-bottom: 1px solid black;
+    
 /*    height: 1em;
     width: 1em;*/
     /* Ensure that all bingo cells are the same size 
     -webkit-box-flex: 1;*/
     text-align: center;
     vertical-align: middle;
-    border-bottom: 2px solid black;
-    border-top: 2px solid black;
-    
+/*    border-bottom: 2px solid black;
+    border-top: 2px solid black;*/
+    padding-bottom: 0.25em;
+    padding-top: 0.25em;
+}
+
+/*.bingo_row:first-child .bingo_cell {
+    padding-top: 0.5em;
+    border-top: 0;
+}*/
+.bingo_row:last-child .bingo_cell {
+    border-bottom: 0;
 }
 
 /* Bingo cell activated */
@@ -391,14 +467,20 @@ button.blue:active {
     z-index: 200;
     padding: 0.5em 0.1em;
     z-index: 100;
+    color: #F5F5F5;
 }
 
 .letter_cell {
     font-weight: bold;
+    font-family: 'PT Sans Caption';
     text-align: center;
+    /*
     border-bottom: 2px solid black;
-    border-top: 2px solid black;
-    /*font-size: 5em;*/
+    border-top: 2px solid black;*/
+    color: #FF0000;
+    font-size: 2em;
+    text-shadow: 0 1px 1px rgba(191,0,0,0.5);
+    
 }
 
 
@@ -407,7 +489,11 @@ button.blue:active {
 }
 
 .bingo_marker.clickable:hover:not(.enabled) {
-    background: -webkit-gradient(linear, 0% 100%, 0% 0%, from(#10b208), color-stop(0.7, #10b208), to(#01e236));
+    background: -webkit-gradient(
+        linear, 0% 100%, 0% 0%, 
+        from(#FF0000), 
+        color-stop(0.4, #FF0000), 
+        to(#FF7D7F));    
     opacity: 0.7;
     -webkit-transition-property: opacity, background;
     -webkit-transition-duration: 0.5s;
@@ -415,8 +501,8 @@ button.blue:active {
 }
 
 .bingo_marker.disabled {
-    opacity: 0.2;
-    background: #bdbdbd;
+    opacity: 0.4;
+    background: #BAB49D;
 /*    font-size: 2em;*/
     border: none;
 /*    margin: 0px 10px 10px 12px;*/
@@ -427,8 +513,8 @@ button.blue:active {
     -webkit-animation-name: bounceEnable;
     -webkit-animation-duration: .25s;
     -webkit-box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
-    background: -webkit-gradient(linear, 0% 100%, 0% 0%, from(#10b208), color-stop(0.7, #10b208), to(#01e236));
-/*    margin: 0px 5px 0px 5px;*/
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#3D4C42), color-stop(0.3, #3D4C42), to(black));
+    /*    margin: 0px 5px 0px 5px;*/
 /*    font-size: 2.2em;*/
     border: 1px solid white;
     opacity: 1;
@@ -460,7 +546,11 @@ button.blue:active {
 
 .bingo_marker.lastEnabled {
 /*    -webkit-box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.5);*/
-    background: -webkit-gradient(linear, 0% 100%, 0% 0%, from(#10b208), color-stop(0.7, #10b208), to(#01e236));
+    background: -webkit-gradient(
+        linear, 0% 100%, 0% 0%, 
+        from(#FF0000), 
+        color-stop(0.4, #FF0000), 
+        to(#FF7D7F));    
     -webkit-animation-name: lastEnabled;
     -webkit-animation-duration: 2.25s;
     -webkit-animation-direction: normal;

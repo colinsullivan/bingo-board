@@ -39,11 +39,15 @@ bingo.pages.Page = Backbone.View.extend({
         }
         this.messagesContainer = messagesContainer;
         
+        /*  Wether or not our notification is currently on */
+        this.notificationOn = false;
+        
         /* The initial message to display to the user */
         var initialMessage = params.message;
         if(typeof(initialMessage) != 'undefined' && initialMessage != '') {
             this.notify(initialMessage);
         }
+        
         
         
         /* Any text fields that are class autoclear should be autocleared */
@@ -71,7 +75,29 @@ bingo.pages.Page = Backbone.View.extend({
             throw new Error('Message must be a valid string');
         }
         
-        this.messagesContainer.html(message);
+        this.notify_hide();
+
+        /**
+         *  This has to be done like this because I don't know how to 
+         *  re-trigger the CSS3 transition otherwise.  
+         *  TODO: Figure out how to do this without a timeout.
+         **/
+        setTimeout(function(messagesContainer){
+            return function() {
+                messagesContainer.html(message).addClass('visible');
+            };
+        }(this.messagesContainer), 250);
+        
+        this.notificationOn = true;
+    }, 
+    /**
+     *  Should be called when notification is to be hidden
+     **/
+    notify_hide: function() {
+        if(this.notificationOn) {
+            this.messagesContainer.removeClass('visible');
+        }
+        this.notificationOn = false;
     }, 
     /**
      *  If there is a connectionError, display this.
