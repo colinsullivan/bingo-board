@@ -74,6 +74,7 @@ bingo.pages.HomePage = bingo.pages.Page.extend({
                 me.addBoard();
             }
         }(this));
+        this.addBoardButton = addBoardButton;
 
         _.bindAll(this, 'render');
         /* Bind collection events to render */
@@ -119,8 +120,10 @@ bingo.pages.HomePage = bingo.pages.Page.extend({
     },
     
     addBoard: function() {
-        var name = this.addBoardNameInputElement.attr('value');
         
+        this.add_board_loading_start();
+
+        var name = this.addBoardNameInputElement.attr('value');
         /* Create a new board object */
         var board = new bingo.models.Board().save({
             name: name
@@ -129,9 +132,20 @@ bingo.pages.HomePage = bingo.pages.Page.extend({
                 return function(model, response) {
                     me.boards.add(model);
                     me.notify('Board added successfully.');
+                    me.add_board_loading_stop();
                 }
             }(this)
             
         });
+    },
+    add_board_loading_start: function() {
+        var button = this.addBoardButton;
+        
+        button.attr('disabled', 'true').html('Loading...');
+    }, 
+    add_board_loading_stop: function() {
+        var button = this.addBoardButton;
+        
+        button.html('Create').removeAttr('disabled');
     }
 });
