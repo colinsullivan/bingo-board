@@ -52,6 +52,17 @@ bingo.pages.HomePage = bingo.pages.Page.extend({
         }
         this.boardRowTemplate = boardRowTemplate;
         
+        /* This is a template when the board table is empty */
+        var emptyBoardRowTemplate = $('#empty_board_row_template');
+        if(typeof(emptyBoardRowTemplate) == 'undefined') {
+            throw new Error('emptyBoardRowTemplate is undefined');
+        }
+        else if(emptyBoardRowTemplate.length == 0) {
+            throw new Error('emptyBoardRowTemplate not found');
+        }
+        this.emptyBoardRowTemplate = emptyBoardRowTemplate;
+
+        
         /* Input element for board name */
         var addBoardNameInputElement = $('input#add_board_input');
         this.addBoardNameInputElement = addBoardNameInputElement;
@@ -77,22 +88,30 @@ bingo.pages.HomePage = bingo.pages.Page.extend({
     render: function() {
         bingo.pages.Page.prototype.render.call(this);
         
-        /* Copy table header, and put in fragment */
         var frag = document.createDocumentFragment();
-        frag.appendChild(this.boardTableHeader.get(0));
         
-        /* Build collection table */
-        this.boards.each(function(frag, template, ManageBoardWidget, page){
-            return function(board){
-                var widget = new ManageBoardWidget({
-                    template: template, 
-                    model: board,
-                    page: page
-                }).render();
-                
-                frag.appendChild(widget.el);
-            };
-        }(frag, this.boardRowTemplate, bingo.widgets.ManageBoardWidget, this));
+        /* If there are collections */
+        if(this.boards.length) {
+            /* Copy table header, and put in fragment */
+            frag.appendChild(this.boardTableHeader.get(0));
+            /* Build collection table */
+            this.boards.each(function(frag, template, ManageBoardWidget, page){
+                return function(board){
+                    var widget = new ManageBoardWidget({
+                        template: template, 
+                        model: board,
+                        page: page
+                    }).render();
+
+                    frag.appendChild(widget.el);
+                };
+            }(frag, this.boardRowTemplate, bingo.widgets.ManageBoardWidget, this));
+        }
+        /* If not, display empty board list */
+        else {
+            var emptyBoardTableContents = this.emptyBoardRowTemplate.tmpl().get(0);
+            frag.appendChild(emptyBoardTableContents);
+        }
         
         this.boardTable.html(frag);
         
