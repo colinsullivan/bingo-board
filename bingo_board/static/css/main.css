@@ -86,8 +86,7 @@ html {
 }
 body {
 /*	color: #E0D9BE;*/
-	padding: 25px 25px 25px 25px;
-	width: 648px;
+	/*padding: 25px 25px 25px 25px;*/
 	-webkit-tap-highlight-color: rgb(255,255,0);
 	display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -162,7 +161,10 @@ body {
 
 
 .controls_container {
-    margin-top: 1em;
+    position: absolute;
+    top: 95%;
+    left: 98%;
+    width: 2%;
 }
 
 .controls_left {
@@ -410,17 +412,18 @@ button.blue:active {
     /* Distribute the rows of the bingo table evenly
     display: -webkit-box;
     -webkit-box-orient: vertical;*/
-/*    position: relative;
+    position: absolute;
     top: 0;
-    left: 0;*/
+    left: 0;
     width: 100%;
+    height: 95%;
     display: table;
     border: 1px solid black;
     padding: 0;
-    border-top: 2px solid black;
-    border-bottom: 2px solid black;
-    border-left: 1px solid black;
-    border-right: 1px solid black;
+    /*border-top: 2px solid black;*/
+    /*border-bottom: 2px solid black;*/
+    /*border-left: 1px solid black;*/
+    /*border-right: 1px solid black;*/
     
 }
 
@@ -439,6 +442,10 @@ button.blue:active {
     display: table-cell;
     border-bottom: 1px solid black;
     
+    /*height: 90%;
+    margin-bottom: 5%;
+    margin-top: 5%;
+    width: 90%;*/
 /*    height: 1em;
     width: 1em;*/
     /* Ensure that all bingo cells are the same size 
@@ -447,8 +454,12 @@ button.blue:active {
     vertical-align: middle;
 /*    border-bottom: 2px solid black;
     border-top: 2px solid black;*/
-    padding-bottom: 0.25em;
-    padding-top: 0.25em;
+    /*padding-bottom: 0.25em;*/
+    /*padding-top: 0.25em;*/
+}
+
+.bingo_cell:not(:last-child) {
+    padding-right: 1%;
 }
 
 /*.bingo_row:first-child .bingo_cell {
@@ -465,8 +476,7 @@ button.blue:active {
 /*    padding: 0.5em;*/
     font-weight: bold;
     border-radius: 5px;
-    z-index: 200;
-    padding: 0.5em 0.1em;
+    padding: 50% 0 50% 0;
     z-index: 100;
     color: #F5F5F5;
 }
