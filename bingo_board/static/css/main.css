@@ -163,16 +163,21 @@ body {
 .controls_container {
     position: absolute;
     top: 95%;
-    left: 98%;
-    width: 2%;
+    left: 0;
+    width: 100%;
+    line-height: 5%;
 }
 
 .controls_left {
     float: left;
+    left: 0%;
+    width: 85%;
 }
 
 .controls_right {
     float: right;
+    left: 85%;
+    width: 15%;
 }
 
 .control {
@@ -381,6 +386,17 @@ input.form_input.valid {
 /* Form errors */
 ul.errorlist {
     list-style: none;
+}
+
+/**
+ *  Board setup page
+ **/
+div#board_table div.table-row div.table-cell {
+    padding-right: 1em;
+}
+
+div#create_new_board_form {
+    margin-top: 1em;
 }
 
 

@@ -132,7 +132,7 @@ ConfirmModalAlert.prototype.displayContentWithConfirm = function(params) {
     var cancelCallback = params.cancelCallback;
     this.cancelButtonCallback = cancelCallback;
         
-    confirmButton.html(confirmText);
+    confirmButton.html(confirmText).show();
     cancelButton.html(cancelText).show();
     
 }

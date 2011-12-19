@@ -41,9 +41,6 @@ bingo.pages.BingoPage = bingo.pages.Page.extend({
             };
         }(this));
         
-        
-        
-        
 
         /* Bind collection events to render */
         markers.bind('refresh', this.render);
@@ -70,6 +67,42 @@ bingo.pages.BingoPage = bingo.pages.Page.extend({
         
         /* We only need to create these once */
         markers.unbind('refresh', this.render);
+
+
+        /**
+         *  Increase the font size until the text is largest possible.
+         *
+         *  TODO: This is sooo terrible.
+         **/
+        var originalPageWidth = $(document).width();
+        var decreasing = false;
+        var increaseFontSize = function() {
+            var pageWidth = $(document).width();
+
+            if(!decreasing && pageWidth > originalPageWidth) {
+                decreasing = true;
+            }
+            else if(decreasing && pageWidth <= originalPageWidth) {
+                return;
+            }
+
+            var bingoMarker = $('#bingo_marker-66');
+            var currentFontSize = 1*$('body').css('font-size').replace('px', '');
+            if(decreasing) {
+                currentFontSize--;
+            }
+            else {
+                currentFontSize++;
+            }
+            $('body').css('font-size', currentFontSize+'px');
+
+            if(bingoMarker.height() <= bingoMarker.parent().height()*0.8) {
+                setTimeout(increaseFontSize, 50);
+            }
+            
+        };
+        increaseFontSize();
+
         
         return this;
     }
