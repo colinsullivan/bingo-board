@@ -53,6 +53,24 @@ bingo.pages.EditPage = bingo.pages.BingoPage.extend({
             window.location = '/home';
         });
 
+        /**
+         *  Button to call random bingo marker
+         **/
+        var randomButton = $('#control-callrandom');
+        if(typeof(randomButton) == 'undefined') {
+            throw new Error('$\' is undefined');
+        }
+        else if(randomButton.length == 0) {
+            throw new Error('randomButton not found');
+        }
+        this.randomButton = randomButton;
+
+        /* When random button is clicked, call random marker */
+        randomButton.click(function(board) {
+            return function() {
+                board.call_random();
+            }
+        }(this.board));
         
         
         /* Now, and then every 30 seconds, refresh board just to make sure */

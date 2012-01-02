@@ -32,6 +32,29 @@ bingo.models.Board = Backbone.Model.extend({
         if(name == '') {
             throw new Error('Please enter a name for this Bingo object.');
         }
+    },
+
+    call_random: function() {
+        var markers = this.markers;
+        var uncalledMarkers = [];
+
+        markers.each(function (uncalledMarkers) {
+            return function (marker) {
+                if(!marker.get('value')) {
+                    uncalledMarkers.push(marker);
+                }
+            };
+        }(uncalledMarkers));
+
+        // If there are uncalled markers
+        if(uncalledMarkers.length) {
+            // Call a random one
+            var index = Math.floor(Math.random()*uncalledMarkers.length);
+            uncalledMarkers[index].set({
+                'value': true,
+                'last_called': true 
+            }).save(); // TODO error handling and reorganization            
+        }
     }
 });
 

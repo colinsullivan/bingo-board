@@ -24,6 +24,8 @@ bingo.pages.BingoPage = bingo.pages.Page.extend({
         var markers = new bingo.models.MarkerSet;
         markers.board = board;
         this.markers = markers;
+
+        board.markers = markers;
         
         var helpButton = $('#control-help');
         if(typeof(helpButton) == 'undefined') {

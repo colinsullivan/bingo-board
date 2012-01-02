@@ -12,11 +12,15 @@
     </div>
     
     <div class="controls_container">
-        <div class="controls_left">
+        <div id="controls_left" class="controls">
             {% block controls_left %}
             {% endblock %}
         </div>
-        <div class="controls_right">
+        <div id="controls_center" class="controls">
+            {% block controls_center %}
+            {% endblock %}
+        </div>
+        <div id="controls_right" class="controls">
             {% block controls_right %}
             {% endblock %}
             <button class="text-button control blue corner-all" id="control-help">
