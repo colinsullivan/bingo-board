@@ -1,5 +1,5 @@
-application: bingo-board
-version: 2
+application: bingo-board-hrd
+version: 3
 runtime: python
 api_version: 1
 
