@@ -2,6 +2,13 @@
 
 import re, os
 
+###
+# 2021-12-28
+# brew install closure-compiler
+#
+# $ which closure-compiler
+# /usr/local/bin/closure-compiler
+
 # The root to chop off of the paths of the js files (where the script is run from)
 JS_ROOT = '/static/js/'
 
@@ -9,16 +16,16 @@ JS_ROOT = '/static/js/'
 BASE_TEMPLATE = '../../templates/base.html'
 
 # path to closure compiler
-COMPILER_PATH = '/opt/local/bin/compiler.jar'
+COMPILER_PATH = 'closure-compiler'
 
 # The output file name
 OUTPUT_FILE = 'compiled.js'
 
 
 
-print 'Beginning to compile JavaScript...'
+print('Beginning to compile JavaScript...')
 
-print 'Opening '+BASE_TEMPLATE+' template to get all JS files'
+print('Opening '+BASE_TEMPLATE+' template to get all JS files')
 
 f = open(BASE_TEMPLATE, 'r')
 
@@ -39,14 +46,14 @@ while line:
 f.close()
 
 # Now we have all of the file paths, we can construct command
-command = 'java -jar '+COMPILER_PATH
+command = COMPILER_PATH
 
 for jsFile in jsFilePaths:
     command += ' \\\n\t--js="'+jsFile+'"'
     
 command += ' \\\n\t--js_output_file="'+OUTPUT_FILE+'"'
 
-print 'Running command:\n'+command
+print('Running command:\n'+command)
 
 os.system(command)
 
