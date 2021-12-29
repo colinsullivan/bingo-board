@@ -24,3 +24,27 @@ You also need to use the django-nonrel package because GAE uses a non-relational
     *   django-dbindexer -> bingo/dbindexer/
 *   [gaeunit](http://code.google.com/p/gaeunit/) ->  bingo/gaeunit/
 
+## Build
+
+To build frontend assets:
+
+```
+$ cd bingo_board/static/js/
+$ python compilejs.py
+```
+
+See `compilejs.py`.  Note this is using Google's Closure Compiler.
+
+## Deploy
+
+To deploy without routing traffic:
+
+```
+$ gcloud app deploy --project bingo-board-hrd --version 5 --no-promote
+```
+
+Then after testing:
+
+```
+$ gcloud app deploy --project bingo-board-hrd --version 5 --promote
+```
