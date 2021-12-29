@@ -6,6 +6,7 @@
  **/
 
 
+
 /**
  *  Initializes page by creating the proper page object.  This will be called from
  *  the callback within the initialize function.
@@ -21,52 +22,25 @@ bingo.init.initializePage = function(params) {
     };
 
     bingo.page = new pageInitializer[params.page](params);
-    
 }
  
 /**
  *  This is the first function that is called, initializes everything.
  **/
 bingo.init.initialize = function(params) {
-    
-    if(typeof(google) != 'undefined') {
-        /* Next we are loading fonts, so when they load, start page up */
-        google.setOnLoadCallback(function(params) {
-            return function() {
-                $(document).ready(function(params) {
-                    return function(){
-                        var completeCallback = function() {
-                            bingo.init.initializePage(params);
-                        }
-                        WebFont.load({
-                            google: {
-                                families: ['Cantarell:regular,bold', 'PT Sans', 'PT Sans Caption']
-                            },
-                            loading: function() {
+    $(document).ready(function(){
+        var completeCallback = function() {
+            bingo.init.initializePage(params);
+        }
+        WebFont.load({
+            google: {
+                families: ['Cantarell:regular,bold', 'PT Sans', 'PT Sans Caption']
+            },
+            loading: function() {
 
-                            },
-                            active: completeCallback,
-                            inactive: completeCallback
-                        });
-
-                    };
-                }(params));
-            };
-        }(params));
-
-        /* Load jQuery & fonts */
-        //google.load('jquery', '1.4.4');
-        google.load('webfont', '1.0.12');
-    }
-    else {
-        $(document).ready(function(params) {
-            return function () {
-                /* There is a internet connection error, create the page anyway */
-                bingo.init.initializePage(params);                
-            };
+            },
+            active: completeCallback,
+            inactive: completeCallback
         });
-    }
+    });
 }
-
-
-
