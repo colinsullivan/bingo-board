@@ -39,7 +39,7 @@ while line:
         # Extract src=""
         jsfile = line.split('<script src="')[1].split('"')[0]
         # Ignore paths that are external, or if it is the compiled src
-        if not re.search('http://', line) and not re.search(OUTPUT_FILE, line):
+        if not re.search(r'.*src="//.*', line) and not re.search(OUTPUT_FILE, line):
             jsFilePaths.append(jsfile.split(JS_ROOT)[1])
         
     line = f.readline()
