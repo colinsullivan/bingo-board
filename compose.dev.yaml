@@ -1,0 +1,8 @@
+version: "3.8"
+services:
+  webapp:
+    volumes:
+      - ./bingo_board:/app/bingo_board
+    build:
+      context: .
+      dockerfile: Dockerfile-dev

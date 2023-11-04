@@ -1,0 +1,16 @@
+FROM gcr.io/google.com/cloudsdktool/google-cloud-cli:latest
+
+VOLUME /app
+
+ARG INSTALL_COMPONENTS=app-engine-python
+EXPOSE 8080
+EXPOSE 8000
+
+RUN apt-get install -y python2 python3-venv
+RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 0
+
+WORKDIR /app
+
+ENV GOOGLE_CLOUD_PROJECT=bingo-board-hrd
+
+#CMD dev_appserver.py ./bingo_board
